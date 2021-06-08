@@ -37,8 +37,18 @@ $routes->group('administrator', ['namespace' => 'App\Controllers\Backend'], func
 	// Category
 	$routes->group('category', ['namespace' => 'App\Controllers\Backend'], function ($routes) {
 		$routes->get('/', 'CategoryController::index', ['as' => 'admin.category.index']);
+		$routes->get('recycle', 'CategoryController::recycle', ['as' => 'admin.category.recycle']);
 		$routes->get('getList', 'CategoryController::getList', ['as' => 'admin.category.getList']);
+		$routes->get('getListRecycle', 'CategoryController::getListRecycle', ['as' => 'admin.category.getListRecycle']);
 		$routes->get('create', 'CategoryController::create', ['as' => 'admin.category.create']);
+		$routes->post('store', 'CategoryController::store', ['as' => 'admin.category.store']);
+		$routes->get('edit/(:num)', 'CategoryController::edit/$1', ['as' => 'admin.category.edit']);
+		$routes->post('update/(:num)', 'CategoryController::update/$1', ['as' => 'admin.category.update']);
+		$routes->post('multiDestroy', 'CategoryController::multiDestroy', ['as' => 'admin.category.multiDestroy']);
+		$routes->post('multiPurgeDestroy', 'CategoryController::multiPurgeDestroy', ['as' => 'admin.category.multiPurgeDestroy']);
+		$routes->post('multiRestore', 'CategoryController::multiRestore', ['as' => 'admin.category.multiRestore']);
+		$routes->post('multiStatus', 'CategoryController::multiStatus', ['as' => 'admin.category.multiStatus']);
+		$routes->post('checkExists', 'CategoryController::checkExists', ['as' => 'admin.category.checkExists']);
 	});
 });
 

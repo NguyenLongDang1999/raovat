@@ -34,9 +34,7 @@
                 <?= $this->renderSection('content-header') ?>
             </div>
             <div class="content-body">
-                <!-- Dashboard Ecommerce Starts -->
                 <?= $this->renderSection('content-body') ?>
-                <!-- Dashboard Ecommerce ends -->
             </div>
         </div>
     </div>

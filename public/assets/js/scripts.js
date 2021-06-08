@@ -82,6 +82,8 @@
                 var deleteItem = $.ajax({
                     type: "post",
                     url: url_delete_item,
+                    async: true,
+                    cache: false,
                     data: {
                         data: data,
                     },
@@ -126,6 +128,8 @@
                 var restoreItem = $.ajax({
                     type: "post",
                     url: url_restore_item,
+                    async: true,
+                    cache: false,
                     data: {
                         data: data,
                     },
@@ -170,6 +174,8 @@
                 var updateStatus = $.ajax({
                     type: "post",
                     url: url_status_item,
+                    async: true,
+                    cache: false,
                     data: {
                         data: data,
                         status: status,
