@@ -99,10 +99,15 @@ $(function() {
             <div class="card">
                 <div class="card-body">
                     <?php if (isset($row)) : ?>
-                    <?= form_open(route_to('admin.category.update', esc($row['id'])), ['id' => 'category-form']) ?>
+                    <?= form_open_multipart(route_to('admin.category.update', esc($row['id'])), ['id' => 'category-form']) ?>
                     <?php else : ?>
-                    <?= form_open(route_to('admin.category.store'), ['id' => 'category-form']) ?>
+                    <?= form_open_multipart(route_to('admin.category.store'), ['id' => 'category-form']) ?>
                     <?php endif; ?>
+
+                    <?php if (isset($row)) : ?>
+                    <?= form_hidden('checkImg', isset($row['image']) ? $row['image'] : '') ?>
+                    <?php endif ?>
+
                     <div class="form-group">
                         <?= form_label('Tiêu đề danh mục', 'name', ['class' => 'form-label text-capitalize']) ?>
                         <?= form_input('name', isset($row) ? $row['name'] : '', ['class' => 'form-control', 'id' => 'name']) ?>
@@ -121,7 +126,7 @@ $(function() {
                     <div class="form-group">
                         <?= form_label('Ảnh đại diện danh mục', 'image', ['class' => 'form-label text-capitalize']) ?>
                         <div class="media flex-column flex-md-row">
-                            <?= img('app-assets/images/slider/03.jpg', false, ['class' => 'rounded mr-2 mb-1 mb-md-0', 'id' => 'blog-feature-image', 'width' => 170, 'height' => '110', 'alt' => 'Category Image']) ?>
+                            <?= img(!isset($row['image']) ? 'app-assets/images/no-image.jpg' : PATH_CATEGORY_IMAGE . $row['image'], false, ['class' => 'rounded mr-2 mb-1 mb-md-0', 'id' => 'blog-feature-image', 'width' => 100, 'height' => 100, 'alt' => 'Category Image']) ?>
 
                             <div class="media-body">
                                 <div class="d-inline-block">

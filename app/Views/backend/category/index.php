@@ -171,7 +171,7 @@ Category List Page
                     renderer: function(api, rowIdx, columns) {
                         var data = $.map(columns, function(col, i) {
                             console.log(columns);
-                            return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
+                            return col.title !== ''
                                 ?
                                 '<tr data-dt-row="' +
                                 col.rowIndex +

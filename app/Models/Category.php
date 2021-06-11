@@ -107,6 +107,11 @@ class Category extends Model
         return $model->find($id);
     }
 
+    public function getMultiImageCategory($id)
+    {
+        return $this->select('image')->whereIn('id', $id)->withDeleted()->findAll();
+    }
+
     public function checkParentCategory($id, $recycle = false)
     {
         $model = $this->select('id')

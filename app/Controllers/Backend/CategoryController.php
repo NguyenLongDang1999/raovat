@@ -122,6 +122,29 @@ class CategoryController extends BaseController
 			'meta_keyword',
 			'meta_description'
 		]);
+
+		// Upload File
+		$file = $this->request->getFile('image');
+		if ($file) {
+			if ($file->isValid() && !$file->hasMoved()) {
+				$fileName = $file->getRandomName();
+				$file->move(PATH_CATEGORY_IMAGE, $fileName);
+
+				$parts = explode('.', $fileName);
+				$parts[count($parts) - 1] = 'webp';
+				$fileNameNew = implode('.', $parts);
+				$data = [
+					'resizeX' => '100',
+					'resizeY' => '100',
+					'ratio' => false,
+					'masterDim' => 'auto'
+				];
+				imageManipulation(PATH_CATEGORY_IMAGE, $fileName, $fileNameNew, '', $data);
+				deleteImage(PATH_CATEGORY_IMAGE, $fileName);
+				$input['image'] = $fileNameNew;
+			}
+		}
+
 		$input['slug'] = $this->slug->str_slug($input['name']);
 		$this->category->insert($input);
 		return redirect()->route('admin.category.index')->with('success', "Danh mục <strong class='text-capitalize'>" . esc($input['name']) . "</strong> đã được thêm.");
@@ -134,8 +157,33 @@ class CategoryController extends BaseController
 			'description',
 			'parent_id',
 			'meta_keyword',
-			'meta_description'
+			'meta_description',
+			'checkImg'
 		]);
+
+		// Upload File
+		$file = $this->request->getFile('image');
+		if ($file) {
+			if ($file->isValid() && !$file->hasMoved()) {
+				$fileName = $file->getRandomName();
+				$file->move(PATH_CATEGORY_IMAGE, $fileName);
+
+				$parts = explode('.', $fileName);
+				$parts[count($parts) - 1] = 'webp';
+				$fileNameNew = implode('.', $parts);
+				$data = [
+					'resizeX' => '100',
+					'resizeY' => '100',
+					'ratio' => false,
+					'masterDim' => 'auto'
+				];
+				imageManipulation(PATH_CATEGORY_IMAGE, $fileName, $fileNameNew, '', $data);
+				deleteImage(PATH_CATEGORY_IMAGE, $fileName);
+				deleteImage(PATH_CATEGORY_IMAGE, $input['checkImg']);
+				$input['image'] = $fileNameNew;
+			}
+		}
+
 		$input['slug'] = $this->slug->str_slug($input['name']);
 		$this->category->update($id, $input);
 		return redirect()->route('admin.category.index')->with('success', "Danh mục <strong class='text-capitalize'>" . esc($input['name']) . "</strong> đã được cập nhật.");
@@ -195,6 +243,8 @@ class CategoryController extends BaseController
 
 		if (isset($result['chk']) && is_array($result['chk'])) {
 			if ($this->category->checkParentCategory($result['chk'], true) == 0) {
+				$multiCategory = $this->category->getMultiImageCategory($result['chk']);
+				deleteMultipleImage($multiCategory);
 				if ($this->category->delete($result['chk'], true)) {
 					$data['result'] = true;
 					$data['message'] = '<span class="text-capitalize">Xóa vĩnh viễn thành công tất cả dữ liệu được chọn.</span>';
