@@ -1,7 +1,7 @@
 <?= $this->extend('templates/backend/master'); ?>
 
 <?= $this->section('title'); ?>
-Category <?= isset($row) ? 'Update' : 'Create' ?>
+Banner <?= isset($row) ? 'Update' : 'Create' ?>
 <?= $this->endSection(); ?>
 
 <!-- vendorCSS -->
@@ -28,16 +28,20 @@ Category <?= isset($row) ? 'Update' : 'Create' ?>
 <script>
 $(function() {
     'use strict';
-    var categoryForm = $('#category-form');
-    if (categoryForm.length) {
-        categoryForm.validate({
+    var bannerForm = $('#banner-form');
+    if (bannerForm.length) {
+        bannerForm.validate({
             rules: {
                 name: {
                     required: true,
                     maxlength: 255,
+                },
+                url: {
+                    required: true,
+                    url: true,
                     <?php if (!isset($row)) : ?>
                     remote: {
-                        url: "<?= route_to('admin.category.checkExists'); ?>",
+                        url: "<?= route_to('admin.banner.checkExists'); ?>",
                         type: 'post',
                         dataType: 'json',
                         async: false,
@@ -52,36 +56,34 @@ $(function() {
                 description: {
                     maxlength: 255
                 },
-                parent_id: {
+                cat_id: {
                     required: true
                 },
-                meta_keyword: {
-                    maxlength: 60
-                },
-                meta_description: {
-                    maxlength: 160
+                orders: {
+                    required: true
                 },
             },
             messages: {
                 name: {
-                    required: "Tiêu đề danh mục không được bỏ trống.",
-                    maxlength: "Tiêu đề danh mục không được vượt quá 255 ký tự.",
+                    required: "Tiêu đề banner không được bỏ trống.",
+                    maxlength: "Tiêu đề banner không được vượt quá 255 ký tự.",
+                },
+                url: {
+                    required: "Đường dẫn URL không được bỏ trống.",
+                    url: "Đường dẫn URL không đúng định dạng.",
                     <?php if (!isset($row)) : ?>
-                    remote: "Tiêu đề danh mục này đã tồn tại. Vui lòng kiểm tra lại."
+                    remote: "Đường dẫn URL này đã tồn tại. Vui lòng kiểm tra lại."
                     <?php endif ?>
                 },
                 description: {
-                    maxlength: "Mô tả danh mục không được vượt quá 255 ký tự."
+                    maxlength: "Mô tả banner không được vượt quá 255 ký tự."
                 },
-                parent_id: {
-                    required: "Danh mục cha không được bỏ trống.",
+                cat_id: {
+                    required: "Danh mục không được bỏ trống.",
                 },
-                meta_keyword: {
-                    maxlength: "Meta Keyword (SEO) không được vượt quá 60 ký tự.",
+                orders: {
+                    required: "Vị trí không được bỏ trống.",
                 },
-                meta_description: {
-                    maxlength: "Meta Description (SEO) không được vượt quá 160 ký tự."
-                }
             },
 
         });
@@ -104,9 +106,9 @@ $(function() {
 
                 <div class="card-body mt-2">
                     <?php if (isset($row)) : ?>
-                    <?= form_open_multipart(route_to('admin.category.update', esc($row['id'])), ['id' => 'category-form']) ?>
+                    <?= form_open_multipart(route_to('admin.banner.update', esc($row['id'])), ['id' => 'banner-form']) ?>
                     <?php else : ?>
-                    <?= form_open_multipart(route_to('admin.category.store'), ['id' => 'category-form']) ?>
+                    <?= form_open_multipart(route_to('admin.banner.store'), ['id' => 'banner-form']) ?>
                     <?php endif; ?>
 
                     <?php if (isset($row)) : ?>
@@ -114,25 +116,34 @@ $(function() {
                     <?php endif ?>
 
                     <div class="form-group">
-                        <?= form_label('Tiêu đề danh mục', 'name', ['class' => 'form-label text-capitalize']) ?>
+                        <?= form_label('Tiêu đề banner', 'name', ['class' => 'form-label text-capitalize']) ?>
                         <?= form_input('name', isset($row) ? $row['name'] : '', ['class' => 'form-control', 'id' => 'name']) ?>
                     </div>
 
                     <div class="form-group">
-                        <?= form_label('Mô tả danh mục', 'description', ['class' => 'form-label text-capitalize']) ?>
+                        <?= form_label('Đường dẫn url', 'url', ['class' => 'form-label text-capitalize']) ?>
+                        <?= form_input('url', isset($row) ? $row['url'] : '', ['class' => 'form-control', 'id' => 'url']) ?>
+                    </div>
+
+                    <div class="form-group">
+                        <?= form_label('Mô tả banner', 'description', ['class' => 'form-label text-capitalize']) ?>
                         <?= form_input('description', isset($row) ? $row['description'] : '', ['class' => 'form-control', 'id' => 'description']) ?>
                     </div>
 
                     <div class="form-group">
-                        <?= form_label('Danh Mục Cha', 'parent_id', ['class' => 'form-label text-capitalize']) ?>
-                        <?= form_dropdown('parent_id', $option, isset($row) ? $row['parent_id'] : '', ['class' => 'select2 form-control']) ?>
+                        <?= form_label('Danh Mục', 'cat_id', ['class' => 'form-label text-capitalize']) ?>
+                        <?= form_dropdown('cat_id', $option, isset($row) ? $row['cat_id'] : '', ['class' => 'select2 form-control', 'id' => 'cat_id']) ?>
                     </div>
 
                     <div class="form-group">
-                        <?= form_label('Ảnh đại diện danh mục', 'image', ['class' => 'form-label text-capitalize']) ?>
-                        <div class="media flex-column flex-md-row">
-                            <?= img(!isset($row['image']) ? 'app-assets/images/no-image.jpg' : PATH_CATEGORY_IMAGE . $row['image'], false, ['class' => 'rounded mr-2 mb-1 mb-md-0', 'id' => 'blog-feature-image', 'width' => 100, 'height' => 100, 'alt' => 'Category Image']) ?>
+                        <?= form_label('Vị Trí', 'orders', ['class' => 'form-label']) ?>
+                        <?= form_dropdown('orders', getOptionOrders(), isset($row) ? $row['orders'] : '', ['class' => 'form-control select2', 'id' => 'orders']) ?>
+                    </div>
 
+                    <div class="form-group">
+                        <?= form_label('Ảnh đại diện banner', 'image', ['class' => 'form-label text-capitalize']) ?>
+                        <div class="media flex-column flex-md-row">
+                            <?= img(!isset($row['image']) ? 'app-assets/images/no-image.jpg' : PATH_BANNER_IMAGE . $row['image'], false, ['class' => 'rounded mr-2 mb-1 mb-md-0', 'id' => 'blog-feature-image', 'width' => 300, 'height' => 300, 'alt' => 'Banner Image']) ?>
                             <div class="media-body">
                                 <div class="d-inline-block">
                                     <div class="form-group mb-0">
@@ -144,16 +155,6 @@ $(function() {
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <?= form_label('Meta Keyword (SEO)', 'meta_keyword', ['class' => 'form-label text-capitalize']) ?>
-                        <?= form_textarea('meta_keyword', isset($row) ? $row['meta_keyword'] : '', ['class' => 'form-control', 'id' => 'meta_keyword', 'rows' => 3]) ?>
-                    </div>
-
-                    <div class="form-group">
-                        <?= form_label('Meta Description (SEO)', 'meta_description', ['class' => 'form-label text-capitalize']) ?>
-                        <?= form_textarea('meta_description', isset($row) ? $row['meta_description'] : '', ['class' => 'form-control', 'id' => 'meta_description', 'rows' => 3]) ?>
                     </div>
 
                     <div class="row">

@@ -1,7 +1,7 @@
 <?= $this->extend('templates/backend/master'); ?>
 
 <?= $this->section('title'); ?>
-Category List Recycle Page
+Banner List Recycle Page
 <?= $this->endSection(); ?>
 
 <!-- vendorCSS -->
@@ -26,21 +26,21 @@ Category List Recycle Page
 <!-- pageJS -->
 <?= $this->section('pageJS') ?>
 <script>
-var categoryTable = $('.category-table');
-var url_delete_item = "<?= route_to('admin.category.multiPurgeDestroy') ?>";
-var url_restore_item = "<?= route_to('admin.category.multiRestore') ?>";
+var bannerTable = $('.banner-table');
+var url_delete_item = "<?= route_to('admin.banner.multiPurgeDestroy') ?>";
+var url_restore_item = "<?= route_to('admin.banner.multiRestore') ?>";
 var click_mode = 0;
 var aLengthMenuGeneral = [
     [50, 100, 500, 1000],
     [50, 100, 500, 1000]
 ];
 
-if (categoryTable.length) {
-    var oTable = categoryTable.DataTable({
+if (bannerTable.length) {
+    var oTable = bannerTable.DataTable({
         "bServerSide": true,
         "bProcessing": true,
         "sPaginationType": "full_numbers",
-        "sAjaxSource": "<?= route_to('admin.category.getListRecycle') ?>",
+        "sAjaxSource": "<?= route_to('admin.banner.getListRecycle') ?>",
         "bDeferRender": true,
         "bFilter": false,
         "bDestroy": true,
@@ -48,7 +48,7 @@ if (categoryTable.length) {
         "iDisplayLength": 50,
         "bSort": true,
         "aaSorting": [
-            [5, "desc"]
+            [6, "desc"]
         ],
         columns: [{
                 data: 'checkbox',
@@ -59,10 +59,15 @@ if (categoryTable.length) {
                 "bSortable": false
             },
             {
-                data: 'name'
+                data: 'image',
+                "bSortable": false
             },
             {
-                data: 'parent_id',
+                data: 'name',
+                "bSortable": false
+            },
+            {
+                data: 'orders',
                 "bSortable": false
             },
             {
@@ -94,6 +99,32 @@ if (categoryTable.length) {
                 },
                 checkboxes: {
                     selectAllRender: '<div class="custom-control custom-checkbox checkbox"> <input class="custom-control-input dt-checkboxes" type="checkbox" id="chkAll" /><label class="custom-control-label" for="chkAll"></label></div>'
+                }
+            },
+            {
+                targets: 5,
+                render: function(data, type, full, meta) {
+                    var $status_number = full['status'];
+                    var $status = {
+                        1: {
+                            title: 'ON',
+                            class: 'badge-light-primary'
+                        },
+                        0: {
+                            title: 'OFF',
+                            class: ' badge-light-danger'
+                        },
+                    };
+                    if (typeof $status[$status_number] === 'undefined') {
+                        return data;
+                    }
+                    return (
+                        '<span class="badge badge-pill ' +
+                        $status[$status_number].class +
+                        '">' +
+                        $status[$status_number].title +
+                        '</span>'
+                    );
                 }
             },
         ],
@@ -141,6 +172,18 @@ if (categoryTable.length) {
     });
 }
 
+$(document).ready(function() {
+    $('#btnFrmSearch').on('click', function() {
+        click_mode = 0;
+        oTable.draw();
+    });
+
+    $('#btnReset').on('click', function() {
+        click_mode = 1;
+        oTable.draw();
+    });
+});
+
 <?php if (session()->getFlashdata('success')) : ?>
 Swal.fire({
     icon: "success",
@@ -161,7 +204,7 @@ Swal.fire({
         <div class="col-12">
             <div class="card">
                 <div class="card-header border-bottom">
-                    <h4 class="card-title">Danh Mục Đăng Tin</h4>
+                    <h4 class="card-title">Banner</h4>
                 </div>
                 <div class="card-header border-bottom p-1">
                     <div class="dt-action-buttons text-right">
@@ -178,13 +221,14 @@ Swal.fire({
                 </div>
                 <div class="card-datatable">
                     <?= form_open('', ['id' => 'frmTbList']) ?>
-                    <table class="dt-advanced-search dt-responsive table category-table table-white-space">
+                    <table class="dt-advanced-search dt-responsive table banner-table table-white-space">
                         <thead>
                             <tr>
                                 <th></th>
                                 <th></th>
+                                <th>Hình Ảnh</th>
                                 <th>Tiêu Đề</th>
-                                <th>Danh mục cha</th>
+                                <th>Vi trí</th>
                                 <th>Ngày Tạo</th>
                                 <th>Ngày Sửa</th>
                             </tr>

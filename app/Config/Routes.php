@@ -50,6 +50,23 @@ $routes->group('administrator', ['namespace' => 'App\Controllers\Backend'], func
 		$routes->post('multiStatus', 'CategoryController::multiStatus', ['as' => 'admin.category.multiStatus']);
 		$routes->post('checkExists', 'CategoryController::checkExists', ['as' => 'admin.category.checkExists']);
 	});
+
+	// Banner
+	$routes->group('banner', ['namespace' => 'App\Controllers\Backend'], function ($routes) {
+		$routes->get('/', 'BannerController::index', ['as' => 'admin.banner.index']);
+		$routes->get('recycle', 'BannerController::recycle', ['as' => 'admin.banner.recycle']);
+		$routes->get('getList', 'BannerController::getList', ['as' => 'admin.banner.getList']);
+		$routes->get('getListRecycle', 'BannerController::getListRecycle', ['as' => 'admin.banner.getListRecycle']);
+		$routes->get('create', 'BannerController::create', ['as' => 'admin.banner.create']);
+		$routes->post('store', 'BannerController::store', ['as' => 'admin.banner.store']);
+		$routes->get('edit/(:num)', 'BannerController::edit/$1', ['as' => 'admin.banner.edit']);
+		$routes->post('update/(:num)', 'BannerController::update/$1', ['as' => 'admin.banner.update']);
+		$routes->post('multiDestroy', 'BannerController::multiDestroy', ['as' => 'admin.banner.multiDestroy']);
+		$routes->post('multiPurgeDestroy', 'BannerController::multiPurgeDestroy', ['as' => 'admin.banner.multiPurgeDestroy']);
+		$routes->post('multiRestore', 'BannerController::multiRestore', ['as' => 'admin.banner.multiRestore']);
+		$routes->post('multiStatus', 'BannerController::multiStatus', ['as' => 'admin.banner.multiStatus']);
+		$routes->post('checkExists', 'BannerController::checkExists', ['as' => 'admin.banner.checkExists']);
+	});
 });
 
 /*

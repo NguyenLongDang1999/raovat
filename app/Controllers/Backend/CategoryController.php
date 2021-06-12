@@ -244,7 +244,7 @@ class CategoryController extends BaseController
 		if (isset($result['chk']) && is_array($result['chk'])) {
 			if ($this->category->checkParentCategory($result['chk'], true) == 0) {
 				$multiCategory = $this->category->getMultiImageCategory($result['chk']);
-				deleteMultipleImage($multiCategory);
+				deleteMultipleImage(PATH_CATEGORY_IMAGE, $multiCategory);
 				if ($this->category->delete($result['chk'], true)) {
 					$data['result'] = true;
 					$data['message'] = '<span class="text-capitalize">Xóa vĩnh viễn thành công tất cả dữ liệu được chọn.</span>';

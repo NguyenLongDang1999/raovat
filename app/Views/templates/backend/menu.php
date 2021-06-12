@@ -4,29 +4,67 @@
             <li class="nav-item mr-auto"><a class="navbar-brand" href="<?= route_to('admin.dashboard.index') ?>">
                     <h2 class="brand-text">NinhHoaRaoVat</h2>
                 </a></li>
-            <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i><i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i></a></li>
+            <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i
+                        class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i><i
+                        class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc"
+                        data-ticon="disc"></i></a></li>
         </ul>
     </div>
     <div class="shadow-bottom"></div>
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-            <li class=" nav-item"><a class="d-flex align-items-center" href="index.html"><i data-feather="home"></i><span class="menu-title text-truncate">Thống Kê</span><span class="badge badge-light-warning badge-pill ml-auto mr-1">2</span></a>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="index.html"><i
+                        data-feather="home"></i><span class="menu-title text-truncate">Thống Kê</span><span
+                        class="badge badge-light-warning badge-pill ml-auto mr-1">2</span></a>
                 <ul class="menu-content">
-                    <li><a class="d-flex align-items-center" href="dashboard-analytics.html"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Analytics">Analytics</span></a>
+                    <li><a class="d-flex align-items-center" href="dashboard-analytics.html"><i
+                                data-feather="circle"></i><span class="menu-item text-truncate"
+                                data-i18n="Analytics">Analytics</span></a>
                     </li>
-                    <li class="<?= getMenuActive('/') ?>"><a class="d-flex align-items-center" href="dashboard-ecommerce.html"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="eCommerce">eCommerce</span></a>
+                    <li class="<?= getMenuActive('/') ?>"><a class="d-flex align-items-center"
+                            href="dashboard-ecommerce.html"><i data-feather="circle"></i><span
+                                class="menu-item text-truncate" data-i18n="eCommerce">eCommerce</span></a>
                     </li>
                 </ul>
             </li>
-            <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Quản lý đăng tin</span><i data-feather="more-horizontal"></i>
+            <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Quản lý đăng tin</span><i
+                    data-feather="more-horizontal"></i>
             </li>
-            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate">Danh Mục Đăng Tin</span></a>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span
+                        class="menu-title text-truncate">Danh Mục Đăng Tin</span></a>
                 <ul class="menu-content">
-                    <li class="<?= getMenuActive('category') ?>"><a class="d-flex align-items-center" href="<?= route_to('admin.category.index') ?>"><i data-feather="circle"></i><span class="menu-item text-truncate">Danh Sách</span></a>
+                    <li class="<?= getMenuActive('category') ?>"><a class="d-flex align-items-center"
+                            href="<?= route_to('admin.category.index') ?>"><i data-feather="circle"></i><span
+                                class="menu-item text-truncate">Danh Sách</span></a>
                     </li>
-                    <li class="<?= getMenuActive('category/recycle') ?>"><a class="d-flex align-items-center" href="<?= route_to('admin.category.recycle') ?>"><i data-feather="circle"></i><span class="menu-item text-truncate">Thùng Rác</span></a>
+                    <li class="<?= getMenuActive('category/recycle') ?>"><a class="d-flex align-items-center"
+                            href="<?= route_to('admin.category.recycle') ?>"><i data-feather="circle"></i><span
+                                class="menu-item text-truncate">Thùng Rác</span></a>
                     </li>
-                    <li class="<?= getMenuActive('category/create') ?>"><a class="d-flex align-items-center" href="<?= route_to('admin.category.create') ?>"><i data-feather="circle"></i><span class="menu-item text-truncate">Thêm Mới</span></a>
+                    <li class="<?= getMenuActive('category/create') ?>"><a class="d-flex align-items-center"
+                            href="<?= route_to('admin.category.create') ?>"><i data-feather="circle"></i><span
+                                class="menu-item text-truncate">Thêm Mới</span></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class=" navigation-header"><span>Quản lý giao diện</span><i
+                    data-feather="more-horizontal"></i>
+            </li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span
+                        class="menu-title text-truncate">Banner</span></a>
+                <ul class="menu-content">
+                    <li class="<?= getMenuActive('banner') ?>"><a class="d-flex align-items-center"
+                            href="<?= route_to('admin.banner.index') ?>"><i data-feather="circle"></i><span
+                                class="menu-item text-truncate">Danh Sách</span></a>
+                    </li>
+                    <li class="<?= getMenuActive('banner/recycle') ?>"><a class="d-flex align-items-center"
+                            href="<?= route_to('admin.banner.recycle') ?>"><i data-feather="circle"></i><span
+                                class="menu-item text-truncate">Thùng Rác</span></a>
+                    </li>
+                    <li class="<?= getMenuActive('banner/create') ?>"><a class="d-flex align-items-center"
+                            href="<?= route_to('admin.banner.create') ?>"><i data-feather="circle"></i><span
+                                class="menu-item text-truncate">Thêm Mới</span></a>
                     </li>
                 </ul>
             </li>

@@ -39,11 +39,23 @@ function deleteImage($path, $fileName)
     }
 }
 
-function deleteMultipleImage($array)
+function deleteMultipleImage($path, $array)
 {
     if (count($array) > 0) {
         foreach ($array as $item) {
-            deleteImage(PATH_CATEGORY_IMAGE, $item['image']);
+            deleteImage($path, $item['image']);
         }
     }
+}
+
+function getOptionOrders()
+{
+    $option = [
+        '' => 'Vui Lòng Chọn',
+        '0' => 'Banner Trên',
+        '1' => 'Banner Giữa',
+        '2' => 'Banner Cuối'
+    ];
+
+    return $option;
 }
