@@ -1,30 +1,29 @@
 <!DOCTYPE html>
-<html class="loading bordered-layout" lang="vi" data-layout="bordered-layout" data-textdirection="ltr">
+<html class="loading" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
-    <meta name="robots" content="noindex, nofollow" />
-    
+    <meta name="robots" content="index, follow" />
     <?= csrf_meta() ?>
     <title>NinhHoaRaoVat - <?= $this->renderSection('title') ?></title>
-
-    <?= $this->include('templates/backend/linkCSS') ?>
+    <?= $this->include('templates/frontend/linkCSS') ?>
 </head>
 <!-- END: Head-->
 
 <!-- BEGIN: Body-->
 
-<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
+<body class="horizontal-layout horizontal-menu  navbar-floating footer-static  " data-open="hover"
+    data-menu="horizontal-menu" data-col="">
 
     <!-- BEGIN: Header-->
-    <?= $this->include('templates/backend/header') ?>
+    <?= $this->include('templates/frontend/header') ?>
     <!-- END: Header-->
 
     <!-- BEGIN: Main Menu-->
-    <?= $this->include('templates/backend/menu') ?>
+    <?= $this->include('templates/frontend/menu') ?>
     <!-- END: Main Menu-->
 
     <!-- BEGIN: Content-->
@@ -45,7 +44,11 @@
     <div class="sidenav-overlay"></div>
     <div class="drag-target"></div>
 
-    <?= $this->include('templates/backend/linkJS') ?>
+    <!-- BEGIN: Footer-->
+    <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
+    <!-- END: Footer-->
+
+    <?= $this->include('templates/frontend/linkJS') ?>
 </body>
 <!-- END: Body-->
 

@@ -29,6 +29,12 @@ $routes->setAutoRoute(true);
  * --------------------------------------------------------------------
  */
 
+// Frontend
+$routes->group('', ['namespace' => 'App\Controllers\Frontend'], function ($routes) {
+	// Home
+	$routes->get('/', 'HomeController::index', ['as' => 'user.home.index']);
+});
+
 // Backend
 $routes->group('administrator', ['namespace' => 'App\Controllers\Backend'], function ($routes) {
 	// Dashboard
