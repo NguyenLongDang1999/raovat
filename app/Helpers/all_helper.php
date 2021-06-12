@@ -10,7 +10,12 @@ function getMenuActive($patterns, $activeClass = "active")
 function imageManipulation($path, $fileName, $fileNameNew, $folder, $data)
 {
     $image = \Config\Services::image();
-    $savePath = $path . '/';
+    if ($folder == '') {
+        $savePath = $path . '/';
+    } else {
+        $savePath = $path . '/' . $folder;
+    }
+
     if (!file_exists($savePath)) {
         mkdir($savePath, 755);
     }
@@ -29,7 +34,12 @@ function imageManipulation($path, $fileName, $fileNameNew, $folder, $data)
             break;
     }
     $image->convert(IMAGETYPE_WEBP);
-    return $image->save($savePath . $fileNameNew);
+
+    if ($folder == '') {
+        return $image->save($savePath . $fileNameNew);
+    } else {
+        return $image->save($savePath . '/' . $fileNameNew);
+    }
 }
 
 function deleteImage($path, $fileName)
@@ -55,6 +65,20 @@ function getOptionOrders()
         '0' => 'Banner Trên',
         '1' => 'Banner Giữa',
         '2' => 'Banner Cuối'
+    ];
+
+    return $option;
+}
+
+function getOptionIsType()
+{
+    $option = [
+        '' => '',
+        '0' => 'Cần bán',
+        '1' => 'Cần mua',
+        '2' => 'Cần thuê',
+        '3' => 'Cho thuê',
+        '4' => 'Khác'
     ];
 
     return $option;

@@ -34,6 +34,11 @@ $routes->group('', ['namespace' => 'App\Controllers\Frontend'], function ($route
 	// Home
 	$routes->get('/', 'HomeController::index', ['as' => 'user.home.index']);
 
+	// Post
+	$routes->get('dang-tin', 'PostController::index', ['as' => 'user.post.index']);
+	$routes->post('postPost', 'PostController::postPost', ['as' => 'user.post.postPost']);
+	$routes->post('showDistrict', 'PostController::showDistrict', ['as' => 'user.post.showDistrict']);
+
 	//User
 	$routes->get('cap-nhat-thong-tin', 'UserController::index', ['as' => 'user.user.index']);
 	$routes->get('thong-tin-ca-nhan', 'UserController::myProfile', ['as' => 'user.user.myProfile']);
