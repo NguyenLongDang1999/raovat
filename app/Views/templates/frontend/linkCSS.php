@@ -12,7 +12,6 @@
 <?= link_tag('app-assets/css/bootstrap-extended.min.css') ?>
 <?= link_tag('app-assets/css/colors.min.css') ?>
 <?= link_tag('app-assets/css/components.min.css') ?>
-<?= link_tag('app-assets/css/themes/bordered-layout.min.css') ?>
 <!-- END: Theme CSS-->
 
 <!-- BEGIN: Page CSS-->

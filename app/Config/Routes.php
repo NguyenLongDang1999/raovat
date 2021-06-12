@@ -33,15 +33,20 @@ $routes->setAutoRoute(true);
 $routes->group('', ['namespace' => 'App\Controllers\Frontend'], function ($routes) {
 	// Home
 	$routes->get('/', 'HomeController::index', ['as' => 'user.home.index']);
+
+	//User
+	$routes->get('cap-nhat-thong-tin', 'UserController::index', ['as' => 'user.user.index']);
+	$routes->get('thong-tin-ca-nhan', 'UserController::myProfile', ['as' => 'user.user.myProfile']);
+	$routes->get('social-login-google', 'UserController::socialLoginGoogle', ['as' => 'user.user.socialLoginGoogle']);
 });
 
 // Backend
-$routes->group('administrator', ['namespace' => 'App\Controllers\Backend'], function ($routes) {
+$routes->group('administrator', ['namespace' => 'App\Controllers\Backend', 'filter' => 'role:admin'], function ($routes) {
 	// Dashboard
 	$routes->get('/', 'DashboardController::index', ['as' => 'admin.dashboard.index']);
 
 	// Category
-	$routes->group('category', ['namespace' => 'App\Controllers\Backend'], function ($routes) {
+	$routes->group('category', ['namespace' => 'App\Controllers\Backend', 'filter' => 'role:admin'], function ($routes) {
 		$routes->get('/', 'CategoryController::index', ['as' => 'admin.category.index']);
 		$routes->get('recycle', 'CategoryController::recycle', ['as' => 'admin.category.recycle']);
 		$routes->get('getList', 'CategoryController::getList', ['as' => 'admin.category.getList']);
@@ -58,7 +63,7 @@ $routes->group('administrator', ['namespace' => 'App\Controllers\Backend'], func
 	});
 
 	// Banner
-	$routes->group('banner', ['namespace' => 'App\Controllers\Backend'], function ($routes) {
+	$routes->group('banner', ['namespace' => 'App\Controllers\Backend', 'filter' => 'role:admin'], function ($routes) {
 		$routes->get('/', 'BannerController::index', ['as' => 'admin.banner.index']);
 		$routes->get('recycle', 'BannerController::recycle', ['as' => 'admin.banner.recycle']);
 		$routes->get('getList', 'BannerController::getList', ['as' => 'admin.banner.getList']);
