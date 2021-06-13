@@ -179,6 +179,14 @@ class Category extends Model
             ->findAll();
     }
 
+    public function getCategoryListParent($parent_id = 0)
+    {
+        return $this->select('name, slug, image, id')
+            ->where('status', STATUS_ACTIVE)
+            ->whereIn('parent_id', $parent_id)
+            ->findAll();
+    }
+
     public function getCategoryRecursive($parent_id)
     {
         $listCatId = array($parent_id);

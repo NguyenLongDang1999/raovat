@@ -35,14 +35,18 @@ $routes->group('', ['namespace' => 'App\Controllers\Frontend'], function ($route
 	$routes->get('/', 'HomeController::index', ['as' => 'user.home.index']);
 
 	// Post
-	$routes->get('dang-tin', 'PostController::index', ['as' => 'user.post.index']);
-	$routes->post('postPost', 'PostController::postPost', ['as' => 'user.post.postPost']);
-	$routes->post('showDistrict', 'PostController::showDistrict', ['as' => 'user.post.showDistrict']);
+	$routes->get('dang-tin', 'PostController::index', ['as' => 'user.post.index', 'filter' => 'login']);
+	$routes->post('postPost', 'PostController::postPost', ['as' => 'user.post.postPost', 'filter' => 'login']);
+	$routes->post('showDistrict', 'PostController::showDistrict', ['as' => 'user.post.showDistrict', 'filter' => 'login']);
 
-	//User
-	$routes->get('cap-nhat-thong-tin', 'UserController::index', ['as' => 'user.user.index']);
-	$routes->get('thong-tin-ca-nhan', 'UserController::myProfile', ['as' => 'user.user.myProfile']);
+	// User
+	$routes->get('cap-nhat-thong-tin', 'UserController::index', ['as' => 'user.user.index', 'filter' => 'login']);
+	$routes->get('thong-tin-ca-nhan', 'UserController::myProfile', ['as' => 'user.user.myProfile', 'filter' => 'login']);
 	$routes->get('social-login-google', 'UserController::socialLoginGoogle', ['as' => 'user.user.socialLoginGoogle']);
+
+	// Category
+	$routes->get('(:any)/s(:num)', 'CategoryController::category/$1/$2', ['as' => 'user.category.category']);
+	$routes->get('danh-muc-dang-tin', 'CategoryController::index', ['as' => 'user.category.index']);
 });
 
 // Backend

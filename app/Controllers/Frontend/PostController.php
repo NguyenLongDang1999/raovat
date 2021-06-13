@@ -114,4 +114,19 @@ class PostController extends BaseController
         $this->post->insert($input);
         return redirect()->route('user.post.index')->with('message', "Bài đăng <strong class='text-capitalize'>" . esc($input['name']) . "</strong> đã được thêm. Vui lòng chờ kiểm duyệt.");
     }
+
+    public function detail($catSlug, $postSlug, $id)
+    {
+        $data['row'] = $this->post->getDetailPostBySlug($catSlug, $postSlug, $id);
+        if ($data['row']['status'] != STATUS_POST_ACTIVE) {
+            return redirect()->back()->with('error', "Tin đăng của bạn chưa được kiểm duyệt hoặc đã bị từ chối!");
+        }
+        $data['gallery'] = explode(',', $data['row']['thumb_list']);
+        $input = [
+            'view' => $data['row']['view'] + 1
+        ];
+        $data['breadcrumbs'] = $this->category->show_breadcumb($data['row']['catId'], true);
+        $this->post->update($data['row']['postId'], $input);
+        return view('frontend/post/detail', $data);
+    }
 }

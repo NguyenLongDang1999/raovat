@@ -1,10 +1,25 @@
 <?php
 
+use CodeIgniter\I18n\Time;
+
 function getMenuActive($patterns, $activeClass = "active")
 {
     if (url_is('*administrator/' . $patterns)) {
         return $activeClass;
     }
+}
+
+function getMenuUserActive($patterns, $activeClass = "active")
+{
+    if (url_is('/' . $patterns)) {
+        return $activeClass;
+    }
+}
+
+function getDateHumanize($date)
+{
+    $time = Time::parse($date);
+    return $time->humanize();
 }
 
 function imageManipulation($path, $fileName, $fileNameNew, $folder, $data)
