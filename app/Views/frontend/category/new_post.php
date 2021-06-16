@@ -53,6 +53,7 @@ Bài đăng rao vặt mới nhất tại <?= base_url() ?>
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="<?= route_to('user.home.index') ?>">Trang
                                                 Chủ</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Tin Đăng Mới Nhất</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -110,9 +111,9 @@ Bài đăng rao vặt mới nhất tại <?= base_url() ?>
     </div>
 </section>
 <div class="body-content-overlay"></div>
-<?php if (count($getPostShowByCat)) : ?>
+<?php if (count($getPostNews)) : ?>
     <section id="ecommerce-products" class="grid-view">
-        <?php foreach ($getPostShowByCat as $item) : ?>
+        <?php foreach ($getPostNews as $item) : ?>
             <?php $img = explode(',', $item['thumb_list']); ?>
             <div class="card ecommerce-card mb-75">
                 <div class="text-center">
@@ -157,7 +158,7 @@ Bài đăng rao vặt mới nhất tại <?= base_url() ?>
                     </div>
                     <div class="my-50 py-25 order-4">
                         <i data-feather='eye'></i>
-                        <?= esc($item['view']) ?> 
+                        <?= esc($item['view']) ?>
                         <span>Lượt Xem</span>
                     </div>
                 </div>
@@ -356,56 +357,6 @@ Bài đăng rao vặt mới nhất tại <?= base_url() ?>
                     <?= form_submit(NULL, 'Submit', ['class' => 'btn btn-block btn-primary']) ?>
                 </div>
                 <?= form_close() ?>
-            </div>
-        </div>
-
-        <div class="blog-recent-posts mt-3">
-            <h6 class="section-label">Recent Posts</h6>
-            <div class="mt-75">
-                <div class="media mb-2">
-                    <a href="page-blog-detail.html" class="mr-2">
-                        <img class="rounded" src="../../../app-assets/images/banner/banner-22.jpg" width="100" height="70" alt="Recent Post Pic">
-                    </a>
-                    <div class="media-body">
-                        <h6 class="blog-recent-post-title">
-                            <a href="page-blog-detail.html" class="text-body-heading">Why Should Forget Facebook?</a>
-                        </h6>
-                        <div class="text-muted mb-0">Jan 14 2020</div>
-                    </div>
-                </div>
-                <div class="media mb-2">
-                    <a href="page-blog-detail.html" class="mr-2">
-                        <img class="rounded" src="../../../app-assets/images/banner/banner-27.jpg" width="100" height="70" alt="Recent Post Pic">
-                    </a>
-                    <div class="media-body">
-                        <h6 class="blog-recent-post-title">
-                            <a href="page-blog-detail.html" class="text-body-heading">Publish your passions, your way</a>
-                        </h6>
-                        <div class="text-muted mb-0">Mar 04 2020</div>
-                    </div>
-                </div>
-                <div class="media mb-2">
-                    <a href="page-blog-detail.html" class="mr-2">
-                        <img class="rounded" src="../../../app-assets/images/banner/banner-39.jpg" width="100" height="70" alt="Recent Post Pic">
-                    </a>
-                    <div class="media-body">
-                        <h6 class="blog-recent-post-title">
-                            <a href="page-blog-detail.html" class="text-body-heading">The Best Ways to Retain More</a>
-                        </h6>
-                        <div class="text-muted mb-0">Feb 18 2020</div>
-                    </div>
-                </div>
-                <div class="media">
-                    <a href="page-blog-detail.html" class="mr-2">
-                        <img class="rounded" src="../../../app-assets/images/banner/banner-35.jpg" width="100" height="70" alt="Recent Post Pic">
-                    </a>
-                    <div class="media-body">
-                        <h6 class="blog-recent-post-title">
-                            <a href="page-blog-detail.html" class="text-body-heading">Share a Shocking Fact or Statistic</a>
-                        </h6>
-                        <div class="text-muted mb-0">Oct 08 2020</div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

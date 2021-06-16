@@ -28,7 +28,14 @@ class CategoryController extends BaseController
 
 	public function newPost()
 	{
-		return view('frontend/category/new_post');
+		$input = $this->request->getGet();
+		$data['getPostNews'] = $this->post->getPostNews(false, $input);
+		$data['countPost'] = $this->post->getPostNews(true, $input);
+		$data['pager'] = $this->post->pager;
+		$data['input'] = $input;
+		$data['province'] = $this->province->getProvince();
+		$data['is_category_page'] = true;
+		return view('frontend/category/new_post', $data);
 	}
 
 	public function category($slug, $id)
@@ -51,7 +58,6 @@ class CategoryController extends BaseController
 		$data['breadcrumbs'] = $this->category->show_breadcumb($row['id']);
 		$data['province'] = $this->province->getProvince();
 		$data['input'] = $input;
-		$data['getCategoryFilter'] = $this->category->getCategoryList();
 		$data['is_category_page'] = true;
 		return view('frontend/category/category', $data);
 	}

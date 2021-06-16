@@ -361,56 +361,6 @@
                 <?= form_close() ?>
             </div>
         </div>
-
-        <div class="blog-recent-posts mt-3">
-            <h6 class="section-label">Recent Posts</h6>
-            <div class="mt-75">
-                <div class="media mb-2">
-                    <a href="page-blog-detail.html" class="mr-2">
-                        <img class="rounded" src="../../../app-assets/images/banner/banner-22.jpg" width="100" height="70" alt="Recent Post Pic">
-                    </a>
-                    <div class="media-body">
-                        <h6 class="blog-recent-post-title">
-                            <a href="page-blog-detail.html" class="text-body-heading">Why Should Forget Facebook?</a>
-                        </h6>
-                        <div class="text-muted mb-0">Jan 14 2020</div>
-                    </div>
-                </div>
-                <div class="media mb-2">
-                    <a href="page-blog-detail.html" class="mr-2">
-                        <img class="rounded" src="../../../app-assets/images/banner/banner-27.jpg" width="100" height="70" alt="Recent Post Pic">
-                    </a>
-                    <div class="media-body">
-                        <h6 class="blog-recent-post-title">
-                            <a href="page-blog-detail.html" class="text-body-heading">Publish your passions, your way</a>
-                        </h6>
-                        <div class="text-muted mb-0">Mar 04 2020</div>
-                    </div>
-                </div>
-                <div class="media mb-2">
-                    <a href="page-blog-detail.html" class="mr-2">
-                        <img class="rounded" src="../../../app-assets/images/banner/banner-39.jpg" width="100" height="70" alt="Recent Post Pic">
-                    </a>
-                    <div class="media-body">
-                        <h6 class="blog-recent-post-title">
-                            <a href="page-blog-detail.html" class="text-body-heading">The Best Ways to Retain More</a>
-                        </h6>
-                        <div class="text-muted mb-0">Feb 18 2020</div>
-                    </div>
-                </div>
-                <div class="media">
-                    <a href="page-blog-detail.html" class="mr-2">
-                        <img class="rounded" src="../../../app-assets/images/banner/banner-35.jpg" width="100" height="70" alt="Recent Post Pic">
-                    </a>
-                    <div class="media-body">
-                        <h6 class="blog-recent-post-title">
-                            <a href="page-blog-detail.html" class="text-body-heading">Share a Shocking Fact or Statistic</a>
-                        </h6>
-                        <div class="text-muted mb-0">Oct 08 2020</div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 <?php else: ?>
