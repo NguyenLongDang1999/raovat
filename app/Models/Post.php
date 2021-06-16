@@ -62,6 +62,7 @@ class Post extends Model
             ->join('district', 'district.id = post.district_id')
             ->where('category.status', STATUS_ACTIVE)
             ->where('post.status', STATUS_POST_ACTIVE)
+            ->orderBy('created_at', 'desc');
             ->groupStart()
             ->where($str)
             ->groupEnd();
