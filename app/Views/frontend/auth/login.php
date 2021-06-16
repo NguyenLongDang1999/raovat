@@ -103,6 +103,9 @@
                 <div class="form-group">
                     <div class="d-flex justify-content-between">
                         <?= form_label('Password', 'password', ['class' => 'form-label']) ?>
+                        <a href="<?= route_to('forgot') ?>">
+                            <small>Quên Mật Khẩu?</small>
+                        </a>
                     </div>
                     <div class="input-group input-group-merge form-password-toggle">
                         <?= form_password('password', '', ['class' => 'form-control form-control-merge', 'placeholder' => '****************;', 'id' => 'password']) ?>
