@@ -38,6 +38,7 @@ $routes->group('', ['namespace' => 'App\Controllers\Frontend'], function ($route
 	$routes->get('dang-tin', 'PostController::index', ['as' => 'user.post.index', 'filter' => 'login']);
 	$routes->post('postPost', 'PostController::postPost', ['as' => 'user.post.postPost', 'filter' => 'login']);
 	$routes->post('showDistrict', 'PostController::showDistrict', ['as' => 'user.post.showDistrict', 'filter' => 'login']);
+	$routes->get('(:any)/(:any)/s(:num)', 'PostController::detail/$1/$2/$3', ['as' => 'user.post.detail']);
 
 	// User
 	$routes->get('cap-nhat-thong-tin', 'UserController::index', ['as' => 'user.user.index', 'filter' => 'login']);
@@ -47,6 +48,7 @@ $routes->group('', ['namespace' => 'App\Controllers\Frontend'], function ($route
 	// Category
 	$routes->get('(:any)/s(:num)', 'CategoryController::category/$1/$2', ['as' => 'user.category.category']);
 	$routes->get('danh-muc-dang-tin', 'CategoryController::index', ['as' => 'user.category.index']);
+	$routes->get('tin-dang-moi-nhat', 'CategoryController::newPost', ['as' => 'user.category.new_post']);
 });
 
 // Backend

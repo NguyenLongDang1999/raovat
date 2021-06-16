@@ -1,7 +1,7 @@
 <?= $this->extend('templates/frontend/master'); ?>
 
 <?= $this->section('title'); ?>
-<?= esc($row['name']) ?>
+Bài đăng rao vặt mới nhất tại <?= base_url() ?>
 <?= $this->endSection(); ?>
 
 <!-- pageCSS -->
@@ -53,7 +53,6 @@
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="<?= route_to('user.home.index') ?>">Trang
                                                 Chủ</a></li>
-                                        <?= $breadcrumbs ?>
                                     </ol>
                                 </nav>
                             </div>
@@ -70,12 +69,10 @@
 <!-- Content-body -->
 <?= $this->section('content-body'); ?>
 <div class="text-center">
-    <h1 class="mt-2 text-capitalize"><?= esc($row['name']) ?></h1>
+    <h1 class="mt-5 text-capitalize">Bài đăng rao vặt mới nhất</h1>
     <p class="mb-2 pb-75 text-capitalize">
-        <?= esc($row['description']) ?>
     </p>
 </div>
-<?php if (count($getPostShowByCat)) : ?>
 <section id="ecommerce-header">
     <div class="row">
         <div class="col-sm-12">
@@ -413,8 +410,5 @@
         </div>
     </div>
 </div>
-<?php else: ?>
-    
-<?php endif; ?>
 <?= $this->endSection(); ?>
 <!-- end Content-body -->

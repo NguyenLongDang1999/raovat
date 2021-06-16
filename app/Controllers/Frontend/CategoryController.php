@@ -26,6 +26,11 @@ class CategoryController extends BaseController
 		return view('frontend/category/index', $data);
 	}
 
+	public function newPost()
+	{
+		return view('frontend/category/new_post');
+	}
+
 	public function category($slug, $id)
 	{
 		$row = $this->category->getShowCategory($slug, $id);

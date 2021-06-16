@@ -118,13 +118,14 @@ class PostController extends BaseController
     public function detail($catSlug, $postSlug, $id)
     {
         $data['row'] = $this->post->getDetailPostBySlug($catSlug, $postSlug, $id);
-        if ($data['row']['status'] != STATUS_POST_ACTIVE) {
-            return redirect()->back()->with('error', "Tin đăng của bạn chưa được kiểm duyệt hoặc đã bị từ chối!");
-        }
+        // if ($data['row']['status'] != STATUS_POST_READY) {
+        //     return redirect()->back()->with('error', "Tin đăng của bạn chưa được kiểm duyệt hoặc đã bị từ chối!");
+        // }
         $data['gallery'] = explode(',', $data['row']['thumb_list']);
         $input = [
             'view' => $data['row']['view'] + 1
         ];
+        $data['is_category_page'] = true;
         $data['breadcrumbs'] = $this->category->show_breadcumb($data['row']['catId'], true);
         $this->post->update($data['row']['postId'], $input);
         return view('frontend/post/detail', $data);

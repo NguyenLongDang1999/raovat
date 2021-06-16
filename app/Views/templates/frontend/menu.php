@@ -64,8 +64,14 @@
                     <ul class="dropdown-menu">
                         <li class="<?= getMenuUserActive(route_to('user.category.index')) ?>"><a class="dropdown-item d-flex align-items-center"
                                 href="<?= route_to('user.category.index')?>">
-                                <i data-feather="grid"></i>
+                                <i data-feather="circle"></i>
                                 <span class="text-capitalize">Tất cả danh mục</span>
+                            </a>
+                        </li>
+                        <li class="<?= getMenuUserActive(route_to('user.category.new_post')) ?>"><a class="dropdown-item d-flex align-items-center"
+                                href="<?= route_to('user.category.new_post')?>">
+                                <i data-feather="circle"></i>
+                                <span class="text-capitalize">Tin đăng mới nhất</span>
                             </a>
                         </li>
                     </ul>

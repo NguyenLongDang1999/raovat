@@ -102,4 +102,22 @@ class Post extends Model
 
         return $query;
     }
+
+    public function getDetailPostBySlug($catSlug, $postSlug, $id)
+    {
+        $model = $this->select('post.name, post.created_at, post.description, post.thumb_list,
+            users.fullname, users.gender, users.email, users.phone, post.view, post.id as postId,
+            post.contact_address, post.is_type, post.price, post.video, post.video_description, post.featured,
+            users.avatar, post.status, category.id as catId, post.meta_description, post.meta_keyword')
+            ->join('category', 'category.id = post.cat_id')
+            ->join('users', 'users.id = post.user_id')
+            ->join('province', 'province.id = post.province_id')
+            ->where('users.active', STATUS_ACTIVE)
+            ->where('category.slug', $catSlug)
+            ->where('post.slug', $postSlug)
+            ->where('post.id', $id)
+            ->orderBy('post.created_at', 'desc');
+
+        return $model->first();
+    }
 }

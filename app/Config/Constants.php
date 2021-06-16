@@ -86,12 +86,15 @@ defined('EXIT__AUTO_MAX')      || define('EXIT__AUTO_MAX', 125); // highest auto
 defined('STATUS_ACTIVE') || define('STATUS_ACTIVE', 1);
 defined('STATUS_INACTIVE') || define('STATUS_INACTIVE', 0);
 defined('STATUS_POST_ACTIVE') || define('STATUS_POST_ACTIVE', 1);
+defined('STATUS_POST_READY')        || define('STATUS_POST_READY', 0);
+defined('STATUS_POST_INACTIVE')     || define('STATUS_POST_INACTIVE', 2);
+defined('STATUS_POST_HIDDEN')       || define('STATUS_POST_HIDDEN', 3);
 defined('PATH_CATEGORY_IMAGE') || define('PATH_CATEGORY_IMAGE', 'uploads/category/');
 defined('PATH_BANNER_IMAGE') || define('PATH_BANNER_IMAGE', 'uploads/banner/');
 defined('PATH_USER_IMAGE') || define('PATH_USER_IMAGE', 'uploads/user/');
 defined('PATH_POST_IMAGE') || define('PATH_POST_IMAGE', 'uploads/post/');
 defined('PATH_POST_SMALL_IMAGE') || define('PATH_POST_SMALL_IMAGE', 'uploads/post/small/');
-defined('PATH_POST_MEDIUM_IMAGE') || define('PATH_POST_MEDIUM_IMAGE', 'uploads/post/medium');
+defined('PATH_POST_MEDIUM_IMAGE') || define('PATH_POST_MEDIUM_IMAGE', 'uploads/post/medium/');
 defined('PATH_DEFAULT_AVATAR') || define('PATH_DEFAULT_AVATAR', 'app-assets/images/portrait/small/avatar-s.png');
 defined('BANNER_TOP') || define('BANNER_TOP', '0');
 defined('BANNER_MIDDLE') || define('BANNER_MIDDLE', '1');

@@ -37,7 +37,7 @@
             <?php if (isset($is_category_page) && $is_category_page) : ?>
             <div class="content-detached content-right">
                 <?php endif ?>
-                <div class="content-body">
+                <div class="content-body <?= (isset($is_category_page) && $is_category_page && isset($countPost) && $countPost == 0) ? 'ml-0' : '' ?>">
                     <?= $this->renderSection('content-body') ?>
                 </div>
             </div>
