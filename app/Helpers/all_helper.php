@@ -98,3 +98,13 @@ function getOptionIsType()
 
     return $option;
 }
+
+function diffDate($expire_from, $expire_to)
+{
+    $from = Time::parse($expire_from);
+    $to = Time::parse($expire_to);
+
+    $diff = $from->difference($to);
+
+    return $diff->getDays();
+}

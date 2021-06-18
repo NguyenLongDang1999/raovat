@@ -171,4 +171,52 @@ class Post extends Model
 
         return $model->first();
     }
+
+    // User Manager
+    public function getPostListManager($input = array())
+    {
+        $model = $this->select('post.id, post.name, post.cat_id, post.province_id, post.price, 
+            post.status, post.featured, category.name as catName, province.name as provinceName,
+            post.thumb_list, post.expire_from, post.expire_to, category.slug as catSlug, post.slug')
+            ->join('category', 'category.id = post.cat_id')
+            ->join('users', 'users.id = post.user_id')
+            ->join('province', 'province.id = post.province_id')
+            ->where('post.expire_to >=', date('Y-m-d'))
+            ->where('category.status', STATUS_ACTIVE)
+            // ->where('users.status', STATUS_ACTIVE)
+            ->where('users.id', $input['user_id']);
+
+        if (isset($input['search']['name']) && $input['search']['name'] != "") {
+            $model->like('post.name', trim($input['search']['name']));
+        }
+
+        if (isset($input['search']['status']) && $input['search']['status'] != "") {
+            if ($input['search']['status'] == 0) {
+                $model->whereIn('post.status', [STATUS_POST_ACTIVE, STATUS_POST_HIDDEN]);
+            } else {
+                $model->where('post.status', $input['search']['status']);
+            }
+        }
+
+        if (isset($input['iSortCol_0'])) {
+            $sorting_mapping_array = array(
+                '2' => 'post.name',
+                '3' => 'post.created_at',
+                '5' => 'post.created_at',
+            );
+
+            $order = "desc";
+            if (isset($input['sSortDir_0'])) {
+                $order = $input['sSortDir_0'];
+            }
+
+            if (isset($sorting_mapping_array[$input['iSortCol_0']])) {
+                $model->orderBy($sorting_mapping_array[$input['iSortCol_0']], $order);
+            }
+        }
+
+        $result['model'] = $model->findAll($input['iDisplayStart'], $input['iDisplayLength']);
+
+        return $result;
+    }
 }

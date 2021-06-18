@@ -57,17 +57,20 @@
                         <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder text-capitalize"><?= user()->fullname ?></span><span class="user-status">Admin</span></div><span class="avatar"><?= $img ?><span class="avatar-status-online"></span></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user">
-                        <a class="dropdown-item" href="<?= route_to('user.user.myProfile') ?>">
+                        <a class="dropdown-item <?= getMenuUserActive(route_to('user.user.myProfile')) ?>" href="<?= route_to('user.user.myProfile') ?>">
                             <i class="mr-50" data-feather="user"></i>
                             Thông Tin Cá Nhân
                         </a>
-                        <a class="dropdown-item" href="<?= route_to('user.post.index') ?>">
+                        <a class="dropdown-item <?= getMenuUserActive(route_to('user.post.index')) ?>" href="<?= route_to('user.post.index') ?>">
                             <i class="mr-50" data-feather='edit'></i>
                             Đăng Tin
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="<?= route_to('user.user.index') ?>">
+                        <a class="dropdown-item <?= getMenuUserActive(route_to('user.user.index')) ?>" href="<?= route_to('user.user.index') ?>">
                             <i class="mr-50" data-feather="settings"></i> Cập Nhật Thông Tin
+                        </a>
+                        <a class="dropdown-item <?= getMenuUserActive(route_to('user.user.manager')) ?>" href="<?= route_to('user.user.manager') ?>">
+                            <i class="mr-50" data-feather="copy"></i> Quản Lý Tin Đăng
                         </a>
                         <a class="dropdown-item" href="<?= route_to('logout') ?>">
                             <i class="mr-50" data-feather="power"></i> Đăng Xuất

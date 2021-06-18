@@ -7,4 +7,4 @@ Trang chủ
 <!-- Content-body -->
 <?= $this->section('content-body'); ?>
 <?= $this->endSection(); ?>
-<!-- end Content-body -->r
+<!-- end Content-body -->

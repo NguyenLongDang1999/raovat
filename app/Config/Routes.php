@@ -49,6 +49,12 @@ $routes->group('', ['namespace' => 'App\Controllers\Frontend'], function ($route
 	$routes->get('(:any)/s(:num)', 'CategoryController::category/$1/$2', ['as' => 'user.category.category']);
 	$routes->get('danh-muc-dang-tin', 'CategoryController::index', ['as' => 'user.category.index']);
 	$routes->get('tin-dang-moi-nhat', 'CategoryController::newPost', ['as' => 'user.category.new_post']);
+
+	// Manager
+	$routes->get('quan-ly-tin-dang', 'ManagerController::index', ['as' => 'user.user.manager', 'filter' => 'login']);
+	$routes->get('getPostList', 'ManagerController::getPostList', ['as' => 'user.manager.getPostList', 'filter' => 'login']);
+	$routes->get('getPostListBlock', 'ManagerController::getPostListBlock', ['as' => 'user.manager.getPostListBlock', 'filter' => 'login']);
+	$routes->get('getPostListReady', 'ManagerController::getPostListReady', ['as' => 'user.manager.getPostListReady', 'filter' => 'login']);
 });
 
 // Backend
