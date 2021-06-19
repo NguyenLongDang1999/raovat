@@ -33,7 +33,7 @@ Thông tin cá nhân
                         <div class="card">
                             <div class="card-body">
                                 <nav>
-                                    <ol class="breadcrumb">
+                                    <ol class="breadcrumb d-flex">
                                         <li class="breadcrumb-item"><a href="<?= route_to('user.home.index') ?>">Trang
                                                 Chủ</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">Thông Tin Cá Nhân</li>

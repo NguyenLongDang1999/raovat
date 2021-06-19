@@ -82,14 +82,12 @@ class ManagerController extends BaseController
 				$diffDate = diffDate($row['expire_from'], $row['expire_to']);
 
 				$data['aaData'][] = [
-					'checkbox' => '',
 					'responsive_id' => '',
 					'responsive_id' => esc($row['id']),
 					'image' => img(PATH_POST_SMALL_IMAGE . $img[0], false, ['class' => 'img-fluid', 'alt' => esc($row['name']), 'width' => 150, 'height' => 150]),
 					'infoPost' => $this->infoPost($row['name'], $row['catName'], $row['provinceName'], $price),
 					'infoDate' => $this->infoDate($diffDate, $row['expire_from'], $row['expire_to']),
 					'featured' => esc($row['featured']),
-					'status' => esc($row['status']),
 				];
 			}
 		}
@@ -122,7 +120,6 @@ class ManagerController extends BaseController
 					'infoPost' => $this->infoPost($row['name'], $row['catName'], $row['provinceName'], $price),
 					'infoDate' => $this->infoDate($diffDate, $row['expire_from'], $row['expire_to']),
 					'featured' => esc($row['featured']),
-					'status' => esc($row['status']),
 				];
 			}
 		}

@@ -1,7 +1,7 @@
 <?= $this->extend('templates/frontend/master'); ?>
 
 <?= $this->section('title'); ?>
-Trang chủ
+Quản lý tin đăng cá nhân
 <?= $this->endSection(); ?>
 
 <!-- vendorCSS -->
@@ -40,7 +40,7 @@ Trang chủ
                         <div class="card">
                             <div class="card-body">
                                 <nav>
-                                    <ol class="breadcrumb">
+                                    <ol class="breadcrumb d-flex">
                                         <li class="breadcrumb-item"><a href="<?= route_to('user.home.index') ?>">Trang
                                                 Chủ</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">Quản Lý Tin Đăng</li>
@@ -63,30 +63,36 @@ Trang chủ
     <div class="row match-height">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Center Alignment</h4>
-                </div>
                 <div class="card-body">
                     <ul class="nav nav-pills justify-content-center" id="tabMenu">
                         <li class="nav-item">
-                            <a class="nav-link" id="manager-ready-tab" data-toggle="pill" href="#manager-ready" aria-expanded="true">Tin Đăng Chờ Duyệt</a>
+                            <a class="nav-link" id="manager-ready-tab" data-toggle="pill" href="#manager-ready" aria-expanded="true">
+                                <i data-feather='loader'></i>
+                                <span>Tin Đăng Chờ Duyệt</span>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" id="manager-active-tab" data-toggle="pill" href="#manager-active" aria-expanded="false">Tin Đang Đăng</a>
+                            <a class="nav-link active" id="manager-active-tab" data-toggle="pill" href="#manager-active" aria-expanded="false">
+                                <i data-feather='check-circle'></i>
+                                <span>Tin Đang Đăng</span>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="manager-block-tab" data-toggle="pill" href="#manager-block" aria-expanded="false">Tin Đăng Không Được Duyệt</a>
+                            <a class="nav-link" id="manager-block-tab" data-toggle="pill" href="#manager-block" aria-expanded="false">
+                                <i data-feather='slash'></i>
+                                <span>Tin Đăng Không Được Duyệt</span>
+                            </a>
                         </li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane" id="manager-ready" role="tabpanel" aria-labelledby="manager-ready-tab" aria-expanded="true">
                             <?= form_open('', ['id' => 'frmTbListReady']) ?>
-                            <table class="dt-advanced-search dt-responsive table table-white-space" id="get-manager-ready">
+                            <table id="get-manager-ready" class="table table-transparent nowrap">
                                 <thead>
                                     <tr>
-                                        <th class="p-1"></th>
+                                        <th></th>
                                         <th>Hình ảnh</th>
-                                        <th class="pl-0">Thông tin bài đăng</th>
+                                        <th>Thông tin bài đăng</th>
                                         <th>Gói đăng tin</th>
                                         <th>Loại tin</th>
                                         <th>Thao tác</th>
@@ -96,14 +102,6 @@ Trang chủ
                             <?= form_close() ?>
                         </div>
                         <div class="tab-pane active" id="manager-active" role="tabpanel" aria-labelledby="manager-active-tab" aria-expanded="false">
-                            <button type="button" class="btn btn-warning glow confirm-text btnStatus" data-status="3">
-                                Ẩn Tin
-                            </button>
-
-                            <button type="button" class="btn btn-primary glow confirm-text btnStatus" data-status="0">
-                                Tiếp Tục Đăng
-                            </button>
-
                             <?= form_open('', ['id' => 'frmTbList']) ?>
                             <table class="dt-advanced-search dt-responsive table table-white-space" id="get-post-list">
                                 <thead>
@@ -126,9 +124,9 @@ Trang chủ
                             <table class="dt-advanced-search dt-responsive table table-white-space" id="get-manager-block">
                                 <thead>
                                     <tr>
-                                        <th class="p-1"></th>
+                                        <th></th>
                                         <th>Hình ảnh</th>
-                                        <th class="pl-0">Thông tin bài đăng</th>
+                                        <th>Thông tin bài đăng</th>
                                         <th>Gói đăng tin</th>
                                         <th>Loại tin</th>
                                         <th>Thao tác</th>

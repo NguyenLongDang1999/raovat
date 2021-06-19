@@ -76,7 +76,7 @@ class Post extends Model
                 $query = $query->where('post.price >=', number_format(1000000, 0, '', ','));
                 $query = $query->where('post.price <=', number_format(100000000, 0, '', ','));
             }
-            
+
             if ($input['price_range'] == 3) {
                 $query = $query->where('post.price >=', number_format(100000000, 0, '', ','));
                 $query = $query->where('post.price <=', number_format(1000000000, 0, '', ','));
@@ -126,7 +126,7 @@ class Post extends Model
                 $query = $query->where('post.price >=', number_format(1000000, 0, '', ','));
                 $query = $query->where('post.price <=', number_format(100000000, 0, '', ','));
             }
-            
+
             if ($input['price_range'] == 3) {
                 $query = $query->where('post.price >=', number_format(100000000, 0, '', ','));
                 $query = $query->where('post.price <=', number_format(1000000000, 0, '', ','));
@@ -172,6 +172,28 @@ class Post extends Model
         return $model->first();
     }
 
+    public function getPostHome($featured = false)
+    {
+        $model = $this->select('post.thumb_list, post.slug, post.name, post.price, 
+        users.fullname, users.avatar, province.name as provinceName, post.created_at, 
+        post.featured, category.slug as catSlug, post.view, post.id, district.name as districtName')
+            ->join('category', 'category.id = post.cat_id')
+            ->join('users', 'users.id = post.user_id')
+            ->join('province', 'province.id = post.province_id')
+            ->join('district', 'district.id = post.district_id')
+            ->where('category.status', STATUS_ACTIVE)
+            ->where('post.status', STATUS_POST_ACTIVE)
+            ->where('post.expire_to >=', date('Y-m-d'))
+            ->orderBy('created_at', 'desc');
+
+        if ($featured) {
+            $model = $model->where('post.featured', FEATURED_ACTIVE);
+            return $model->findAll(10);
+        }
+
+        return $model->findAll(15);
+    }
+
     // User Manager
     public function getPostListManager($input = array())
     {
@@ -183,7 +205,6 @@ class Post extends Model
             ->join('province', 'province.id = post.province_id')
             ->where('post.expire_to >=', date('Y-m-d'))
             ->where('category.status', STATUS_ACTIVE)
-            // ->where('users.status', STATUS_ACTIVE)
             ->where('users.id', $input['user_id']);
 
         if (isset($input['search']['name']) && $input['search']['name'] != "") {

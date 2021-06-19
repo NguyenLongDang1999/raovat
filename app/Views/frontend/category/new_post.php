@@ -35,7 +35,7 @@ Bài đăng rao vặt mới nhất tại <?= base_url() ?>
 
 <!-- pageJS -->
 <?= $this->section('pageJS') ?>
-<?= script_tag('app-assets/js/scripts/pages/app-ecommerce.min.js') ?>
+<?= script_tag('app-assets/js/scripts/pages/app-ecommerce.js') ?>
 <?= $this->endSection() ?>
 <!-- end pageJS -->
 
@@ -172,7 +172,7 @@ Bài đăng rao vặt mới nhất tại <?= base_url() ?>
                         <i data-feather="heart"></i>
                         <span>Lưu Tin</span>
                     </a>
-                    <a href="javascript:void(0)" class="btn btn-primary btn-cart">
+                    <a href="<?= route_to('user.post.detail', esc($item['catSlug']), esc($item['slug']), esc($item['id'])) ?>" class="btn btn-primary btn-cart">
                         <span>Đọc Thêm</span>
                     </a>
                 </div>

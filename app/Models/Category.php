@@ -6,11 +6,11 @@ use CodeIgniter\Model;
 
 class Category extends Model
 {
-	protected $table                = 'category';
-	protected $primaryKey           = 'id';
-	protected $useAutoIncrement     = true;
-	protected $returnType           = 'array';
-	protected $useSoftDeletes       = true;
+    protected $table                = 'category';
+    protected $primaryKey           = 'id';
+    protected $useAutoIncrement     = true;
+    protected $returnType           = 'array';
+    protected $useSoftDeletes       = true;
 
     protected $allowedFields        = [
         'name',
@@ -218,5 +218,13 @@ class Category extends Model
 
             return $this->show_breadcumb(esc($row['parent_id'])) . $html;
         }
+    }
+
+    public function getCategoryMenu()
+    {
+        return $this->select('name, slug, image, id, description')
+            ->where('status', STATUS_ACTIVE)
+            ->where('parent_id', 0)
+            ->findAll(6);
     }
 }

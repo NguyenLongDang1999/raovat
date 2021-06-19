@@ -4,9 +4,24 @@
 <?= esc($row['name']) ?>
 <?= $this->endSection(); ?>
 
+<!-- metaSeo -->
+<?= $this->section('metaSeo') ?>
+<?= csrf_meta() ?>
+<meta name="title" content="NinhHoaRaoVat - <?= esc($row['name']) . ' - ' . esc($row['description']) ?>">
+<meta name="keywords" content="NinhHoaRaoVat - <?= esc($row['meta_keyword']) ?>">
+<meta name="description" content="NinhHoaRaoVat - <?= esc($row['meta_description']) ?>">
+<meta property="og:url" content="<?= base_url(''); ?>" />
+<meta name="title" content="NinhHoaRaoVat - <?= esc($row['name']) . ' - ' . esc($row['description']) ?>">
+<meta name="keywords" content="NinhHoaRaoVat - <?= esc($row['meta_keyword']) ?>">
+<meta name="description" content="NinhHoaRaoVat - <?= esc($row['meta_description']) ?>">
+<meta property="og:image" content="<?= base_url('app-assets/images/logo.png'); ?>" />
+<?= $this->endSection() ?>
+<!-- end metaSeo -->
+
 <!-- vendorCSS -->
 <?= $this->section('vendorCSS') ?>
 <?= link_tag('app-assets/vendors/css/extensions/swiper.min.css') ?>
+<?= link_tag('app-assets/vendors/css/fancybox/jquery.fancybox.min.css') ?>
 <?= $this->endSection() ?>
 <!-- end vendorCSS -->
 
@@ -20,6 +35,7 @@
 <!-- vendorJS -->
 <?= $this->section('vendorJS') ?>
 <?= script_tag('app-assets/vendors/js/extensions/swiper.min.js') ?>
+<?= script_tag('app-assets/vendors/js/fancybox/jquery.fancybox.min.js') ?>
 <?= $this->endSection() ?>
 <!-- end vendorJS -->
 
@@ -62,7 +78,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <nav>
-                                    <ol class="breadcrumb">
+                                    <ol class="breadcrumb d-flex">
                                         <li class="breadcrumb-item"><a href="<?= route_to('user.home.index') ?>">Trang
                                                 Chủ</a></li>
                                         <?= $breadcrumbs ?>
@@ -105,9 +121,7 @@
                         <div class="swiper-wrapper mt-25">
                             <?php foreach ($gallery as $img) : ?>
                                 <div class="swiper-slide">
-                                    <a href="<?= base_url(PATH_POST_SMALL_IMAGE . $img) ?>" data-fancybox="gallery">
-                                        <?= img(PATH_POST_SMALL_IMAGE . $img, false, ['class' => 'img-fluid', 'alt' => esc($row['name'])]) ?>
-                                    </a>
+                                    <?= img(PATH_POST_SMALL_IMAGE . $img, false, ['class' => 'img-fluid', 'alt' => esc($row['name'])]) ?>
                                 </div>
                             <?php endforeach ?>
                         </div>

@@ -89,6 +89,8 @@ defined('STATUS_POST_ACTIVE') || define('STATUS_POST_ACTIVE', 1);
 defined('STATUS_POST_READY')        || define('STATUS_POST_READY', 0);
 defined('STATUS_POST_INACTIVE')     || define('STATUS_POST_INACTIVE', 2);
 defined('STATUS_POST_HIDDEN')       || define('STATUS_POST_HIDDEN', 3);
+defined('FEATURED_ACTIVE')          || define('FEATURED_ACTIVE', 1);
+defined('FEATURED_INACTIVE')        || define('FEATURED_INACTIVE', 0);
 defined('PATH_CATEGORY_IMAGE') || define('PATH_CATEGORY_IMAGE', 'uploads/category/');
 defined('PATH_BANNER_IMAGE') || define('PATH_BANNER_IMAGE', 'uploads/banner/');
 defined('PATH_USER_IMAGE') || define('PATH_USER_IMAGE', 'uploads/user/');

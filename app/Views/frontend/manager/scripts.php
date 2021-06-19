@@ -6,22 +6,17 @@
             [20, 50, 100, 500, 1000]
         ];
 
-        var oTableBlock = $('#get-manager-block').DataTable({
+        var oTableActive = $('#get-post-list').DataTable({
             "bServerSide": true,
             "bProcessing": true,
             "sPaginationType": "full_numbers",
-            "sAjaxSource": "<?= route_to('user.manager.getPostListBlock') ?>",
+            "sAjaxSource": "<?= route_to('user.manager.getPostList') ?>",
             "bDeferRender": true,
             "bFilter": false,
             "bDestroy": true,
             "aLengthMenu": aLengthMenuGeneral,
             "iDisplayLength": 20,
             "bSort": true,
-            "aaSorting": [
-                [5, "desc"]
-            ],
-            "responsive": true,
-            'select': 'multi',
             columns: [{
                     data: 'checkbox',
                     "bSortable": false
@@ -63,7 +58,7 @@
                     });
                     aoData.push({
                         "name": "search[status]",
-                        "value": <?= STATUS_POST_INACTIVE ?>
+                        "value": <?= STATUS_POST_ACTIVE ?>
                     });
                 }
             },
@@ -88,32 +83,6 @@
                     },
                     checkboxes: {
                         selectAllRender: '<div class="custom-control custom-checkbox checkbox"> <input class="custom-control-input dt-checkboxes" type="checkbox" id="chkAll" /><label class="custom-control-label" for="chkAll"></label></div>'
-                    }
-                },
-                {
-                    targets: 5,
-                    render: function(data, type, full, meta) {
-                        var $featured_number = full['featured'];
-                        var $featured = {
-                            1: {
-                                title: 'VIP',
-                                class: 'badge-light-primary'
-                            },
-                            0: {
-                                title: 'NORMAL',
-                                class: ' badge-light-danger'
-                            },
-                        };
-                        if (typeof $featured[$featured_number] === 'undefined') {
-                            return data;
-                        }
-                        return (
-                            '<span class="badge badge-pill ' +
-                            $featured[$featured_number].class +
-                            '">' +
-                            $featured[$featured_number].title +
-                            '</span>'
-                        );
                     }
                 },
                 {
@@ -201,27 +170,18 @@
             },
         });
 
-        var oTableActive = $('#get-post-list').DataTable({
+        var oTableBlock = $('#get-manager-block').DataTable({
             "bServerSide": true,
             "bProcessing": true,
             "sPaginationType": "full_numbers",
-            "sAjaxSource": "<?= route_to('user.manager.getPostList') ?>",
+            "sAjaxSource": "<?= route_to('user.manager.getPostListBlock') ?>",
             "bDeferRender": true,
             "bFilter": false,
             "bDestroy": true,
             "aLengthMenu": aLengthMenuGeneral,
             "iDisplayLength": 20,
             "bSort": true,
-            "aaSorting": [
-                [5, "desc"]
-            ],
-            "responsive": true,
-            'select': 'multi',
             columns: [{
-                    data: 'checkbox',
-                    "bSortable": false
-                },
-                {
                     data: 'responsive_id',
                     "bSortable": false
                 },
@@ -239,10 +199,6 @@
                 },
                 {
                     data: 'featured',
-                    "bSortable": false
-                },
-                {
-                    data: 'status',
                     "bSortable": false
                 },
                 {
@@ -269,33 +225,16 @@
                     targets: 0
                 },
                 {
-                    targets: 1,
-                    orderable: false,
-                    responsivePriority: 3,
-                    render: function(data, type, full, meta) {
-                        return (
-                            '<div class="custom-control custom-checkbox checkbox"> <input class="custom-control-input dt-checkboxes checkboxes" type="checkbox" name="chk[]" value="' + $('<div/>').text(data).html() + '" id="checkbox' +
-                            data +
-                            '" /><label class="custom-control-label" for="checkbox' +
-                            data +
-                            '"></label></div>'
-                        );
-                    },
-                    checkboxes: {
-                        selectAllRender: '<div class="custom-control custom-checkbox checkbox"> <input class="custom-control-input dt-checkboxes" type="checkbox" id="chkAll" /><label class="custom-control-label" for="chkAll"></label></div>'
-                    }
-                },
-                {
-                    targets: 5,
+                    targets: 4,
                     render: function(data, type, full, meta) {
                         var $featured_number = full['featured'];
                         var $featured = {
                             1: {
-                                title: 'VIP',
+                                title: 'ON',
                                 class: 'badge-light-primary'
                             },
                             0: {
-                                title: 'NORMAL',
+                                title: 'OFF',
                                 class: ' badge-light-danger'
                             },
                         };
@@ -307,32 +246,6 @@
                             $featured[$featured_number].class +
                             '">' +
                             $featured[$featured_number].title +
-                            '</span>'
-                        );
-                    }
-                },
-                {
-                    targets: 6,
-                    render: function(data, type, full, meta) {
-                        var $status_number = full['status'];
-                        var $status = {
-                            1: {
-                                title: 'ON',
-                                class: 'badge-light-primary'
-                            },
-                            0: {
-                                title: 'OFF',
-                                class: ' badge-light-danger'
-                            },
-                        };
-                        if (typeof $status[$status_number] === 'undefined') {
-                            return data;
-                        }
-                        return (
-                            '<span class="badge badge-pill ' +
-                            $status[$status_number].class +
-                            '">' +
-                            $status[$status_number].title +
                             '</span>'
                         );
                     }
@@ -407,16 +320,7 @@
             "aLengthMenu": aLengthMenuGeneral,
             "iDisplayLength": 20,
             "bSort": true,
-            "aaSorting": [
-                [5, "desc"]
-            ],
-            "responsive": true,
-            'select': 'multi',
             columns: [{
-                    data: 'checkbox',
-                    "bSortable": false
-                },
-                {
                     data: 'responsive_id',
                     "bSortable": false
                 },
@@ -437,10 +341,6 @@
                     "bSortable": false
                 },
                 {
-                    data: 'status',
-                    "bSortable": false
-                },
-                {
                     data: 'action',
                     "bSortable": false
                 },
@@ -453,7 +353,7 @@
                     });
                     aoData.push({
                         "name": "search[status]",
-                        "value": <?= STATUS_POST_INACTIVE ?>
+                        "value": <?= STATUS_POST_READY ?>
                     });
                 }
             },
@@ -464,33 +364,16 @@
                     targets: 0
                 },
                 {
-                    targets: 1,
-                    orderable: false,
-                    responsivePriority: 3,
-                    render: function(data, type, full, meta) {
-                        return (
-                            '<div class="custom-control custom-checkbox checkbox"> <input class="custom-control-input dt-checkboxes checkboxes" type="checkbox" name="chk[]" value="' + $('<div/>').text(data).html() + '" id="checkbox' +
-                            data +
-                            '" /><label class="custom-control-label" for="checkbox' +
-                            data +
-                            '"></label></div>'
-                        );
-                    },
-                    checkboxes: {
-                        selectAllRender: '<div class="custom-control custom-checkbox checkbox"> <input class="custom-control-input dt-checkboxes" type="checkbox" id="chkAll" /><label class="custom-control-label" for="chkAll"></label></div>'
-                    }
-                },
-                {
-                    targets: 5,
+                    targets: 4,
                     render: function(data, type, full, meta) {
                         var $featured_number = full['featured'];
                         var $featured = {
                             1: {
-                                title: 'VIP',
+                                title: 'ON',
                                 class: 'badge-light-primary'
                             },
                             0: {
-                                title: 'NORMAL',
+                                title: 'OFF',
                                 class: ' badge-light-danger'
                             },
                         };
@@ -502,32 +385,6 @@
                             $featured[$featured_number].class +
                             '">' +
                             $featured[$featured_number].title +
-                            '</span>'
-                        );
-                    }
-                },
-                {
-                    targets: 6,
-                    render: function(data, type, full, meta) {
-                        var $status_number = full['status'];
-                        var $status = {
-                            1: {
-                                title: 'ON',
-                                class: 'badge-light-primary'
-                            },
-                            0: {
-                                title: 'OFF',
-                                class: ' badge-light-danger'
-                            },
-                        };
-                        if (typeof $status[$status_number] === 'undefined') {
-                            return data;
-                        }
-                        return (
-                            '<span class="badge badge-pill ' +
-                            $status[$status_number].class +
-                            '">' +
-                            $status[$status_number].title +
                             '</span>'
                         );
                     }
@@ -612,7 +469,7 @@
         function setIndexTab(tab) {
             switch (tab) {
                 case '#manager-active':
-                    // url_status_item = "<?= route_to('user.post.multiStatus') ?>";
+                    url_status_item = "<?= route_to('user.post.multiStatus') ?>";
                     oTable = oTableActive;
                     break;
 

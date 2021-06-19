@@ -27,7 +27,7 @@
     <!-- END: Main Menu-->
 
     <!-- BEGIN: Content-->
-    <div class="app-content content <?= (isset($is_category_page) && $is_category_page) ? 'ecommerce-application' : '' ?>">
+    <div class="app-content content <?= (isset($is_category_page) && $is_category_page || isset($is_home_page) && $is_home_page) ? 'ecommerce-application' : '' ?>">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
         <div class="content-wrapper">
