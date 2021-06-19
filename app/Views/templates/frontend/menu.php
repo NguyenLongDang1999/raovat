@@ -71,7 +71,7 @@
                         <li class="<?= getMenuUserActive(route_to('user.category.new_post')) ?>"><a class="dropdown-item d-flex align-items-center"
                                 href="<?= route_to('user.category.new_post')?>">
                                 <i data-feather="circle"></i>
-                                <span class="text-capitalize">Tin đăng mới nhất</span>
+                                <span class="text-capitalize">Tin đăng mới</span>
                             </a>
                         </li>
                     </ul>

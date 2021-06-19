@@ -139,7 +139,7 @@
                     <div class="card-body">
                         <div class="item-wrapper">
                             <div>
-                                <h6 class="item-price"><?= esc(number_to_amount($item['price'], 2, 'vi_VN')) ?></h6>
+                                <h6 class="item-price"><?= $item['price'] != 0 ? esc(number_to_amount($item['price'], 2, 'vi_VN')) : 'Thương Lượng' ?></h6>
                             </div>
                         </div>
                         <h6 class="item-name">
