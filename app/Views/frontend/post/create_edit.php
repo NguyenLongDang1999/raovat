@@ -101,7 +101,7 @@
                         <div class="col-md-6 col-12">
                             <div class="form-group mb-2">
                                 <?= form_label('Giá ', 'price', ['class' => 'form-label']) ?>
-                                <?= form_input('price', '', ['class' => 'form-control numeral-mask', 'id' => 'price', 'placeholder' => '10,000']) ?>
+                                <?= form_input('price', '0', ['class' => 'form-control numeral-mask', 'id' => 'price', 'placeholder' => '10,000']) ?>
                             </div>
                         </div>
                         <div class="col-md-6 col-12">

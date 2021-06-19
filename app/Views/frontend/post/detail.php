@@ -103,6 +103,76 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    <h1 class="card-title text-capitalize mb-0"><?= esc($row['name']) ?></h1>
+                    <div class="my-1 py-25">
+                        <a href="javascript:void(0);">
+                            <div class="badge badge-pill badge-light-primary"><?= esc($row['provinceName']) ?></div>
+                        </a>
+                        <a href="javascript:void(0);">
+                            <div class="badge badge-pill badge-light-danger"><?= esc($row['districtName']) ?></div>
+                        </a>
+                    </div>
+                    <p class="card-text text-capitalize">
+                        Địa chỉ: <?= esc($row['contact_address']) ?>
+                    </p>
+                    <div class="row mb-3">
+                        <div class="col-md-3 col-6 mb-2 mb-md-0">
+                            <div class="media">
+                                <div class="avatar bg-light-primary mr-2">
+                                    <div class="avatar-content">
+                                        <i data-feather="eye" class="avatar-icon"></i>
+                                    </div>
+                                </div>
+                                <div class="media-body my-auto">
+                                    <h4 class="font-weight-bolder mb-0"><?= esc($row['view']) ?></h4>
+                                    <p class="card-text font-small-3 mb-0">Lượt Xem</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6 mb-2 mb-md-0">
+                            <div class="media">
+                                <div class="avatar bg-light-info mr-2">
+                                    <div class="avatar-content">
+                                        <i data-feather="dollar-sign" class="avatar-icon"></i>
+                                    </div>
+                                </div>
+                                <div class="media-body my-auto">
+                                    <?php if ($row['price'] != 0) : ?>
+                                        <h4 class="font-weight-bolder mb-0"><?= esc(number_to_amount($row['price'], 2, 'vi_VN')) ?></h4>
+                                        <p class="card-text font-small-3 mb-0">VNĐ</p>
+                                    <?php else : ?>
+                                        <p class="card-text font-small-3 mb-0">Thương Lượng</p>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6 mb-2 mb-md-0">
+                            <div class="media">
+                                <div class="avatar bg-light-danger mr-2">
+                                    <div class="avatar-content">
+                                        <i data-feather="clock" class="avatar-icon"></i>
+                                    </div>
+                                </div>
+                                <div class="media-body my-auto">
+                                    <h4 class="font-weight-bolder mb-0"><?= getDateTime($row['created_at']) ?></h4>
+                                    <p class="card-text font-small-3 mb-0">Ngày Đăng</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <div class="media">
+                                <div class="avatar bg-light-success mr-2">
+                                    <div class="avatar-content">
+                                        <i data-feather="triangle" class="avatar-icon"></i>
+                                    </div>
+                                </div>
+                                <div class="media-body my-auto">
+                                    <h4 class="font-weight-bolder mb-0"><?= showIsTypePostDetail($row['is_type']) ?></h4>
+                                    <p class="card-text font-small-3 mb-0">Hình Thức</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="swiper-gallery swiper-container gallery-top">
                         <div class="swiper-wrapper text-center">
                             <?php foreach ($gallery as $img) : ?>
@@ -125,15 +195,6 @@
                                 </div>
                             <?php endforeach ?>
                         </div>
-                    </div>
-                    <h1 class="card-title text-capitalize mt-3"><?= esc($row['name']) ?></h1>
-                    <div class="my-1 py-25">
-                        <a href="javascript:void(0);">
-                            <div class="badge badge-pill badge-light-danger mr-50">Gaming</div>
-                        </a>
-                        <a href="javascript:void(0);">
-                            <div class="badge badge-pill badge-light-warning">Video</div>
-                        </a>
                     </div>
                     <p class="card-text mb-2">
                         <?= $row['description'] ?>
@@ -159,53 +220,10 @@
                             </p>
                         </div>
                     </div>
-                    <hr class="my-2" />
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <div class="d-flex align-items-center mr-1">
-                                <a href="javascript:void(0);" class="mr-50">
-                                    <i data-feather="message-square" class="font-medium-5 text-body align-middle"></i>
-                                </a>
-                                <a href="javascript:void(0);">
-                                    <div class="text-body align-middle">19.1K</div>
-                                </a>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <a href="javascript:void(0);" class="mr-50">
-                                    <i data-feather="bookmark" class="font-medium-5 text-body align-middle"></i>
-                                </a>
-                                <a href="javascript:void(0);">
-                                    <div class="text-body align-middle">139</div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="dropdown blog-detail-share">
-                            <i data-feather="share-2" class="font-medium-5 text-body cursor-pointer" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a href="javascript:void(0);" class="dropdown-item py-50 px-1">
-                                    <i data-feather="github" class="font-medium-3"></i>
-                                </a>
-                                <a href="javascript:void(0);" class="dropdown-item py-50 px-1">
-                                    <i data-feather="gitlab" class="font-medium-3"></i>
-                                </a>
-                                <a href="javascript:void(0);" class="dropdown-item py-50 px-1">
-                                    <i data-feather="facebook" class="font-medium-3"></i>
-                                </a>
-                                <a href="javascript:void(0);" class="dropdown-item py-50 px-1">
-                                    <i data-feather="twitter" class="font-medium-3"></i>
-                                </a>
-                                <a href="javascript:void(0);" class="dropdown-item py-50 px-1">
-                                    <i data-feather="linkedin" class="font-medium-3"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
-        <!--/ Blog -->
 
-        <!-- Blog Comment -->
         <div class="col-12 mt-1" id="blogComment">
             <h6 class="section-label mt-25">Comment</h6>
             <div class="card">
@@ -232,9 +250,7 @@
                 </div>
             </div>
         </div>
-        <!--/ Blog Comment -->
 
-        <!-- Leave a Blog Comment -->
         <div class="col-12 mt-1">
             <h6 class="section-label mt-25">Leave a Comment</h6>
             <div class="card">

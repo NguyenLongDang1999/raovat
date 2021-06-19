@@ -159,10 +159,12 @@ class Post extends Model
         $model = $this->select('post.name, post.created_at, post.description, post.thumb_list,
             users.fullname, users.gender, users.email, users.phone, post.view, post.id as postId,
             post.contact_address, post.is_type, post.price, post.video, post.video_description, post.featured,
-            users.avatar, post.status, category.id as catId, post.meta_description, post.meta_keyword')
+            users.avatar, post.status, category.id as catId, post.meta_description, post.meta_keyword,
+            district.name as districtName, province.name as provinceName')
             ->join('category', 'category.id = post.cat_id')
             ->join('users', 'users.id = post.user_id')
             ->join('province', 'province.id = post.province_id')
+            ->join('district', 'district.id = post.district_id')
             ->where('users.active', STATUS_ACTIVE)
             ->where('category.slug', $catSlug)
             ->where('post.slug', $postSlug)

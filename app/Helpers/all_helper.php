@@ -22,6 +22,12 @@ function getDateHumanize($date)
     return $time->humanize();
 }
 
+function getDateTime($date)
+{
+    $time = Time::parse($date);
+    return $time->toLocalizedString('dd-MM-yyyy');
+}
+
 function imageManipulation($path, $fileName, $fileNameNew, $folder, $data)
 {
     $image = \Config\Services::image();
@@ -97,6 +103,25 @@ function getOptionIsType()
     ];
 
     return $option;
+}
+
+function showIsTypePostDetail($is_type)
+{
+    $html = '';
+
+    if ($is_type == 0) {
+        $html .= 'Cần Bán';
+    } elseif ($is_type == 1) {
+        $html .= 'Cần Mua';
+    } elseif ($is_type == 2) {
+        $html .= 'Cần Thuê';
+    } elseif ($is_type == 3) {
+        $html .= 'Cho Thuê';
+    } elseif ($is_type == 4) {
+        $html .= 'Khác';
+    }
+
+    return $html;
 }
 
 function diffDate($expire_from, $expire_to)
