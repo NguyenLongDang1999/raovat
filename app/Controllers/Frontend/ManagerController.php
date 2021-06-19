@@ -150,4 +150,93 @@ class ManagerController extends BaseController
 		$html .= '</ul>';
 		return $html;
 	}
+
+	public function edit($id)
+	{
+		$row = $this->post->getDetailPostById($id, user()->id);
+		if (!isset($row)) {
+			return redirect()->route('user.manager.index')->with('error', "Tin đăng này không tồn tại! Vui lòng kiểm tra lại");
+		}
+
+		$data['row'] = $row;
+		$data['province'] = $this->province->getProvince();
+        $category = $this->category->getTreeCategory();
+        unset($category[0]);
+        $data['category'] = $category;
+		return view('frontend/post/create_edit', $data);
+	}
+
+	public function update($id)
+	{
+		$input = $this->request->getPost([
+            'name',
+            'cat_id',
+            'is_type',
+            'province_id',
+            'district_id',
+            'contact_address',
+            'description',
+            'video',
+            'video_description'
+        ]);
+
+		$input['price'] = str_replace(',', '', $this->request->getPost('price'));
+		$input['slug'] = $this->slug->str_slug($input['name']);
+
+		// Upload Multiple Files
+        $files = $this->request->getFiles();
+        $thumb_list = '';
+
+		if ($files) {
+			foreach ($files['photos'] as $file) {
+				if ($file->isValid() && !$file->hasMoved()) {
+					$fileName = $file->getRandomName();
+                    $file->move(PATH_POST_IMAGE, $fileName);
+
+					$parts = explode('.', $fileName);
+                    $parts[count($parts) - 1] = 'webp';
+                    $fileNameNew = implode('.', $parts);
+                    $dataSmall = [
+                        'resizeX' => '350',
+                        'resizeY' => '250',
+                        'ratio' => false,
+                        'masterDim' => 'auto'
+                    ];
+                    imageManipulation(PATH_POST_IMAGE, $fileName, $fileNameNew, 'small', $dataSmall);
+                    $dataMedium = [
+                        'resizeX' => '650',
+                        'resizeY' => '450',
+                        'ratio' => false,
+                        'masterDim' => 'auto'
+                    ];
+                    imageManipulation(PATH_POST_IMAGE, $fileName, $fileNameNew, 'medium', $dataMedium);
+                    $thumb_list .= $fileNameNew . ',';
+					$thumb_list = rtrim($thumb_list, ',');
+					$input['thumb_list'] = $thumb_list;
+				}
+			}
+		}
+		$this->post->update($id, $input);
+		return redirect()->route('user.manager.index')->with('success', "Bài đăng <strong class='text-capitalize'>" . $input['name'] . "</strong> đã được cập nhật thành công.");
+	}
+
+	public function multiStatus()
+	{
+		$input = $this->request->getPost('data');
+		$status = $this->request->getPost('status');
+		parse_str($input, $result);
+
+		if (isset($result['chk']) && is_array($result['chk']) && $status !== null) {
+			if ($this->post->update($result['chk'], ['status' => $status])) {
+				$data['csrf_hash'] = csrf_hash();
+				$data['result'] = true;
+				$data['message'] = '<span class="text-capitalize">Cập nhật trạng thái thành công tất cả dữ liệu được chọn.</span>';
+				return json_encode($data);
+			}
+		}
+
+		$data['csrf_hash'] = csrf_hash();
+		$data['result'] = false;
+		return json_encode($data);
+	}
 }

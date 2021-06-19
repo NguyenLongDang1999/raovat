@@ -118,6 +118,7 @@
                     required: true,
                 },
                 price: {
+                    required: true,
                     number: true
                 },
                 video: {
@@ -146,6 +147,7 @@
                     required: "Quận/Huyện không được bỏ trống.",
                 },
                 price: {
+                    required: "Giá cả không được bỏ trống.",
                     number: "Giá không hợp lệ."
                 },
                 video: {

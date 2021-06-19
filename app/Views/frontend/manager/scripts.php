@@ -118,7 +118,7 @@
                     render: function(data, type, full, meta) {
                         var $id = full['responsive_id'];
                         return (
-                            '<a href="<?= current_url() ?>/edit/' + $id + '" class="item-edit">' +
+                            '<a href="<?= current_url() ?>/s' + $id + '/edit" class="item-edit">' +
                             feather.icons['edit'].toSvg({
                                 class: 'font-small-4'
                             }) +
@@ -257,7 +257,7 @@
                     render: function(data, type, full, meta) {
                         var $id = full['responsive_id'];
                         return (
-                            '<a href="<?= current_url() ?>/edit/' + $id + '" class="item-edit">' +
+                            '<a href="<?= current_url() ?>/s' + $id + '/edit" class="item-edit">' +
                             feather.icons['edit'].toSvg({
                                 class: 'font-small-4'
                             }) +
@@ -396,7 +396,7 @@
                     render: function(data, type, full, meta) {
                         var $id = full['responsive_id'];
                         return (
-                            '<a href="<?= current_url() ?>/edit/' + $id + '" class="item-edit">' +
+                            '<a href="<?= current_url() ?>/s' + $id + '/edit" class="item-edit">' +
                             feather.icons['edit'].toSvg({
                                 class: 'font-small-4'
                             }) +

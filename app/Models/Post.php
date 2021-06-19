@@ -279,4 +279,16 @@ class Post extends Model
 
         return $result;
     }
+
+    public function getDetailPostById($id, $user_id)
+    {
+        $model = $this->select('post.name as postName, post.cat_id, post.is_type, post.price,
+            post.province_id, post.district_id, post.contact_address, post.thumb_list, post.description,
+            post.video, post.video_description, district.name as districtName, post.id')
+            ->join('district', 'district.id = post.district_id')
+            ->where('post.id', $id)
+            ->where('post.user_id', $user_id);
+
+        return $model->first();
+    }
 }

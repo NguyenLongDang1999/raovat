@@ -36,6 +36,28 @@
 <!-- pageJS -->
 <?= $this->section('pageJS') ?>
 <?= $this->include('frontend/post/scripts') ?>
+<script>
+<?php if(isset($row)) : ?>
+let preloaded = [
+    <?php $thumb_list = explode(',', $row['thumb_list']); ?>
+    <?php $no = 1; ?>
+    <?php foreach ($thumb_list as $img) { ?> {
+        id: <?= $no++ ?>,
+        src: '<?= base_url(PATH_POST_MEDIUM_IMAGE . $img) ?>'
+    },
+    <?php } ?>
+];
+var district_id = "<?= $row['district_id'] ?>";
+var district_name = "<?= $row['districtName'] ?>";
+$('.input-images-2').imageUploader({
+    preloaded: preloaded,
+    imagesInputName: 'photos',
+    preloadedInputName: 'old'
+});
+var $option = $("<option selected></option>").val(district_id).text(district_name);
+$('#district_id').append($option).trigger('change');
+<?php endif; ?>
+</script>
 <?= $this->endSection() ?>
 <!-- end pageJS -->
 
@@ -53,7 +75,16 @@
                                     <ol class="breadcrumb d-flex">
                                         <li class="breadcrumb-item"><a href="<?= route_to('user.home.index') ?>">Trang
                                                 Chủ</a></li>
+                                        <?php if (!isset($row)) : ?>
                                         <li class="breadcrumb-item active" aria-current="page">Đăng Tin Rao Vặt</li>
+                                        <?php else : ?>
+                                        <li class="breadcrumb-item">
+                                            <a href="<?= route_to('user.user.manager') ?>">
+                                            Quản Lý Tin Đăng
+                                            </a>
+                                        </li>
+                                        <li class="breadcrumb-item active" aria-current="page">Cập Nhật</li>
+                                        <?php endif; ?>
                                     </ol>
                                 </nav>
                             </div>
@@ -72,7 +103,11 @@
 <div class="blog-edit-wrapper">
     <div class="row">
         <div class="col-12">
+            <?php if (isset($row)) : ?>
+            <?= form_open_multipart(route_to('user.manager.update', $row['id']), ['id' => 'post-form']) ?>
+            <?php else : ?>
             <?= form_open_multipart(route_to('user.post.postPost'), ['id' => 'post-form']) ?>
+            <?php endif; ?>
             <input type="hidden" id="quill_html" name="description" />
             <div class="card">
                 <div class="card-header">
@@ -83,43 +118,43 @@
                         <div class="col-md-6 col-12">
                             <div class="form-group mb-2">
                                 <?= form_label('Tiêu Đề', 'name') ?>
-                                <?= form_input('name', '', ['class' => 'form-control', 'id' => 'name']) ?>
+                                <?= form_input('name', isset($row) ? $row['postName'] : '', ['class' => 'form-control', 'id' => 'name']) ?>
                             </div>
                         </div>
                         <div class="col-md-6 col-12">
                             <div class="form-group mb-2">
                                 <?= form_label('Danh mục', 'cat_id', ['class' => 'form-label']) ?>
-                                <?= form_dropdown('cat_id', $category, '', ['class' => 'form-control select2', 'id' => 'cat_id']) ?>
+                                <?= form_dropdown('cat_id', $category, isset($row['cat_id']) ? $row['cat_id'] : '', ['class' => 'form-control select2', 'id' => 'cat_id']) ?>
                             </div>
                         </div>
                         <div class="col-md-6 col-12">
                             <div class="form-group mb-2">
                                 <?= form_label('Hình Thức', 'is_type', ['class' => 'form-label']) ?>
-                                <?= form_dropdown('is_type', getOptionIsType(), '', ['class' => 'form-control select2', 'id' => 'is_type']) ?>
+                                <?= form_dropdown('is_type', getOptionIsType(), isset($row['is_type']) ? $row['is_type'] : '', ['class' => 'form-control select2', 'id' => 'is_type']) ?>
                             </div>
                         </div>
                         <div class="col-md-6 col-12">
                             <div class="form-group mb-2">
                                 <?= form_label('Giá ', 'price', ['class' => 'form-label']) ?>
-                                <?= form_input('price', '0', ['class' => 'form-control numeral-mask', 'id' => 'price', 'placeholder' => '10,000']) ?>
+                                <?= form_input('price', isset($row['price']) && $row['price'] != 0 ? $row['price'] : '0', ['class' => 'form-control numeral-mask', 'id' => 'price', 'placeholder' => '10,000']) ?>
                             </div>
                         </div>
                         <div class="col-md-6 col-12">
                             <div class="form-group">
                                 <?= form_label('Tỉnh/Thành Phố', 'province_id', ['class' => 'form-label']) ?>
-                                <?= form_dropdown('province_id', $province, '', ['class' => 'form-control select2', 'id' => 'province_id']) ?>
+                                <?= form_dropdown('province_id', $province, isset($row['province_id']) ? $row['province_id'] : '', ['class' => 'form-control select2', 'id' => 'province_id']) ?>
                             </div>
                         </div>
                         <div class="col-md-6 col-12">
                             <div class="form-group">
                                 <?= form_label('Quận/Huyện', 'district_id', ['class' => 'form-label']) ?>
-                                <?= form_dropdown('district_id', [], '', ['class' => 'form-control select2', 'id' => 'district_id']) ?>
+                                <?= form_dropdown('district_id', [], isset($row['district_id']) ? $row['district_id'] : '', ['class' => 'form-control select2', 'id' => 'district_id']) ?>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <?= form_label('Địa Chỉ Liên Hệ', 'contact_address', ['class' => 'form-label text-capitalize']) ?>
-                                <?= form_textarea('contact_address', '', ['class' => 'form-control', 'id' => 'contact_address', 'rows' => 3]) ?>
+                                <?= form_textarea('contact_address', isset($row['contact_address']) ? $row['contact_address'] : '', ['class' => 'form-control', 'id' => 'contact_address', 'rows' => 3]) ?>
                             </div>
                         </div>
                     </div>
@@ -136,7 +171,9 @@
                             <div class="form-group mb-2">
                                 <div id="blog-editor-wrapper">
                                     <div id="blog-editor-container">
-                                        <div class="editor"></div>
+                                        <div class="editor">
+                                            <?= $row['description'] ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -155,7 +192,7 @@
                         <li>Chỉ được đăng tối đa 5 ảnh với 1 tin.</li>
                         <li>Nên dùng hình ảnh liên quan nhất tới tin đăng.</li>
                     </ul>
-                    <div class="input-images-1" style="padding-top: .5rem;"></div>
+                    <div class="input-images-2" style="padding-top: .5rem;"></div>
                 </div>
             </div>
 
@@ -168,19 +205,20 @@
                         <div class="col-md-6 col-12">
                             <div class="form-group mb-2">
                                 <?= form_label('Link Youtube', 'video') ?>
-                                <?= form_input('video', '', ['class' => 'form-control', 'id' => 'video']) ?>
+                                <?= form_input('video', isset($row['video']) ? $row['video'] : '', ['class' => 'form-control', 'id' => 'video']) ?>
                             </div>
                         </div>
                         <div class="col-md-6 col-12">
                             <div class="form-group mb-2">
                                 <?= form_label('Mô Tả Video', 'video_description') ?>
-                                <?= form_input('video_description', '', ['class' => 'form-control', 'id' => 'video_description']) ?>
+                                <?= form_input('video_description', isset($row['video_description']) ? $row['video_description'] : '', ['class' => 'form-control', 'id' => 'video_description']) ?>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <?php if(!isset($row)) : ?>
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title text-capitalize">Chọn gói đăng tin</h4>
@@ -201,6 +239,7 @@
                     </div>
                 </div>
             </div>
+            <?php endif; ?>
 
             <div class="card">
                 <div class="card-header">
