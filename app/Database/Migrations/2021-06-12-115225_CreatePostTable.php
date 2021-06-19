@@ -44,8 +44,8 @@ class CreatePostTable extends Migration
 				'constraint' => '11',
 			],
 			'price'       => [
-				'type'       => 'VARCHAR',
-				'constraint' => '50',
+				'type'       => 'INT',
+				'constraint' => '11',
 				'null' => true,
 				'default'    => '0',
 			],

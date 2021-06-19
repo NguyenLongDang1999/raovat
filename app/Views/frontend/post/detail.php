@@ -225,7 +225,7 @@
         </div>
 
         <div class="col-12 mt-1" id="blogComment">
-            <h6 class="section-label mt-25">Comment</h6>
+            <h6 class="section-label mt-25">Bình luận về bài đăng</h6>
             <div class="card">
                 <div class="card-body">
                     <div class="media">
@@ -252,7 +252,7 @@
         </div>
 
         <div class="col-12 mt-1">
-            <h6 class="section-label mt-25">Leave a Comment</h6>
+            <h6 class="section-label mt-25">Để lại bình luận</h6>
             <div class="card">
                 <div class="card-body">
                     <form action="javascript:void(0);" class="form">

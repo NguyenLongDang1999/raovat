@@ -129,10 +129,26 @@
                 <div class="card ecommerce-card mb-75">
                     <div class="text-center">
                         <a href="<?= route_to('user.post.detail', esc($item['catSlug']), esc($item['slug']), esc($item['id'])) ?>">
-                            <?php if (!empty($img[0])) : ?>
-                                <?= img(PATH_POST_SMALL_IMAGE . $img[0], false, ['class' => 'card-img-top img-fluid h-100', 'width' => 350, 'height' => 250, 'alt' => esc($item['name'])]) ?>
+                            <?php if ($item['featured'] == FEATURED_INACTIVE) : ?>
+                                <?php if (!empty($img[0])) : ?>
+                                    <?= img(PATH_POST_SMALL_IMAGE . $img[0], false, ['class' => 'card-img-top img-fluid h-100', 'width' => 350, 'height' => 250, 'alt' => esc($item['name'])]) ?>
+                                <?php else : ?>
+                                    <?= img('app-assets/images/no-image.jpg', false, ['class' => 'card-img-top img-fluid h-100', 'width' => 350, 'height' => 250, 'alt' => esc($item['name'])]) ?>
+                                <?php endif; ?>
                             <?php else : ?>
-                                <?= img('app-assets/images/no-image.jpg', false, ['class' => 'card-img-top img-fluid h-100', 'width' => 350, 'height' => 250, 'alt' => esc($item['name'])]) ?>
+                                <div class="position-relative">
+                                    <?php if (!empty($img[0])) : ?>
+                                        <?= img(PATH_POST_SMALL_IMAGE . $img[0], false, ['class' => 'card-img-top img-fluid h-100', 'width' => 350, 'height' => 250, 'alt' => esc($item['name'])]) ?>
+                                    <?php else : ?>
+                                        <?= img('app-assets/images/no-image.jpg', false, ['class' => 'card-img-top img-fluid h-100', 'width' => 350, 'height' => 250, 'alt' => esc($item['name'])]) ?>
+                                    <?php endif; ?>
+                                    <div class="position-absolute position-top-0">
+                                        <span class="badge badge-primary p-75">
+                                            <i data-feather="zap" class="mr-25"></i>
+                                            HOT
+                                        </span>
+                                    </div>
+                                </div>
                             <?php endif; ?>
                         </a>
                     </div>
@@ -176,7 +192,7 @@
                     <div class="item-options text-center">
                         <div class="item-wrapper">
                             <div class="item-cost">
-                                <h4 class="item-price"><?= esc(number_to_amount($item['price'], 2, 'vi_VN')) ?></h4>
+                                <h4 class="item-price"><?= $item['price'] != 0 ? esc(number_to_amount($item['price'], 2, 'vi_VN')) : 'Thương Lượng' ?></h4>
                             </div>
                         </div>
                         <a href="javascript:void(0)" class="btn btn-light btn-wishlist">
@@ -258,7 +274,7 @@
                                 </li>
                                 <li>
                                     <div class="custom-control custom-radio">
-                                        <?= form_radio('is_type_filter', '0', (isset($input['is_type_filter']) && $input['is_type_filter'] == 0) ? true : false, ['class' => 'custom-control-input', 'id' => 'is-type-0']) ?>
+                                        <?= form_radio('is_type_filter', '0', (isset($input['is_type_filter']) && $input['is_type_filter'] === 0) ? true : false, ['class' => 'custom-control-input', 'id' => 'is-type-0']) ?>
                                         <?= form_label('Cần Bán', 'is-type-0', ['class' => 'custom-control-label']) ?>
                                     </div>
                                 </li>
@@ -290,77 +306,55 @@
                         </div>
 
                         <div class="brands">
-                            <h6 class="filter-title">Brands</h6>
+                            <h6 class="filter-title">Mặc định</h6>
                             <ul class="list-unstyled brand-list">
                                 <li>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="productBrand1" />
-                                        <label class="custom-control-label" for="productBrand1">Insignia™</label>
+                                    <div class="custom-control custom-radio">
+                                        <?= form_radio('sort_filter', '0', true, ['class' => 'custom-control-input', 'id' => 'sort-filter-0']) ?>
+                                        <?= form_label('Ngày Đăng Mới Nhất + VIP (Mặc Định)', 'sort-filter-0', ['class' => 'custom-control-label']) ?>
                                     </div>
-                                    <span>746</span>
                                 </li>
                                 <li>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="productBrand2" checked />
-                                        <label class="custom-control-label" for="productBrand2">Samsung</label>
+                                    <div class="custom-control custom-radio">
+                                        <?= form_radio('sort_filter', '1', (isset($input['sort_filter']) && $input['sort_filter'] == 1) ? true : false, ['class' => 'custom-control-input', 'id' => 'sort-filter-1']) ?>
+                                        <?= form_label('Ngày Đăng Cũ Nhất', 'sort-filter-1', ['class' => 'custom-control-label']) ?>
                                     </div>
-                                    <span>633</span>
                                 </li>
                                 <li>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="productBrand3" />
-                                        <label class="custom-control-label" for="productBrand3">Metra</label>
+                                    <div class="custom-control custom-radio">
+                                        <?= form_radio('sort_filter', '2', (isset($input['sort_filter']) && $input['sort_filter'] == 2) ? true : false, ['class' => 'custom-control-input', 'id' => 'sort-filter-2']) ?>
+                                        <?= form_label('Lượt Xem (Thấp -> Cao)', 'sort-filter-2', ['class' => 'custom-control-label']) ?>
                                     </div>
-                                    <span>591</span>
                                 </li>
                                 <li>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="productBrand4" />
-                                        <label class="custom-control-label" for="productBrand4">HP</label>
+                                    <div class="custom-control custom-radio">
+                                        <?= form_radio('sort_filter', '3', (isset($input['sort_filter']) && $input['sort_filter'] == 3) ? true : false, ['class' => 'custom-control-input', 'id' => 'sort-filter-3']) ?>
+                                        <?= form_label('Lượt Xem (Cao -> Thấp)', 'sort-filter-3', ['class' => 'custom-control-label']) ?>
                                     </div>
-                                    <span>530</span>
                                 </li>
                                 <li>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="productBrand5" checked />
-                                        <label class="custom-control-label" for="productBrand5">Apple</label>
+                                    <div class="custom-control custom-radio">
+                                        <?= form_radio('sort_filter', '4', (isset($input['sort_filter']) && $input['sort_filter'] == 4) ? true : false, ['class' => 'custom-control-input', 'id' => 'sort-filter-4']) ?>
+                                        <?= form_label('Giá Cả (Thấp -> Cao)', 'sort-filter-4', ['class' => 'custom-control-label']) ?>
                                     </div>
-                                    <span>442</span>
                                 </li>
                                 <li>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="productBrand6" />
-                                        <label class="custom-control-label" for="productBrand6">GE</label>
+                                    <div class="custom-control custom-radio">
+                                        <?= form_radio('sort_filter', '5', (isset($input['sort_filter']) && $input['sort_filter'] == 5) ? true : false, ['class' => 'custom-control-input', 'id' => 'sort-filter-5']) ?>
+                                        <?= form_label('Giá Cả (Cao -> Thấp)', 'sort-filter-5', ['class' => 'custom-control-label']) ?>
                                     </div>
-                                    <span>394</span>
                                 </li>
                                 <li>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="productBrand7" />
-                                        <label class="custom-control-label" for="productBrand7">Sony</label>
+                                    <div class="custom-control custom-radio">
+                                        <?= form_radio('sort_filter', '6', (isset($input['sort_filter']) && $input['sort_filter'] == 6) ? true : false, ['class' => 'custom-control-input', 'id' => 'sort-filter-6']) ?>
+                                        <?= form_label('Tên (A - Z)', 'sort-filter-6', ['class' => 'custom-control-label']) ?>
                                     </div>
-                                    <span>350</span>
                                 </li>
                                 <li>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="productBrand8" />
-                                        <label class="custom-control-label" for="productBrand8">Incipio</label>
+                                    <div class="custom-control custom-radio">
+                                        <?= form_radio('sort_filter', '7', (isset($input['sort_filter']) && $input['sort_filter'] == 7) ? true : false, ['class' => 'custom-control-input', 'id' => 'sort-filter-7']) ?>
+                                        <?= form_label('Tên (Z - A)', 'sort-filter-7', ['class' => 'custom-control-label']) ?>
                                     </div>
-                                    <span>320</span>
-                                </li>
-                                <li>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="productBrand9" />
-                                        <label class="custom-control-label" for="productBrand9">KitchenAid</label>
-                                    </div>
-                                    <span>318</span>
-                                </li>
-                                <li>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="productBrand10" />
-                                        <label class="custom-control-label" for="productBrand10">Whirlpool</label>
-                                    </div>
-                                    <span>298</span>
                                 </li>
                             </ul>
                         </div>

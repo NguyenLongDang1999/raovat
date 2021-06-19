@@ -52,7 +52,6 @@ class PostController extends BaseController
             'name',
             'cat_id',
             'is_type',
-            'price',
             'province_id',
             'district_id',
             'contact_address',
@@ -61,6 +60,7 @@ class PostController extends BaseController
             'video_description'
         ]);
 
+        $input['price'] = str_replace(',', '', $this->request->getPost('price'));
         // Date expire
         $daterange = $this->request->getPost('expire');
         $dates = explode(" - ", $daterange);

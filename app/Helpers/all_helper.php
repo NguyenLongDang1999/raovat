@@ -133,3 +133,38 @@ function diffDate($expire_from, $expire_to)
 
     return $diff->getDays();
 }
+
+function number_to_amount($num, int $precision = 0, string $locale = null)
+{
+    try {
+        $num = 0 + str_replace(',', '', $num);
+    } catch (ErrorException $ee) {
+        return false;
+    }
+
+    $suffix = '';
+
+    $generalLocale = $locale;
+    if (!empty($locale) && ($underscorePos = strpos($locale, '_'))) {
+        $generalLocale = substr($locale, 0, $underscorePos);
+    }
+
+    if ($num >= 1000000000000000) {
+        $suffix = lang('Number.quadrillion', [], $generalLocale);
+        $num    = round(($num / 1000000000000000), $precision);
+    } elseif ($num >= 1000000000000) {
+        $suffix = lang('Number.trillion', [], $generalLocale);
+        $num    = round(($num / 1000000000000), $precision);
+    } elseif ($num > 1000000000) {
+        $suffix = lang('Number.billion', [], $generalLocale);
+        $num    = round(($num / 1000000000), $precision);
+    } elseif ($num > 1000000) {
+        $suffix = lang('Number.million', [], $generalLocale);
+        $num    = round(($num / 1000000), $precision);
+    } elseif ($num >= 1000) {
+        $suffix = lang('Number.thousand', [], $generalLocale);
+        $num    = round(($num / 1000), $precision);
+    }
+
+    return format_number($num, $precision, $locale, ['after' => $suffix]);
+}
