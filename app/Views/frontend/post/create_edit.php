@@ -54,7 +54,10 @@ var district_name = "<?= $row['districtName'] ?>";
 $('.input-images-2').imageUploader({
     preloaded: preloaded,
     imagesInputName: 'photos',
-    preloadedInputName: 'old'
+    preloadedInputName: 'old',
+    maxFiles: 5,
+    maxSize: 10 * 1024 * 1024,
+    extensions: [".jpg", ".jpeg", ".png", ".gif"],
 });
 var $option = $("<option selected></option>").val(district_id).text(district_name);
 $('#district_id').append($option).trigger('change');
