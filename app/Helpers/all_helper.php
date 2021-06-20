@@ -22,6 +22,15 @@ function getDateHumanize($date)
     return $time->humanize();
 }
 
+function video_youtube($link)
+{
+    $video_id = explode("?v=", $link);
+    $video_id = $video_id[1];
+    $thumbnail = "http://img.youtube.com/vi/" . $video_id . "/maxresdefault.jpg";
+
+    return $thumbnail;
+}
+
 function getDateTime($date)
 {
     $time = Time::parse($date);

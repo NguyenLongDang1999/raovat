@@ -225,6 +225,23 @@
             </div>
         </div>
 
+        <?php if ($row['video'] != '' && $row['video_description'] != '') : ?>
+            <div class="col-12 mt-1" id="blogVideo">
+                <h6 class="section-label mt-25">Video</h6>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="title mb-2">
+                            <p><?= esc($row['video_description']) ?></p>
+
+                            <a data-fancybox href="<?= esc($row['video']) ?>">
+                                <?= img(video_youtube(esc($row['video'])), false, ['class' => 'card-img-top img-fluid']) ?>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+
         <div class="col-12 mt-1" id="blogComment">
             <h6 class="section-label mt-25">Bình luận về bài đăng</h6>
             <div class="card">
