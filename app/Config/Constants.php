@@ -103,3 +103,5 @@ defined('BANNER_MIDDLE') || define('BANNER_MIDDLE', '1');
 defined('BANNER_BOTTOM') || define('BANNER_BOTTOM', '2');
 defined('ADMINISTRATOR') || define('ADMINISTRATOR', '1');
 defined('USER') || define('USER', '2');
+defined('GENDER_FEMALE')            || define('GENDER_FEMALE', 0);
+defined('GENDER_MALE')              || define('GENDER_MALE', 1);

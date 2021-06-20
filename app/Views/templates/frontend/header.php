@@ -54,7 +54,7 @@
                     <?php $img = img(PATH_USER_IMAGE . user()->avatar, false, ['class' => 'round', 'alt' => esc(user()->fullname), 'height' => '40', 'width' => '40']) ?>
                 <?php endif ?>
                 <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder text-capitalize"><?= user()->fullname ?></span><span class="user-status">Admin</span></div><span class="avatar"><?= $img ?><span class="avatar-status-online"></span></span>
+                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder text-capitalize"><?= user()->fullname ?></span><span class="user-status"><?= user()->gender == GENDER_FEMALE ? 'Nữ' : 'Nam' ?></span></div><span class="avatar"><?= $img ?></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user">
                         <a class="dropdown-item <?= getMenuUserActive(route_to('user.user.myProfile')) ?>" href="<?= route_to('user.user.myProfile') ?>">

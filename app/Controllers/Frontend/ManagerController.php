@@ -44,7 +44,7 @@ class ManagerController extends BaseController
 		$data['aaData'] = array();
 		if (count($results['model']) > 0) {
 			foreach ($results['model'] as $row) {
-				$price = ($row['price'] == 0) ? 'Thương Lượng' : $row['price'] . ' VNĐ';
+				$price = ($row['price'] != 0) ? esc(number_to_amount($row['price'], 2, 'vi_VN')) : 'Thương Lượng' . ' VNĐ';
 				$diffDate = diffDate($row['expire_from'], $row['expire_to']);
 				$img = explode(',', $row['thumb_list']);
 				$path = '';
@@ -83,7 +83,7 @@ class ManagerController extends BaseController
 		$data['aaData'] = array();
 		if (count($results['model']) > 0) {
 			foreach ($results['model'] as $row) {
-				$price = ($row['price'] == 0) ? 'Thương Lượng' : $row['price'] . ' VNĐ';
+				$price = ($row['price'] != 0) ? esc(number_to_amount($row['price'], 2, 'vi_VN')) : 'Thương Lượng' . ' VNĐ';
 				$diffDate = diffDate($row['expire_from'], $row['expire_to']);
 				$img = explode(',', $row['thumb_list']);
 				$path = '';
@@ -120,7 +120,7 @@ class ManagerController extends BaseController
 		$data['aaData'] = array();
 		if (count($results['model']) > 0) {
 			foreach ($results['model'] as $row) {
-				$price = ($row['price'] == 0) ? 'Thương Lượng' : $row['price'] . ' VNĐ';
+				$price = ($row['price'] != 0) ? esc(number_to_amount($row['price'], 2, 'vi_VN')) : 'Thương Lượng' . ' VNĐ';
 				$diffDate = diffDate($row['expire_from'], $row['expire_to']);
 				$img = explode(',', $row['thumb_list']);
 				$path = '';

@@ -86,17 +86,51 @@
                     }
                 },
                 {
+                    targets: 5,
+                    render: function(data, type, full, meta) {
+                        var $featured_number = full['featured'];
+                        var $featured = {
+                            1: {
+                                title: 'VIP',
+                                class: 'badge-light-primary'
+                            },
+                            0: {
+                                title: 'Bình Thường',
+                                class: ' badge-light-danger'
+                            },
+                        };
+                        if (typeof $featured[$featured_number] === 'undefined') {
+                            return data;
+                        }
+                        return (
+                            '<span class="badge badge-pill ' +
+                            $featured[$featured_number].class +
+                            '">' +
+                            $featured[$featured_number].title +
+                            '</span>'
+                        );
+                    }
+                },
+                {
                     targets: 6,
                     render: function(data, type, full, meta) {
                         var $status_number = full['status'];
                         var $status = {
                             1: {
-                                title: 'ON',
+                                title: 'Đang Đăng',
                                 class: 'badge-light-primary'
                             },
                             0: {
-                                title: 'OFF',
+                                title: 'Chưa Duyệt',
                                 class: ' badge-light-danger'
+                            },
+                            2: {
+                                title: 'Không Được Duyệt',
+                                class: ' badge-light-danger'
+                            },
+                            3: {
+                                title: 'Đang Ẩn',
+                                class: ' badge-light-warning'
                             },
                         };
                         if (typeof $status[$status_number] === 'undefined') {
@@ -230,11 +264,11 @@
                         var $featured_number = full['featured'];
                         var $featured = {
                             1: {
-                                title: 'ON',
+                                title: 'VIP',
                                 class: 'badge-light-primary'
                             },
                             0: {
-                                title: 'OFF',
+                                title: 'Bình Thường',
                                 class: ' badge-light-danger'
                             },
                         };
@@ -369,11 +403,11 @@
                         var $featured_number = full['featured'];
                         var $featured = {
                             1: {
-                                title: 'ON',
+                                title: 'VIP',
                                 class: 'badge-light-primary'
                             },
                             0: {
-                                title: 'OFF',
+                                title: 'Bình Thường',
                                 class: ' badge-light-danger'
                             },
                         };

@@ -102,6 +102,15 @@ Quản lý tin đăng cá nhân
                             <?= form_close() ?>
                         </div>
                         <div class="tab-pane active" id="manager-active" role="tabpanel" aria-labelledby="manager-active-tab" aria-expanded="false">
+                            <div class="mb-1">
+                                <button type="button" class="btn btn-warning glow confirm-text btn-status" data-status="3">
+                                    Ẩn Tin
+                                </button>
+
+                                <button type="button" class="btn btn-primary glow confirm-text btn-status" data-status="1">
+                                    Tiếp Tục Đăng
+                                </button>
+                            </div>
                             <?= form_open('', ['id' => 'frmTbList']) ?>
                             <table class="dt-advanced-search dt-responsive table table-white-space" id="get-post-list">
                                 <thead>
