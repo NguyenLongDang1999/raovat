@@ -22,6 +22,7 @@
 <?= $this->section('vendorCSS') ?>
 <?= link_tag('app-assets/vendors/css/extensions/swiper.min.css') ?>
 <?= link_tag('app-assets/vendors/css/fancybox/jquery.fancybox.min.css') ?>
+<?= link_tag('app-assets/css/plugins/forms/form-validation.min.css') ?>
 <?= $this->endSection() ?>
 <!-- end vendorCSS -->
 
@@ -36,6 +37,7 @@
 <?= $this->section('vendorJS') ?>
 <?= script_tag('app-assets/vendors/js/extensions/swiper.min.js') ?>
 <?= script_tag('app-assets/vendors/js/fancybox/jquery.fancybox.min.js') ?>
+<?= script_tag('app-assets/vendors/js/forms/validation/jquery.validate.min.js') ?>
 <?= $this->endSection() ?>
 <!-- end vendorJS -->
 
@@ -61,6 +63,83 @@
             thumbs: {
                 swiper: galleryThumbs
             }
+        });
+    });
+
+    $(function() {
+        'use strict';
+
+        var commentForm = $('#comment-form');
+
+        if (commentForm.length) {
+            commentForm.validate({
+                rules: {
+                    body: {
+                        required: true,
+                    },
+                },
+                messages: {
+                    body: {
+                        required: "Nội dung bình luận không được bỏ trống.",
+                    },
+                },
+            });
+        }
+
+        $(commentForm).on('submit', function(event) {
+            event.preventDefault();
+            var body = $('#body').val();
+            var post_id = $('input[name=post_id]').val();
+            var comment_id = $('input[name=comment_id]').val();
+
+            $.ajax({
+                url: "<?= route_to('user.comment.postComment') ?>",
+                method: "POST",
+                data: {
+                    body: body,
+                    post_id: post_id,
+                    comment_id: comment_id,
+                },
+                dataType: "JSON",
+                success: function(response) {
+                    if (!response.error) {
+                        $(commentForm)[0].reset();
+                        $('#message').html(response.message);
+                        $('input[name=comment_id]').val();
+                        showComments();
+                    } else if (response.error) {
+                        $('#message').html(response.message);
+                    }
+                }
+            })
+        });
+
+        showComments();
+
+        function showComments() {
+            var post_id = $('input[name=post_id]').val();
+            var comment_id = $('input[name=comment_id]').val();
+
+            $.ajax({
+                url: "<?= route_to('user.comment.showComments') ?>",
+                method: "POST",
+                data: {
+                    post_id: post_id,
+                    comment_id: comment_id,
+                },
+                dataType: "JSON",
+                success: function(data) {
+                    $('#show-comment').html(data.html);
+                }
+            })
+        }
+
+        $(document).on('click', '.reply', function() {
+            var comment_id = $(this).attr("id");
+            var comment_body = $(this).data("body");
+            $('input[name=comment_id]').val(comment_id);
+            $('textarea[name=body]').focus();
+            $('#reply-body').text('Trả Lời Bình Luận: ' + comment_body);
         });
     });
 </script>
@@ -175,29 +254,29 @@
                         </div>
                     </div>
                     <?php if (!empty($gallery[0])) : ?>
-                    <div class="swiper-gallery swiper-container gallery-top">
-                        <div class="swiper-wrapper text-center">
-                            <?php foreach ($gallery as $img) : ?>
-                                <div class="swiper-slide">
-                                    <a href="<?= base_url(PATH_POST_MEDIUM_IMAGE . $img) ?>" data-fancybox="gallery">
-                                        <?= img(PATH_POST_MEDIUM_IMAGE . $img, false, ['class' => 'img-fluid', 'alt' => esc($row['name'])]) ?>
-                                    </a>
-                                </div>
-                            <?php endforeach ?>
+                        <div class="swiper-gallery swiper-container gallery-top">
+                            <div class="swiper-wrapper text-center">
+                                <?php foreach ($gallery as $img) : ?>
+                                    <div class="swiper-slide">
+                                        <a href="<?= base_url(PATH_POST_MEDIUM_IMAGE . $img) ?>" data-fancybox="gallery">
+                                            <?= img(PATH_POST_MEDIUM_IMAGE . $img, false, ['class' => 'img-fluid', 'alt' => esc($row['name'])]) ?>
+                                        </a>
+                                    </div>
+                                <?php endforeach ?>
+                            </div>
+                            <!-- Add Arrows -->
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
                         </div>
-                        <!-- Add Arrows -->
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
-                    </div>
-                    <div class="swiper-container gallery-thumbs">
-                        <div class="swiper-wrapper mt-25">
-                            <?php foreach ($gallery as $img) : ?>
-                                <div class="swiper-slide">
-                                    <?= img(PATH_POST_SMALL_IMAGE . $img, false, ['class' => 'img-fluid', 'alt' => esc($row['name'])]) ?>
-                                </div>
-                            <?php endforeach ?>
+                        <div class="swiper-container gallery-thumbs">
+                            <div class="swiper-wrapper mt-25">
+                                <?php foreach ($gallery as $img) : ?>
+                                    <div class="swiper-slide">
+                                        <?= img(PATH_POST_SMALL_IMAGE . $img, false, ['class' => 'img-fluid', 'alt' => esc($row['name'])]) ?>
+                                    </div>
+                                <?php endforeach ?>
+                            </div>
                         </div>
-                    </div>
                     <?php endif; ?>
                     <p class="card-text mb-2">
                         <?= $row['description'] ?>
@@ -275,37 +354,40 @@
             <h6 class="section-label mt-25">Để lại bình luận</h6>
             <div class="card">
                 <div class="card-body">
-                    <form action="javascript:void(0);" class="form">
+                    <?php if (logged_in()) : ?>
+                        <?= form_open('', ['id' => 'comment-form', 'class' => 'form']) ?>
+                        <?= form_hidden('post_id', $row['postId']) ?>
+                        <?= form_hidden('comment_id', 0) ?>
+                        <span id="message"></span>
+                        <span id="reply-body" class="text-primary"></span>
+
                         <div class="row">
                             <div class="col-sm-6 col-12">
                                 <div class="form-group mb-2">
-                                    <input type="text" class="form-control" placeholder="Name" />
+                                    <?= form_label('Họ và tên', 'fullname', ['class' => 'form-label text-capitalize']) ?>
+                                    <?= form_input('fullname', user()->fullname, ['class' => 'form-control text-capitalize', 'id' => 'fullname', 'disabled' => 'disabled']) ?>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-12">
                                 <div class="form-group mb-2">
-                                    <input type="email" class="form-control" placeholder="Email" />
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-12">
-                                <div class="form-group mb-2">
-                                    <input type="url" class="form-control" placeholder="Website" />
+                                    <?= form_label('E-mail', 'email', ['class' => 'form-label text-capitalize']) ?>
+                                    <?= form_input('email', user()->email, ['class' => 'form-control', 'id' => 'email', 'disabled' => 'disabled']) ?>
                                 </div>
                             </div>
                             <div class="col-12">
-                                <textarea class="form-control mb-2" rows="4" placeholder="Comment"></textarea>
-                            </div>
-                            <div class="col-12">
-                                <div class="custom-control custom-checkbox mb-2">
-                                    <input type="checkbox" class="custom-control-input" id="blogCheckbox" />
-                                    <label class="custom-control-label" for="blogCheckbox">Save my name, email, and website in this browser for the next time I comment.</label>
+                                <div class="form-group">
+                                    <?= form_label('Nội dung', 'body', ['class' => 'form-label text-capitalize']) ?>
+                                    <?= form_textarea('body', '', ['class' => 'form-control mb-2', 'rows' => 4, 'id' => 'body']) ?>
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary">Post Comment</button>
+                                <?= form_submit(NULL, 'Đăng Bình Luận', ['class' => 'btn btn-primary']) ?>
                             </div>
                         </div>
-                    </form>
+                        <?= form_close() ?>
+                    <?php else : ?>
+                        <p class="text-danger m-0 text-center">Bạn cần đăng nhập để có thể đăng bình luận cá nhân.</p>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
