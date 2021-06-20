@@ -174,6 +174,7 @@
                             </div>
                         </div>
                     </div>
+                    <?php if (!empty($gallery[0])) : ?>
                     <div class="swiper-gallery swiper-container gallery-top">
                         <div class="swiper-wrapper text-center">
                             <?php foreach ($gallery as $img) : ?>
@@ -197,6 +198,7 @@
                             <?php endforeach ?>
                         </div>
                     </div>
+                    <?php endif; ?>
                     <p class="card-text mb-2">
                         <?= $row['description'] ?>
                     </p>

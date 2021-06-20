@@ -41,11 +41,13 @@
 let preloaded = [
     <?php $thumb_list = explode(',', $row['thumb_list']); ?>
     <?php $no = 1; ?>
+    <?php if (!empty($thumb_list[0])) : ?>
     <?php foreach ($thumb_list as $img) { ?> {
         id: <?= $no++ ?>,
         src: '<?= base_url(PATH_POST_MEDIUM_IMAGE . $img) ?>'
     },
     <?php } ?>
+    <?php endif; ?>
 ];
 var district_id = "<?= $row['district_id'] ?>";
 var district_name = "<?= $row['districtName'] ?>";

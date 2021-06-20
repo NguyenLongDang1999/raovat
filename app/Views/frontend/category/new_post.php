@@ -338,7 +338,7 @@ Bài đăng rao vặt mới nhất tại <?= base_url() ?>
                         </ul>
                     </div>
 
-                    <?= form_submit(NULL, 'Submit', ['class' => 'btn btn-block btn-primary']) ?>
+                    <?= form_button(['class' => 'btn btn-primary btn-block', 'type' => 'submit', 'content' => 'Submit']) ?>
                 </div>
                 <?= form_close() ?>
             </div>

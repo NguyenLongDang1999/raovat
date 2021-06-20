@@ -45,14 +45,20 @@ class ManagerController extends BaseController
 		if (count($results['model']) > 0) {
 			foreach ($results['model'] as $row) {
 				$price = ($row['price'] == 0) ? 'Thương Lượng' : $row['price'] . ' VNĐ';
-				$img = explode(',', $row['thumb_list']);
 				$diffDate = diffDate($row['expire_from'], $row['expire_to']);
+				$img = explode(',', $row['thumb_list']);
+				$path = '';
+				if (!empty($img[0])) {
+					$path .= PATH_POST_SMALL_IMAGE . $img[0];
+				} else {
+					$path .= 'app-assets/images/no-image.jpg';
+				}
 
 				$data['aaData'][] = [
 					'checkbox' => '',
 					'responsive_id' => '',
 					'responsive_id' => esc($row['id']),
-					'image' => img(PATH_POST_SMALL_IMAGE . $img[0], false, ['class' => 'img-fluid', 'alt' => esc($row['name']), 'width' => 150, 'height' => 150]),
+					'image' => img($path, false, ['class' => 'img-fluid', 'alt' => esc($row['name']), 'width' => 150, 'height' => 150]),
 					'infoPost' => $this->infoPost($row['name'], $row['catName'], $row['provinceName'], $price),
 					'infoDate' => $this->infoDate($diffDate, $row['expire_from'], $row['expire_to']),
 					'featured' => esc($row['featured']),
@@ -78,13 +84,19 @@ class ManagerController extends BaseController
 		if (count($results['model']) > 0) {
 			foreach ($results['model'] as $row) {
 				$price = ($row['price'] == 0) ? 'Thương Lượng' : $row['price'] . ' VNĐ';
-				$img = explode(',', $row['thumb_list']);
 				$diffDate = diffDate($row['expire_from'], $row['expire_to']);
+				$img = explode(',', $row['thumb_list']);
+				$path = '';
+				if (!empty($img[0])) {
+					$path .= PATH_POST_SMALL_IMAGE . $img[0];
+				} else {
+					$path .= 'app-assets/images/no-image.jpg';
+				}
 
 				$data['aaData'][] = [
 					'responsive_id' => '',
 					'responsive_id' => esc($row['id']),
-					'image' => img(PATH_POST_SMALL_IMAGE . $img[0], false, ['class' => 'img-fluid', 'alt' => esc($row['name']), 'width' => 150, 'height' => 150]),
+					'image' => img($path, false, ['class' => 'img-fluid', 'alt' => esc($row['name']), 'width' => 150, 'height' => 150]),
 					'infoPost' => $this->infoPost($row['name'], $row['catName'], $row['provinceName'], $price),
 					'infoDate' => $this->infoDate($diffDate, $row['expire_from'], $row['expire_to']),
 					'featured' => esc($row['featured']),
@@ -109,14 +121,20 @@ class ManagerController extends BaseController
 		if (count($results['model']) > 0) {
 			foreach ($results['model'] as $row) {
 				$price = ($row['price'] == 0) ? 'Thương Lượng' : $row['price'] . ' VNĐ';
-				$img = explode(',', $row['thumb_list']);
 				$diffDate = diffDate($row['expire_from'], $row['expire_to']);
+				$img = explode(',', $row['thumb_list']);
+				$path = '';
+				if (!empty($img[0])) {
+					$path .= PATH_POST_SMALL_IMAGE . $img[0];
+				} else {
+					$path .= 'app-assets/images/no-image.jpg';
+				}
 
 				$data['aaData'][] = [
 					'checkbox' => '',
 					'responsive_id' => '',
 					'responsive_id' => esc($row['id']),
-					'image' => img(PATH_POST_SMALL_IMAGE . $img[0], false, ['class' => 'img-fluid', 'alt' => esc($row['name']), 'width' => 150, 'height' => 150]),
+					'image' => img($path, false, ['class' => 'img-fluid', 'alt' => esc($row['name']), 'width' => 150, 'height' => 150]),
 					'infoPost' => $this->infoPost($row['name'], $row['catName'], $row['provinceName'], $price),
 					'infoDate' => $this->infoDate($diffDate, $row['expire_from'], $row['expire_to']),
 					'featured' => esc($row['featured']),
