@@ -173,7 +173,7 @@ class ManagerController extends BaseController
 	{
 		$row = $this->post->getDetailPostById($id, user()->id);
 		if (!isset($row)) {
-			return redirect()->route('user.manager.index')->with('error', "Tin đăng này không tồn tại! Vui lòng kiểm tra lại");
+			return redirect()->route('user.user.manager')->with('error', "Tin đăng này không tồn tại! Vui lòng kiểm tra lại");
 		}
 
 		$data['row'] = $row;
@@ -235,7 +235,7 @@ class ManagerController extends BaseController
 			}
 		}
 		$this->post->update($id, $input);
-		return redirect()->route('user.manager.index')->with('success', "Bài đăng <strong class='text-capitalize'>" . $input['name'] . "</strong> đã được cập nhật thành công.");
+		return redirect()->route('user.user.manager')->with('success', "Bài đăng <strong class='text-capitalize'>" . $input['name'] . "</strong> đã được cập nhật thành công.");
 	}
 
 	public function multiStatus()
