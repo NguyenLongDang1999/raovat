@@ -50,6 +50,10 @@ $routes->group('', ['namespace' => 'App\Controllers\Frontend'], function ($route
 	$routes->get('danh-muc-dang-tin', 'CategoryController::index', ['as' => 'user.category.index']);
 	$routes->get('tin-dang-moi-nhat', 'CategoryController::newPost', ['as' => 'user.category.new_post']);
 
+	// Comment
+	$routes->post('postComment', 'CommentController::postComment', ['as' => 'user.comment.postComment']);
+	$routes->post('showComments', 'CommentController::showComments', ['as' => 'user.comment.showComments']);
+
 	// Manager
 	$routes->get('quan-ly-tin-dang', 'ManagerController::index', ['as' => 'user.user.manager', 'filter' => 'login']);
 	$routes->get('quan-ly-tin-dang/s(:num)/edit', 'ManagerController::edit/$1', ['as' => 'user.manager.edit', 'filter' => 'login']);
