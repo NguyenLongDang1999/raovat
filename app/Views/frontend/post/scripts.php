@@ -97,6 +97,8 @@
         document.getElementById("quill_html").value = blogEditor.root.innerHTML;
     });
 
+    document.getElementById("quill_html").value = blogEditor.root.innerHTML;
+
     if (postForm.length) {
         postForm.validate({
             ignore: ":hidden, [contenteditable='true']:not([name])",

@@ -178,62 +178,73 @@ class ManagerController extends BaseController
 
 		$data['row'] = $row;
 		$data['province'] = $this->province->getProvince();
-        $category = $this->category->getTreeCategory();
-        unset($category[0]);
-        $data['category'] = $category;
+		$category = $this->category->getTreeCategory();
+		unset($category[0]);
+		$data['category'] = $category;
 		return view('frontend/post/create_edit', $data);
 	}
 
 	public function update($id)
 	{
 		$input = $this->request->getPost([
-            'name',
-            'cat_id',
-            'is_type',
-            'province_id',
-            'district_id',
-            'contact_address',
-            'description',
-            'video',
-            'video_description'
-        ]);
+			'name',
+			'cat_id',
+			'is_type',
+			'province_id',
+			'district_id',
+			'contact_address',
+			'description',
+			'video',
+			'video_description'
+		]);
 
 		$input['price'] = str_replace(',', '', $this->request->getPost('price'));
 		$input['slug'] = $this->slug->str_slug($input['name']);
 
+		$row = $this->post->getDetailPostById($id, user()->id);
+
 		// Upload Multiple Files
-        $files = $this->request->getFiles();
-        $thumb_list = '';
+		$files = $this->request->getFiles();
+		$thumb_list = '';
 
 		if ($files) {
 			foreach ($files['photos'] as $file) {
 				if ($file->isValid() && !$file->hasMoved()) {
 					$fileName = $file->getRandomName();
-                    $file->move(PATH_POST_IMAGE, $fileName);
+					$file->move(PATH_POST_IMAGE, $fileName);
 
 					$parts = explode('.', $fileName);
-                    $parts[count($parts) - 1] = 'webp';
-                    $fileNameNew = implode('.', $parts);
-                    $dataSmall = [
-                        'resizeX' => '350',
-                        'resizeY' => '250',
-                        'ratio' => false,
-                        'masterDim' => 'auto'
-                    ];
-                    imageManipulation(PATH_POST_IMAGE, $fileName, $fileNameNew, 'small', $dataSmall);
-                    $dataMedium = [
-                        'resizeX' => '650',
-                        'resizeY' => '450',
-                        'ratio' => false,
-                        'masterDim' => 'auto'
-                    ];
-                    imageManipulation(PATH_POST_IMAGE, $fileName, $fileNameNew, 'medium', $dataMedium);
-                    $thumb_list .= $fileNameNew . ',';
-					$thumb_list = rtrim($thumb_list, ',');
-					$input['thumb_list'] = $thumb_list;
+					$parts[count($parts) - 1] = 'webp';
+					$fileNameNew = implode('.', $parts);
+					$dataSmall = [
+						'resizeX' => '350',
+						'resizeY' => '250',
+						'ratio' => false,
+						'masterDim' => 'auto'
+					];
+					imageManipulation(PATH_POST_IMAGE, $fileName, $fileNameNew, 'small', $dataSmall);
+					$dataMedium = [
+						'resizeX' => '650',
+						'resizeY' => '450',
+						'ratio' => false,
+						'masterDim' => 'auto'
+					];
+					imageManipulation(PATH_POST_IMAGE, $fileName, $fileNameNew, 'medium', $dataMedium);
+					$thumb_list .= $fileNameNew . ',';
+
+					$gallery = explode(',', $row['thumb_list']);
+					deleteImage(PATH_POST_IMAGE, $fileName);
+					deleteMultiplePostImage(PATH_POST_SMALL_IMAGE, $gallery);
+					deleteMultiplePostImage(PATH_POST_MEDIUM_IMAGE, $gallery);
+				} else {
+					$thumb_list .= $row['thumb_list'];
 				}
 			}
+
+			$thumb_list = rtrim($thumb_list, ',');
+			$input['thumb_list'] = $thumb_list;
 		}
+
 		$this->post->update($id, $input);
 		return redirect()->route('user.user.manager')->with('success', "Bài đăng <strong class='text-capitalize'>" . $input['name'] . "</strong> đã được cập nhật thành công.");
 	}
@@ -246,14 +257,12 @@ class ManagerController extends BaseController
 
 		if (isset($result['chk']) && is_array($result['chk']) && $status !== null) {
 			if ($this->post->update($result['chk'], ['status' => $status])) {
-				$data['csrf_hash'] = csrf_hash();
 				$data['result'] = true;
 				$data['message'] = '<span class="text-capitalize">Cập nhật trạng thái thành công tất cả dữ liệu được chọn.</span>';
 				return json_encode($data);
 			}
 		}
 
-		$data['csrf_hash'] = csrf_hash();
 		$data['result'] = false;
 		return json_encode($data);
 	}

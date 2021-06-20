@@ -88,6 +88,15 @@ function deleteMultipleImage($path, $array)
     }
 }
 
+function deleteMultiplePostImage($path, $array)
+{
+    if (!empty($array[0])) {
+        foreach ($array as $item) {
+            deleteImage($path, $item);
+        }
+    }
+}
+
 function getOptionOrders()
 {
     $option = [
