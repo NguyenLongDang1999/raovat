@@ -96,16 +96,6 @@
                         <div class="search-results text-capitalize">Hiển thị <?= $countPost ?> bài đăng</div>
                     </div>
                     <div class="view-options d-flex">
-                        <div class="btn-group dropdown-sort">
-                            <button type="button" class="btn btn-outline-primary dropdown-toggle mr-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="active-sorting">Featured</span>
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="javascript:void(0);">Featured</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Lowest</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Highest</a>
-                            </div>
-                        </div>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
                             <label class="btn btn-icon btn-outline-primary view-btn grid-view-btn">
                                 <input type="radio" name="radio_options" id="radio_option1" checked />

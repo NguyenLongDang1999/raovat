@@ -120,7 +120,7 @@
                         <label class="custom-control-label" for="remember">Nhớ Mật Khẩu</label>
                     </div>
                 </div>
-                <?= form_submit(null, 'Đăng Nhập', ['class' => 'btn btn-primary btn-block']) ?>
+                <?= form_button(['class' => 'btn btn-primary btn-block', 'type' => 'submit', 'content' => 'Đăng Nhập']) ?>
                 <?= form_close() ?>
 
                 <p class="text-center mt-2">

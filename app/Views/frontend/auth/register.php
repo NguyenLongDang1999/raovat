@@ -187,7 +187,7 @@ $(function() {
                         <?= form_label('Nữ', 'female', ['class' => 'custom-control-label']) ?>
                     </div>
                 </div>
-                <?= form_submit(null, 'Đăng Ký', ['class' => 'btn btn-primary btn-block']) ?>
+                <?= form_button(['class' => 'btn btn-primary btn-block', 'type' => 'submit', 'content' => 'Đăng Ký']) ?>
                 <?= form_close() ?>
 
                 <p class="text-center mt-2">

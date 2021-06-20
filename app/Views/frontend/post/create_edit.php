@@ -80,7 +80,7 @@ $('#district_id').append($option).trigger('change');
                                         <?php else : ?>
                                         <li class="breadcrumb-item">
                                             <a href="<?= route_to('user.user.manager') ?>">
-                                            Quản Lý Tin Đăng
+                                                Quản Lý Tin Đăng
                                             </a>
                                         </li>
                                         <li class="breadcrumb-item active" aria-current="page">Cập Nhật</li>
@@ -172,7 +172,7 @@ $('#district_id').append($option).trigger('change');
                                 <div id="blog-editor-wrapper">
                                     <div id="blog-editor-container">
                                         <div class="editor">
-                                            <?= $row['description'] ?>
+                                            <?= isset($row) ? $row['description'] : '' ?>
                                         </div>
                                     </div>
                                 </div>
@@ -192,7 +192,11 @@ $('#district_id').append($option).trigger('change');
                         <li>Chỉ được đăng tối đa 5 ảnh với 1 tin.</li>
                         <li>Nên dùng hình ảnh liên quan nhất tới tin đăng.</li>
                     </ul>
+                    <?php if(isset($row)) : ?>
                     <div class="input-images-2" style="padding-top: .5rem;"></div>
+                    <?php else : ?>
+                    <div class="input-images-1" style="padding-top: .5rem;"></div>
+                    <?php endif;?>
                 </div>
             </div>
 

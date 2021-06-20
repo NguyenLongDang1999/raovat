@@ -141,7 +141,8 @@
                                         <h4 class="font-weight-bolder mb-0"><?= esc(number_to_amount($row['price'], 2, 'vi_VN')) ?></h4>
                                         <p class="card-text font-small-3 mb-0">VNĐ</p>
                                     <?php else : ?>
-                                        <p class="card-text font-small-3 mb-0">Thương Lượng</p>
+                                        <h4 class="font-weight-bolder mb-0">Thương Lượng</h4>
+                                        <p class="card-text font-small-3 mb-0">Giá Cả</p>
                                     <?php endif; ?>
                                 </div>
                             </div>

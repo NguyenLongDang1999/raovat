@@ -145,7 +145,7 @@
                     </div>
                 </div>
 
-                <?= form_submit(null, 'Gửi', ['class' => 'btn btn-primary btn-block']) ?>
+                <?= form_button(['class' => 'btn btn-primary btn-block', 'type' => 'submit', 'content' => 'Gửi']) ?>
                 <?= form_close() ?>
 
                 <p class="text-center mt-2">

@@ -85,11 +85,11 @@
                             <span>Đăng Nhập</span>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton100">
-                            <a class="dropdown-item" href="<?= route_to('login') ?>">
+                            <a class="dropdown-item <?= getMenuUserActive(route_to('login')) ?>" href="<?= route_to('login') ?>">
                                 <i data-feather='log-in'></i>
                                 <span>Đăng Nhập</span>
                             </a>
-                            <a class="dropdown-item" href="<?= route_to('register') ?>">
+                            <a class="dropdown-item <?= getMenuUserActive(route_to('register')) ?>" href="<?= route_to('register') ?>">
                                 <i data-feather='user-plus'></i>
                                 <span>Đăng Ký</span>
                             </a>

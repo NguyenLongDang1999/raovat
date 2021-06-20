@@ -92,7 +92,7 @@ Quên mật khẩu
                     <?= form_label('E-mail', 'email', ['class' => 'form-label']) ?>
                     <?= form_input('email', '', ['class' => 'form-control', 'id' => 'email', 'placeholder' => 'abc@gmail.com']) ?>
                 </div>
-                <?= form_submit(null, 'Gửi', ['class' => 'btn btn-primary btn-block']) ?>
+                <?= form_button(['class' => 'btn btn-primary btn-block', 'type' => 'submit', 'content' => 'Gửi']) ?>
                 <?= form_close() ?>
 
                 <p class="text-center mt-2">
