@@ -135,13 +135,13 @@
                 </div>
 
                 <div class="auth-footer-btn d-flex justify-content-center">
-                    <a href="javascript:void(0)" class="btn btn-facebook">
+                    <a href="<?= route_to('user.user.socialLogin') ?>?provider=facebook" class="btn btn-facebook">
                         <i data-feather="facebook"></i>
                     </a>
                     <a href="javascript:void(0)" class="btn btn-twitter white">
                         <i data-feather="twitter"></i>
                     </a>
-                    <a href="<?= route_to('user.user.socialLoginGoogle') ?>" class="btn btn-google">
+                    <a href="<?= route_to('user.user.socialLogin') ?>?provider=google" class="btn btn-google">
                         <i data-feather="mail"></i>
                     </a>
                 </div>
