@@ -31,7 +31,7 @@
     <div class="col-12 col-sm-6">
         <div class="form-group">
             <?= form_label('Số Điện Thoại', 'phone') ?>
-            <?= form_input('phone', user()->phone, ['class' => 'form-control', 'id' => 'phone']) ?>
+            <?= form_input('phone', user()->phone ? user()->phone : '', ['class' => 'form-control', 'id' => 'phone']) ?>
         </div>
     </div>
     <div class="col-12 col-sm-6">

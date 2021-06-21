@@ -43,7 +43,6 @@ $routes->group('', ['namespace' => 'App\Controllers\Frontend'], function ($route
 	// User
 	$routes->get('cap-nhat-thong-tin', 'UserController::index', ['as' => 'user.user.index', 'filter' => 'login']);
 	$routes->get('thong-tin-ca-nhan', 'UserController::myProfile', ['as' => 'user.user.myProfile', 'filter' => 'login']);
-	$routes->get('social-login-google', 'UserController::socialLoginGoogle', ['as' => 'user.user.socialLoginGoogle']);
 
 	// Category
 	$routes->get('(:any)/s(:num)', 'CategoryController::category/$1/$2', ['as' => 'user.category.category']);

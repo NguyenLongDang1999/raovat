@@ -6,8 +6,6 @@
             "X-CSRF-TOKEN": $('meta[name="X-CSRF-TOKEN"]').attr("content"),
         },
     });
-
-    $('.lazy').lazy();
     
     var blogFeatureImage = $("#blog-feature-image");
     var blogImageInput = $("#blogCustomFile");

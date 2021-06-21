@@ -46,6 +46,11 @@ Trang chủ
 <?= $this->section('vendorJS') ?>
 <?= script_tag('app-assets/vendors/js/lazy/jquery.lazy.min.js') ?>
 <?= script_tag('app-assets/vendors/js/lazy/jquery.lazy.script.min.js') ?>
+<script>
+    $(function() {
+        $('.lazy').lazy();
+    })
+</script>
 <?= $this->endSection() ?>
 <!-- end vendorJS -->
 

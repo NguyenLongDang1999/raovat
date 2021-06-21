@@ -30,6 +30,9 @@ class PostController extends BaseController
 
     public function index()
     {
+        if (is_null(user()->phone)) {
+            return redirect()->route('user.user.index')->with('message', "Vui lòng cập nhật số điện thoại của bạn để đăng tin.");
+        }
         $data['province'] = $this->province->getProvince();
         $category = $this->category->getTreeCategory();
         unset($category[0]);
