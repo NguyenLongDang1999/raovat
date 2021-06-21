@@ -4,6 +4,27 @@
 <?= esc($row['name']) ?>
 <?= $this->endSection(); ?>
 
+<!-- metaSeo -->
+<?= $this->section('metaSeo') ?>
+<!--open graph meta tags for social sites and search engines-->
+<meta property="og:locale" content="vi_VN" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="NinhHoaRaoVat - <?= esc($row['name']) ?>" />
+<meta property="og:keywords" content="NinhHoaRaoVat - <?= esc($row['meta_keyword']) ?>">
+<meta property="og:description" content="NinhHoaRaoVat - <?= esc($row['meta_description']) ?>" />
+<meta property="og:url" content="<?= current_url(); ?>" />
+<meta property="og:image" content="<?= base_url(PATH_CATEGORY_IMAGE . $row['image']) ?>" />
+<meta property="og:image:secure_url" content="<?= base_url(PATH_CATEGORY_IMAGE . $row['image']) ?>" />
+<meta property="og:image:width" content="650" />
+<meta property="og:image:height" content="450" />
+<!--twitter description-->
+<meta name="twitter:description" content="NinhHoaRaoVat - <?= esc($row['meta_description']) ?>" />
+<meta name="twitter:title" content="NinhHoaRaoVat - <?= esc($row['name']) ?>" />
+<meta name="twitter:keywords" content="NinhHoaRaoVat - <?= esc($row['meta_keyword']) ?>" />
+<meta name="twitter:image" content="<?= base_url(PATH_CATEGORY_IMAGE . $row['image']) ?>" />
+<?= $this->endSection() ?>
+<!-- end metaSeo -->
+
 <!-- pageCSS -->
 <?= $this->section('pageCSS') ?>
 <?= link_tag('app-assets/css/pages/app-ecommerce.min.css') ?>

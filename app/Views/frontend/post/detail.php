@@ -6,15 +6,22 @@
 
 <!-- metaSeo -->
 <?= $this->section('metaSeo') ?>
-<?= csrf_meta() ?>
-<meta name="title" content="NinhHoaRaoVat - <?= esc($row['name']) . ' - ' . esc($row['description']) ?>">
-<meta name="keywords" content="NinhHoaRaoVat - <?= esc($row['meta_keyword']) ?>">
-<meta name="description" content="NinhHoaRaoVat - <?= esc($row['meta_description']) ?>">
-<meta property="og:url" content="<?= base_url(''); ?>" />
-<meta name="title" content="NinhHoaRaoVat - <?= esc($row['name']) . ' - ' . esc($row['description']) ?>">
-<meta name="keywords" content="NinhHoaRaoVat - <?= esc($row['meta_keyword']) ?>">
-<meta name="description" content="NinhHoaRaoVat - <?= esc($row['meta_description']) ?>">
-<meta property="og:image" content="<?= base_url('app-assets/images/logo.png'); ?>" />
+<!--open graph meta tags for social sites and search engines-->
+<meta property="og:locale" content="vi_VN" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="NinhHoaRaoVat - <?= esc($row['name']) ?>" />
+<meta property="og:keywords" content="NinhHoaRaoVat - <?= esc($row['meta_keyword']) ?>">
+<meta property="og:description" content="NinhHoaRaoVat - <?= esc($row['meta_description']) ?>" />
+<meta property="og:url" content="<?= current_url(); ?>" />
+<meta property="og:image" content="<?= base_url(PATH_POST_MEDIUM_IMAGE . $gallery[0]) ?>" />
+<meta property="og:image:secure_url" content="<?= base_url(PATH_POST_MEDIUM_IMAGE . $gallery[0]) ?>" />
+<meta property="og:image:width" content="650" />
+<meta property="og:image:height" content="450" />
+<!--twitter description-->
+<meta name="twitter:description" content="NinhHoaRaoVat - <?= esc($row['meta_description']) ?>" />
+<meta name="twitter:title" content="NinhHoaRaoVat - <?= esc($row['name']) ?>" />
+<meta name="twitter:keywords" content="NinhHoaRaoVat - <?= esc($row['meta_keyword']) ?>" />
+<meta name="twitter:image" content="<?= base_url(PATH_POST_MEDIUM_IMAGE . $gallery[0]) ?>" />
 <?= $this->endSection() ?>
 <!-- end metaSeo -->
 
