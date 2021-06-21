@@ -72,9 +72,15 @@
                         <a class="dropdown-item <?= getMenuUserActive(route_to('user.user.manager')) ?>" href="<?= route_to('user.user.manager') ?>">
                             <i class="mr-50" data-feather="copy"></i> Quản Lý Tin Đăng
                         </a>
-                        <a class="dropdown-item" href="<?= route_to('logout') ?>">
-                            <i class="mr-50" data-feather="power"></i> Đăng Xuất
-                        </a>
+                        <?php if (!session()->has('getProvider')) : ?>
+                            <a class="dropdown-item" href="<?= route_to('logout') ?>">
+                                <i class="mr-50" data-feather="power"></i> Đăng Xuất
+                            </a>
+                        <?php else : ?>
+                            <a class="dropdown-item" href="<?= route_to('logout') ?>?logout=<?= strtolower(session()->get('getProvider')) ?>">
+                                <i class="mr-50" data-feather="power"></i> Đăng Xuất
+                            </a>
+                        <?php endif; ?>
                     </div>
                 </li>
             <?php else : ?>
