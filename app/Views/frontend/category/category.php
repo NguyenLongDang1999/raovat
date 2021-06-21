@@ -170,7 +170,7 @@
                             </div>
                         </div>
                         <h6 class="item-name">
-                            <a class="text-body text-capitalize" href="<?= route_to('user.post.detail', esc($item['catSlug']), esc($item['slug']), esc($item['id'])) ?>"><?= esc($item['name']) ?></a>
+                            <a class="text-body text-capitalize" href="<?= route_to('user.post.detail', esc($item['catSlug']), esc($item['slug']), esc($item['id'])) ?>" data-toggle="tooltip" data-placement="bottom" title="<?= esc($item['name']) ?>"><?= esc($item['name']) ?></a>
                         </h6>
                         <div class="media order-2 my-50">
                             <div class="avatar mr-50">

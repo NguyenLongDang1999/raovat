@@ -438,7 +438,7 @@
                                         </div>
                                     </div>
                                 </a>
-                                <a href="<?= route_to('user.category.category', $item['slug'], $item['id']) ?>">
+                                <a href="<?= route_to('user.category.category', $item['slug'], $item['id']) ?>" data-toggle="tooltip" data-placement="bottom" title="<?= esc($item['name']) ?>">
                                     <div class="blog-category-title text-body text-capitalize"><?= esc($item['name']) ?></div>
                                 </a>
                             </div>
@@ -463,7 +463,7 @@
                                 </a>
                                 <div class="media-body">
                                     <h6 class="blog-recent-post-title">
-                                        <a href="<?= route_to('user.post.detail', esc($item['catSlug']), esc($item['slug']), esc($item['id'])) ?>" class="text-body-heading text-capitalize blog-title-truncate"><?= esc($item['name']) ?></a>
+                                        <a href="<?= route_to('user.post.detail', esc($item['catSlug']), esc($item['slug']), esc($item['id'])) ?>" class="text-body-heading text-capitalize blog-title-truncate" data-toggle="tooltip" data-placement="bottom" title="<?= esc($item['name']) ?>"><?= esc($item['name']) ?></a>
                                     </h6>
                                     <div class="text-muted mb-0"><?= getDateHumanize(esc($item['created_at'])) ?></div>
                                 </div>
