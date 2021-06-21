@@ -1,7 +1,7 @@
 <?= $this->extend('templates/frontend/master'); ?>
 
 <?= $this->section('title'); ?>
-Đăng tin rao vặt
+<?= !isset($row) ? 'Đăng tin rao vặt' : 'Cập nhật tin rao vặt' ?>
 <?= $this->endSection(); ?>
 
 <!-- vendorCSS -->
@@ -36,33 +36,33 @@
 <!-- pageJS -->
 <?= $this->section('pageJS') ?>
 <?= $this->include('frontend/post/scripts') ?>
-<script>
-<?php if(isset($row)) : ?>
-let preloaded = [
-    <?php $thumb_list = explode(',', $row['thumb_list']); ?>
-    <?php $no = 1; ?>
-    <?php if (!empty($thumb_list[0])) : ?>
-    <?php foreach ($thumb_list as $img) { ?> {
-        id: <?= $no++ ?>,
-        src: '<?= base_url(PATH_POST_MEDIUM_IMAGE . $img) ?>'
-    },
-    <?php } ?>
-    <?php endif; ?>
-];
-var district_id = "<?= $row['district_id'] ?>";
-var district_name = "<?= $row['districtName'] ?>";
-$('.input-images-2').imageUploader({
-    preloaded: preloaded,
-    imagesInputName: 'photos',
-    preloadedInputName: 'old',
-    maxFiles: 5,
-    maxSize: 10 * 1024 * 1024,
-    extensions: [".jpg", ".jpeg", ".png", ".gif"],
-});
-var $option = $("<option selected></option>").val(district_id).text(district_name);
-$('#district_id').append($option).trigger('change');
+<?php if (isset($row)) : ?>
+    <script>
+        let preloaded = [
+            <?php $thumb_list = explode(',', $row['thumb_list']); ?>
+            <?php $no = 1; ?>
+            <?php if (!empty($thumb_list[0])) : ?>
+                <?php foreach ($thumb_list as $img) { ?> {
+                        id: <?= $no++ ?>,
+                        src: '<?= base_url(PATH_POST_MEDIUM_IMAGE . $img) ?>'
+                    },
+                <?php } ?>
+            <?php endif; ?>
+        ];
+        var district_id = "<?= $row['district_id'] ?>";
+        var district_name = "<?= $row['districtName'] ?>";
+        $('.input-images-2').imageUploader({
+            preloaded: preloaded,
+            imagesInputName: 'photos',
+            preloadedInputName: 'old',
+            maxFiles: 5,
+            maxSize: 10 * 1024 * 1024,
+            extensions: [".jpg", ".jpeg", ".png", ".gif"],
+        });
+        var $option = $("<option selected></option>").val(district_id).text(district_name);
+        $('#district_id').append($option).trigger('change');
+    </script>
 <?php endif; ?>
-</script>
 <?= $this->endSection() ?>
 <!-- end pageJS -->
 
@@ -81,14 +81,14 @@ $('#district_id').append($option).trigger('change');
                                         <li class="breadcrumb-item"><a href="<?= route_to('user.home.index') ?>">Trang
                                                 Chủ</a></li>
                                         <?php if (!isset($row)) : ?>
-                                        <li class="breadcrumb-item active" aria-current="page">Đăng Tin Rao Vặt</li>
+                                            <li class="breadcrumb-item active" aria-current="page">Đăng Tin Rao Vặt</li>
                                         <?php else : ?>
-                                        <li class="breadcrumb-item">
-                                            <a href="<?= route_to('user.user.manager') ?>">
-                                                Quản Lý Tin Đăng
-                                            </a>
-                                        </li>
-                                        <li class="breadcrumb-item active" aria-current="page">Cập Nhật</li>
+                                            <li class="breadcrumb-item">
+                                                <a href="<?= route_to('user.user.manager') ?>">
+                                                    Quản Lý Tin Đăng
+                                                </a>
+                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page">Cập Nhật</li>
                                         <?php endif; ?>
                                     </ol>
                                 </nav>
@@ -109,9 +109,9 @@ $('#district_id').append($option).trigger('change');
     <div class="row">
         <div class="col-12">
             <?php if (isset($row)) : ?>
-            <?= form_open_multipart(route_to('user.manager.update', $row['id']), ['id' => 'post-form']) ?>
+                <?= form_open_multipart(route_to('user.manager.update', $row['id']), ['id' => 'post-form']) ?>
             <?php else : ?>
-            <?= form_open_multipart(route_to('user.post.postPost'), ['id' => 'post-form']) ?>
+                <?= form_open_multipart(route_to('user.post.postPost'), ['id' => 'post-form']) ?>
             <?php endif; ?>
             <input type="hidden" id="quill_html" name="description" />
             <div class="card">
@@ -197,11 +197,11 @@ $('#district_id').append($option).trigger('change');
                         <li>Chỉ được đăng tối đa 5 ảnh với 1 tin.</li>
                         <li>Nên dùng hình ảnh liên quan nhất tới tin đăng.</li>
                     </ul>
-                    <?php if(isset($row)) : ?>
-                    <div class="input-images-2" style="padding-top: .5rem;"></div>
+                    <?php if (isset($row)) : ?>
+                        <div class="input-images-2" style="padding-top: .5rem;"></div>
                     <?php else : ?>
-                    <div class="input-images-1" style="padding-top: .5rem;"></div>
-                    <?php endif;?>
+                        <div class="input-images-1" style="padding-top: .5rem;"></div>
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -227,27 +227,27 @@ $('#district_id').append($option).trigger('change');
                 </div>
             </div>
 
-            <?php if(!isset($row)) : ?>
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title text-capitalize">Chọn gói đăng tin</h4>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6 col-12">
-                            <?= form_label('Chọn gói đăng tin', 'expire', ['class' => 'form-label']) ?>
-                            <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">
-                                        <i data-feather='calendar'></i>
-                                    </span>
+            <?php if (!isset($row)) : ?>
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title text-capitalize">Chọn gói đăng tin</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 col-12">
+                                <?= form_label('Chọn gói đăng tin', 'expire', ['class' => 'form-label']) ?>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i data-feather='calendar'></i>
+                                        </span>
+                                    </div>
+                                    <?= form_input('expire', '', ['class' => 'form-control buttonClass', 'placeholder' => 'Vui lòng chọn']) ?>
                                 </div>
-                                <?= form_input('expire', '', ['class' => 'form-control buttonClass', 'placeholder' => 'Vui lòng chọn']) ?>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             <?php endif; ?>
 
             <div class="card">

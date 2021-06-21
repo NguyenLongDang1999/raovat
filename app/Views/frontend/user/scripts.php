@@ -63,6 +63,7 @@ if (passwordForm.length) {
                 required: true,
                 maxlength: 15,
                 minlength: 8,
+                equalTo: "#new_password"
             },
         },
         messages: {
@@ -80,6 +81,7 @@ if (passwordForm.length) {
                 required: "Nhập lại password mới không được bỏ trống.",
                 maxlength: "Password không được vượt quá 15 ký tự.",
                 minlength: "Password phải có tối thiểu 8 ký tự.",
+                equalTo: "Xác nhận Password không trùng khớp. Vui lòng kiểm tra lại."
             },
         },
     });

@@ -88,7 +88,7 @@ $(function() {
                     maxlength: "Password nên có độ dài từ 8 đến 20 ký tự."
                 },
                 confirm_password: {
-                    equalTo: "Xác nhận Password không trùng khớp. Vui lòng kiểm tra lại"
+                    equalTo: "Xác nhận Password không trùng khớp. Vui lòng kiểm tra lại."
                 }
             }
         });
