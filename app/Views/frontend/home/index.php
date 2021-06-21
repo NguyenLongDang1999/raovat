@@ -42,6 +42,13 @@ Trang chủ
 <?= $this->endSection() ?>
 <!-- end pageCSS -->
 
+<!-- vendorJS -->
+<?= $this->section('vendorJS') ?>
+<?= script_tag('app-assets/vendors/js/lazy/jquery.lazy.min.js') ?>
+<?= script_tag('app-assets/vendors/js/lazy/jquery.lazy.script.min.js') ?>
+<?= $this->endSection() ?>
+<!-- end vendorJS -->
+
 <!-- Content-body -->
 <?= $this->section('content-body'); ?>
 <section class="home-page">
@@ -90,9 +97,9 @@ Trang chủ
                         <a href="<?= route_to('user.post.detail', esc($item['catSlug']), esc($item['slug']), esc($item['id'])) ?>">
                             <div class="position-relative">
                                 <?php if (!empty($img[0])) : ?>
-                                    <?= img(PATH_POST_SMALL_IMAGE . $img[0], false, ['class' => 'card-img-top img-fluid', 'width' => 350, 'height' => 250, 'alt' => esc($item['name'])]) ?>
+                                    <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top img-fluid lazy loading', 'width' => 350, 'height' => 250, 'alt' => esc($item['name']), 'data-src' => base_url(PATH_POST_SMALL_IMAGE . $img[0])]) ?>
                                 <?php else : ?>
-                                    <?= img('app-assets/images/no-image.jpg', false, ['class' => 'card-img-top img-fluid', 'width' => 350, 'height' => 250, 'alt' => esc($item['name'])]) ?>
+                                    <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top img-fluid lazy loading', 'width' => 350, 'height' => 250, 'alt' => esc($item['name']), 'data-src' => base_url('app-assets/images/no-image.jpg')]) ?>
                                 <?php endif; ?>
                                 <div class="position-absolute position-top-0">
                                     <span class="badge badge-primary p-75">
@@ -115,9 +122,9 @@ Trang chủ
                         <div class="media order-2 my-50">
                             <div class="avatar mr-50">
                                 <?php if (is_null($item['avatar'])) : ?>
-                                    <?= img(PATH_DEFAULT_AVATAR, false, ['width' => 24, 'height' => 24, 'alt' => esc($item['fullname'])]) ?>
+                                    <?= img(PATH_LAZY_LOADING, false, ['class' => 'lazy loading', 'width' => 24, 'height' => 24, 'alt' => esc($item['fullname']), 'data-src' => base_url(PATH_DEFAULT_AVATAR)]) ?>
                                 <?php else : ?>
-                                    <?= img(PATH_USER_IMAGE . $item['avatar'], false, ['width' => 24, 'height' => 24, 'alt' => esc($item['fullname'])]) ?>
+                                    <?= img(PATH_LAZY_LOADING, false, ['class' => 'lazy loading', 'width' => 24, 'height' => 24, 'alt' => esc($item['fullname']), 'data-src' => base_url(PATH_USER_IMAGE . $item['avatar'])]) ?>
                                 <?php endif ?>
                             </div>
                             <div class="media-body">
@@ -173,16 +180,16 @@ Trang chủ
                         <a href="<?= route_to('user.post.detail', esc($item['catSlug']), esc($item['slug']), esc($item['id'])) ?>">
                             <?php if ($item['featured'] == FEATURED_INACTIVE) : ?>
                                 <?php if (!empty($img[0])) : ?>
-                                    <?= img(PATH_POST_SMALL_IMAGE . $img[0], false, ['class' => 'card-img-top img-fluid', 'width' => 350, 'height' => 250, 'alt' => esc($item['name'])]) ?>
+                                    <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top img-fluid lazy loading', 'width' => 350, 'height' => 250, 'alt' => esc($item['name']), 'data-src' => base_url(PATH_POST_SMALL_IMAGE . $img[0])]) ?>
                                 <?php else : ?>
-                                    <?= img('app-assets/images/no-image.jpg', false, ['class' => 'card-img-top img-fluid', 'width' => 350, 'height' => 250, 'alt' => esc($item['name'])]) ?>
+                                    <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top img-fluid lazy loading', 'width' => 350, 'height' => 250, 'alt' => esc($item['name']), 'data-src' => base_url('app-assets/images/no-image.jpg')]) ?>
                                 <?php endif; ?>
                             <?php else : ?>
                                 <div class="position-relative">
                                     <?php if (!empty($img[0])) : ?>
-                                        <?= img(PATH_POST_SMALL_IMAGE . $img[0], false, ['class' => 'card-img-top img-fluid', 'width' => 350, 'height' => 250, 'alt' => esc($item['name'])]) ?>
+                                        <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top img-fluid lazy loading', 'width' => 350, 'height' => 250, 'alt' => esc($item['name']), 'data-src' => base_url(PATH_POST_SMALL_IMAGE . $img[0])]) ?>
                                     <?php else : ?>
-                                        <?= img('app-assets/images/no-image.jpg', false, ['class' => 'card-img-top img-fluid', 'width' => 350, 'height' => 250, 'alt' => esc($item['name'])]) ?>
+                                        <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top img-fluid lazy loading', 'width' => 350, 'height' => 250, 'alt' => esc($item['name']), 'data-src' => base_url('app-assets/images/no-image.jpg')]) ?>
                                     <?php endif; ?>
                                     <div class="position-absolute position-top-0">
                                         <span class="badge badge-primary p-75">
@@ -206,9 +213,9 @@ Trang chủ
                         <div class="media order-2 my-50">
                             <div class="avatar mr-50">
                                 <?php if (is_null($item['avatar'])) : ?>
-                                    <?= img(PATH_DEFAULT_AVATAR, false, ['width' => 24, 'height' => 24, 'alt' => esc($item['fullname'])]) ?>
+                                    <?= img(PATH_LAZY_LOADING, false, ['class' => 'lazy loading', 'width' => 24, 'height' => 24, 'alt' => esc($item['fullname']), 'data-src' => base_url(PATH_DEFAULT_AVATAR)]) ?>
                                 <?php else : ?>
-                                    <?= img(PATH_USER_IMAGE . $item['avatar'], false, ['width' => 24, 'height' => 24, 'alt' => esc($item['fullname'])]) ?>
+                                    <?= img(PATH_LAZY_LOADING, false, ['class' => 'lazy loading', 'width' => 24, 'height' => 24, 'alt' => esc($item['fullname']), 'data-src' => base_url(PATH_USER_IMAGE . $item['avatar'])]) ?>
                                 <?php endif ?>
                             </div>
                             <div class="media-body">

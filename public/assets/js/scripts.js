@@ -7,6 +7,8 @@
         },
     });
 
+    $('.lazy').lazy();
+    
     var blogFeatureImage = $("#blog-feature-image");
     var blogImageInput = $("#blogCustomFile");
     var select = $(".select2");
