@@ -102,10 +102,12 @@
             $.ajax({
                 url: "<?= route_to('user.comment.postComment') ?>",
                 method: "POST",
+                async: false,
+                cache: false,
                 data: {
                     body: body,
                     post_id: post_id,
-                    comment_id: comment_id,
+                    comment_id: comment_id
                 },
                 dataType: "JSON",
                 success: function(response) {
@@ -117,6 +119,10 @@
                     } else if (response.error) {
                         $('#message').html(response.message);
                     }
+                },
+                complete: function() {
+                    $('input[name=comment_id]').val('');
+                    $('#reply-body').html('');
                 }
             })
         });
@@ -125,18 +131,42 @@
 
         function showComments() {
             var post_id = $('input[name=post_id]').val();
-            var comment_id = $('input[name=comment_id]').val();
 
             $.ajax({
                 url: "<?= route_to('user.comment.showComments') ?>",
                 method: "POST",
+                async: false,
+                cache: false,
                 data: {
                     post_id: post_id,
-                    comment_id: comment_id,
                 },
                 dataType: "JSON",
                 success: function(data) {
                     $('#show-comment').html(data.html);
+
+                    var increment = 10;
+                    var startFilter = 0;
+                    var endFilter = increment;
+                    var $this = $('.media');
+                    var elementLength = $this.length;
+
+                    if (elementLength > 9) {
+                        $('#comment-loadmore').show();
+                    }
+
+                    $('#show-comment .media').slice(startFilter, endFilter).addClass('shown');
+                    $('#show-comment .media').not('.shown').hide();
+                    $('#comment-loadmore').on('click', function() {
+                        if (elementLength > endFilter) {
+                            startFilter += increment;
+                            endFilter += increment;
+                            $('#show-comment .media').slice(startFilter, endFilter).not('.shown').addClass('shown').toggle(500);
+                            if (elementLength <= endFilter) {
+                                $(this).remove();
+                            }
+                        }
+
+                    });
                 }
             })
         }
@@ -146,6 +176,7 @@
             var comment_body = $(this).data("body");
             $('input[name=comment_id]').val(comment_id);
             $('textarea[name=body]').focus();
+            $('#message').html('');
             $('#reply-body').text('Trả Lời Bình Luận: ' + comment_body);
         });
     });
@@ -334,25 +365,8 @@
             <h6 class="section-label mt-25">Bình luận về bài đăng</h6>
             <div class="card">
                 <div class="card-body">
-                    <div class="media">
-                        <div class="avatar mr-75">
-                            <img src="../../../app-assets/images/portrait/small/avatar-s-9.jpg" width="38" height="38" alt="Avatar" />
-                        </div>
-                        <div class="media-body">
-                            <h6 class="font-weight-bolder mb-25">Chad Alexander</h6>
-                            <p class="card-text">May 24, 2020</p>
-                            <p class="card-text">
-                                A variation on the question technique above, the multiple-choice question great way to engage your
-                                reader.
-                            </p>
-                            <a href="javascript:void(0);">
-                                <div class="d-inline-flex align-items-center">
-                                    <i data-feather="corner-up-left" class="font-medium-3 mr-50"></i>
-                                    <span>Reply</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+                    <div id="show-comment"></div>
+                    <button type="button" style="display: none;" id="comment-loadmore" class="load-more btn btn-primary btn-block">Xem Thêm</button>
                 </div>
             </div>
         </div>
@@ -365,8 +379,11 @@
                         <?= form_open('', ['id' => 'comment-form', 'class' => 'form']) ?>
                         <?= form_hidden('post_id', $row['postId']) ?>
                         <?= form_hidden('comment_id', 0) ?>
-                        <span id="message"></span>
-                        <span id="reply-body" class="text-primary"></span>
+
+                        <div class="mb-1">
+                            <span id="message"></span>
+                            <span id="reply-body" class="text-primary"></span>
+                        </div>
 
                         <div class="row">
                             <div class="col-sm-6 col-12">
@@ -407,57 +424,55 @@
 </div>
 <div class="sidebar-detached sidebar-right">
     <div class="sidebar">
-        <div class="blog-sidebar mb-2 my-lg-0">
-            <div class="blog-recent-posts">
-                <h6 class="section-label">Recent Posts</h6>
-                <div class="mt-75">
-                    <div class="media mb-2">
-                        <a href="page-blog-detail.html" class="mr-2">
-                            <img class="rounded" src="../../../app-assets/images/banner/banner-22.jpg" width="100" height="70" alt="Recent Post Pic" />
-                        </a>
-                        <div class="media-body">
-                            <h6 class="blog-recent-post-title">
-                                <a href="page-blog-detail.html" class="text-body-heading">Why Should Forget Facebook?</a>
-                            </h6>
-                            <div class="text-muted mb-0">Jan 14 2020</div>
-                        </div>
-                    </div>
-                    <div class="media mb-2">
-                        <a href="page-blog-detail.html" class="mr-2">
-                            <img class="rounded" src="../../../app-assets/images/banner/banner-27.jpg" width="100" height="70" alt="Recent Post Pic" />
-                        </a>
-                        <div class="media-body">
-                            <h6 class="blog-recent-post-title">
-                                <a href="page-blog-detail.html" class="text-body-heading">Publish your passions, your way</a>
-                            </h6>
-                            <div class="text-muted mb-0">Mar 04 2020</div>
-                        </div>
-                    </div>
-                    <div class="media mb-2">
-                        <a href="page-blog-detail.html" class="mr-2">
-                            <img class="rounded" src="../../../app-assets/images/banner/banner-39.jpg" width="100" height="70" alt="Recent Post Pic" />
-                        </a>
-                        <div class="media-body">
-                            <h6 class="blog-recent-post-title">
-                                <a href="page-blog-detail.html" class="text-body-heading">The Best Ways to Retain More</a>
-                            </h6>
-                            <div class="text-muted mb-0">Feb 18 2020</div>
-                        </div>
-                    </div>
-                    <div class="media">
-                        <a href="page-blog-detail.html" class="mr-2">
-                            <img class="rounded" src="../../../app-assets/images/banner/banner-35.jpg" width="100" height="70" alt="Recent Post Pic" />
-                        </a>
-                        <div class="media-body">
-                            <h6 class="blog-recent-post-title">
-                                <a href="page-blog-detail.html" class="text-body-heading">Share a Shocking Fact or Statistic</a>
-                            </h6>
-                            <div class="text-muted mb-0">Oct 08 2020</div>
-                        </div>
+        <?php if (count($getCategoryList) > 0) : ?>
+            <div class="blog-sidebar mb-2 my-lg-0">
+                <div class="blog-categories">
+                    <h6 class="section-label">Danh Mục</h6>
+                    <div class="mt-1">
+                        <?php foreach ($getCategoryList as $item) : ?>
+                            <div class="d-flex justify-content-start align-items-center mb-75">
+                                <a href="<?= route_to('user.category.category', $item['slug'], $item['id']) ?>" class="mr-75">
+                                    <div class="avatar bg-light-primary rounded">
+                                        <div class="avatar-content">
+                                            <?= img(PATH_CATEGORY_IMAGE . $item['image'], false, ['width' => 32, 'height' => 32]) ?>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="<?= route_to('user.category.category', $item['slug'], $item['id']) ?>">
+                                    <div class="blog-category-title text-body text-capitalize"><?= esc($item['name']) ?></div>
+                                </a>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
+            <?php endif; ?>
+
+            <?php if (count($getProductRelated) > 0) : ?>
+                <div class="blog-recent-posts mt-3">
+                    <h6 class="section-label">Bài đăng liên quan</h6>
+                    <div class="mt-75">
+                        <?php foreach ($getProductRelated as $item) : ?>
+                            <?php $img = explode(',', $item['thumb_list']); ?>
+                            <div class="media mb-2">
+                                <a href="<?= route_to('user.post.detail', esc($item['catSlug']), esc($item['slug']), esc($item['id'])) ?>" class="mr-2">
+                                    <?php if (!empty($img[0])) : ?>
+                                        <?= img(PATH_POST_SMALL_IMAGE . $img[0], false, ['class' => 'rounded', 'width' => 100, 'height' => 70, 'alt' => esc($item['name'])]) ?>
+                                    <?php else : ?>
+                                        <?= img('app-assets/images/no-image.jpg', false, ['class' => 'rounded', 'width' => 100, 'height' => 70, 'alt' => esc($item['name'])]) ?>
+                                    <?php endif; ?>
+                                </a>
+                                <div class="media-body">
+                                    <h6 class="blog-recent-post-title">
+                                        <a href="<?= route_to('user.post.detail', esc($item['catSlug']), esc($item['slug']), esc($item['id'])) ?>" class="text-body-heading text-capitalize blog-title-truncate"><?= esc($item['name']) ?></a>
+                                    </h6>
+                                    <div class="text-muted mb-0"><?= getDateHumanize(esc($item['created_at'])) ?></div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
             </div>
-        </div>
     </div>
 </div>
 <?= $this->endSection(); ?>

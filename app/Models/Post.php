@@ -197,7 +197,7 @@ class Post extends Model
             users.fullname, users.gender, users.email, users.phone, post.view, post.id as postId,
             post.contact_address, post.is_type, post.price, post.video, post.video_description, post.featured,
             users.avatar, post.status, category.id as catId, post.meta_description, post.meta_keyword,
-            district.name as districtName, province.name as provinceName')
+            district.name as districtName, province.name as provinceName, post.cat_id')
             ->join('category', 'category.id = post.cat_id')
             ->join('users', 'users.id = post.user_id')
             ->join('province', 'province.id = post.province_id')
@@ -290,5 +290,18 @@ class Post extends Model
             ->where('post.user_id', $user_id);
 
         return $model->first();
+    }
+
+    public function getProductRelated($cat_id, $id)
+    {
+        $model = $this->select('post.thumb_list, post.id, post.name, post.created_at, post.slug,
+        category.slug as catSlug')
+        ->join('category', 'category.id = post.cat_id')
+        ->where('post.status', STATUS_ACTIVE)
+        ->where('post.cat_id', $cat_id)
+        ->where('post.id !=', $id)
+        ->orderBy('post.created_at', 'desc');
+
+        return $model->findAll(5);
     }
 }

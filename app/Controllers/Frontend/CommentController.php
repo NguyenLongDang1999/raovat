@@ -4,16 +4,19 @@ namespace App\Controllers\Frontend;
 
 use App\Controllers\BaseController;
 use App\Models\Comment;
+use App\Models\Reply;
 use App\Models\Post;
 
 class CommentController extends BaseController
 {
 	protected $comment;
+	protected $reply;
 	protected $post;
 
 	public function __construct()
 	{
 		$this->comment = new Comment();
+		$this->reply = new Reply();
 		$this->post = new Post();
 	}
 
@@ -22,24 +25,27 @@ class CommentController extends BaseController
 		$input = $this->request->getPost([
 			'body',
 			'post_id',
-			'comment_id',
 		]);
 
-		$input['parent_id'] = $input['comment_id'];
+		$input['user_id'] = user_id();
+
 		if (!empty($input['body'])) {
-			$message = '<label class="text-success">Bình luận của bạn đã được đăng thành công!.</label>';
+			$message = '<p class="text-primary text-capitalize">Bình luận của bạn đã được đăng thành công!.</p>';
 			$status = array(
 				'error'  => 0,
 				'message' => $message,
-				'csrf_hash' => csrf_hash()
 			);
-			$this->comment->insert($input);
+			if ($this->request->getPost('comment_id') == 0) {
+				$this->comment->insert($input);
+			} else {
+				$input['comment_id'] = $this->request->getPost('comment_id');
+				$this->reply->insert($input);
+			}
 		} else {
-			$message = '<label class="text-danger">Lỗi: Bình luận của bạn chưa được đăng.</label>';
+			$message = '<p class="text-danger text-capitalize">Lỗi: Bình luận của bạn chưa được đăng.</p>';
 			$status = array(
 				'error'  => 1,
 				'message' => $message,
-				'csrf_hash' => csrf_hash()
 			);
 		}
 
@@ -51,33 +57,37 @@ class CommentController extends BaseController
 		if ($this->request->isAjax()) {
 			$html = '';
 			$input = $this->request->getPost();
-			$getListComment = $this->comment->getCommentByPost($input['post_id'], 0);
+			$getListComment = $this->comment->getCommentByPost($input['post_id']);
 			if (count($getListComment) > 0) {
 				foreach ($getListComment as $item) {
-					$html .= '<div class="media my-1">';
-					if (isset($item['avatar'])) {
-						$html .= img(PATH_USER_IMAGE_SMALL . $item['avatar'], false, ['alt' => esc($item['fullname']), 'width' => '40', 'height' => '40', 'class' => 'mr-1']);
+					$html .= '<div class="media mb-2">';
+					$html .= '<div class="avatar mr-75">';
+					if (is_null($item['avatar'])) {
+						$html .= img(PATH_DEFAULT_AVATAR, false, ['width' => 40, 'height' => 40, 'alt' => esc($item['fullname'])]);
 					} else {
-						$html .= img('app-assets/images/portrait/small/avatar-s.png', false, ['alt' => esc($item['fullname']), 'width' => '40', 'height' => '40', 'class' => 'mr-1']);
+						$html .= img(PATH_USER_IMAGE . $item['avatar'], false, ['width' => 40, 'height' => 40, 'alt' => esc($item['fullname'])]);
 					}
+					$html .= '</div>';
 					$html .= '<div class="media-body">';
-					$html .= '<h5 class="mt-0 text-capitalize mb-0">' . esc($item['fullname']) . '</h5>';
-					$html .= '<small class="text-muted"><i class="bx bx-time"></i>' . getDateHumanize($item['created_at']) . '</small>';
-					$html .= '<a href="javascript:void(0);" class="reply" id="' . esc($item['id']) . '" data-body="' . esc($item['body']) . '">';
-					$html .= '<i class="bx bx-reply ml-1"></i> Reply';
-					$html .= '</a>';
-					$html .= '<span class="d-block">';
+					$html .= '<h6 class="font-weight-bolder mb-25 text-capitalize">' . esc($item['fullname']) . '</h6>';
+					$html .= '<p class="card-text">' . getDateHumanize(esc($item['created_at'])) . '</p>';
+					$html .= '<p class="card-text">';
 					$html .= esc($item['body']);
-					$html .= '</span>';
+					$html .= '</p>';
+					$html .= '<a href="javascript:void(0);" class="reply" id="' . esc($item['id']) . '" data-body="' . esc($item['body']) . '">';
+					$html .= '<div class="d-inline-flex align-items-center">';
+					$html .= '<i data-feather="corner-up-left" class="font-medium-3 mr-50"></i>';
+					$html .= '<span>Reply</span>';
+					$html .= '</div>';
+					$html .= '</a>';
 					$html .= $this->showReply($input['post_id'], $item['id']);
 					$html .= '</div>';
 					$html .= '</div>';
 				}
 			} else {
-				$html .= '<p class="text-danger">Hiện tại chưa có bình lụân nào cho bài đăng này.</p>';
+				$html .= '<div class="text-center"><p class="text-danger text-capitalize mb-0">Hiện tại chưa có bình lụân nào cho bài đăng này.</p></div>';
 			}
 
-			$data['csrf_hash'] = csrf_hash();
 			$data['html'] = $html;
 			return json_encode($data);
 		}
@@ -87,32 +97,34 @@ class CommentController extends BaseController
 	{
 		if ($this->request->isAjax()) {
 			$html = '';
-			$getListCommentReply = $this->comment->getCommentByPost($post_id, $id);
+			$getListCommentReply = $this->reply->getReplyByComment($post_id, $id);
 			if (count($getListCommentReply) > 0) {
-				foreach ($getListCommentReply as $reply) {
+				foreach ($getListCommentReply as $item) {
 					$html .= '<div class="media mt-1">';
-					if (isset($reply['avatar'])) {
-						$html .= img(PATH_USER_IMAGE_SMALL . $reply['avatar'], false, ['alt' => esc($reply['fullname']), 'width' => '40', 'height' => '40', 'class' => 'mr-1']);
+					$html .= '<div class="avatar mr-75">';
+					if (is_null($item['avatar'])) {
+						$html .= img(PATH_DEFAULT_AVATAR, false, ['width' => 40, 'height' => 40, 'alt' => esc($item['fullname'])]);
 					} else {
-						$html .= img('app-assets/images/portrait/small/avatar-s.png', false, ['alt' => esc($reply['fullname']), 'width' => '40', 'height' => '40', 'class' => 'mr-1']);
+						$html .= img(PATH_USER_IMAGE . $item['avatar'], false, ['width' => 40, 'height' => 40, 'alt' => esc($item['fullname'])]);
 					}
+					$html .= '</div>';
 					$html .= '<div class="media-body">';
-					$html .= '<h5 class="mt-0 text-capitalize mb-0">' . esc($reply['fullname']) . '</h5>';
-					$html .= '<small class="text-muted"><i class="bx bx-time"></i>' . getDateHumanize($reply['created_at']) . '</small>';
-					$html .= '<a href="javascript:void(0);" class="reply" id="' . esc($reply['id']) . '" data-body="' . esc($reply['body']) . '">';
-					$html .= '<i class="bx bx-reply ml-1"></i> Reply';
+					$html .= '<h6 class="font-weight-bolder mb-25 text-capitalize">' . esc($item['fullname']) . '</h6>';
+					$html .= '<p class="card-text">' . getDateHumanize(esc($item['created_at'])) . '</p>';
+					$html .= '<p class="card-text">';
+					$html .= esc($item['body']);
+					$html .= '</p>';
+					$html .= '<a href="javascript:void(0);" class="reply" id="' . esc($item['id']) . '" data-body="' . esc($item['body']) . '">';
+					$html .= '<div class="d-inline-flex align-items-center">';
+					$html .= '<i data-feather="corner-up-left" class="font-medium-3 mr-50"></i>';
+					$html .= '<span>Reply</span>';
+					$html .= '</div>';
 					$html .= '</a>';
-					$html .= '<span class="d-block">';
-					$html .= esc($reply['body']);
-					$html .= '</span>';
 					$html .= '</div>';
 					$html .= '</div>';
-
-					$html .= $this->showReply($post_id, $reply['id']);
 				}
 			}
 
-			$data['csrf_hash'] = csrf_hash();
 			$data['html'] = $html;
 			return $html;
 		}

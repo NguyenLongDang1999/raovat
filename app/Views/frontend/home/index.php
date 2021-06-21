@@ -68,7 +68,7 @@ Trang chủ
                                     <?= esc($item['name']) ?>
                                 </a>
                             </h4>
-                            <p class="card-text text-truncate"><?= esc($item['description']) ?> asd asdas a asd asd asdadas asd as asd</p>
+                            <p class="card-text text-truncate"><?= esc($item['description']) ?></p>
                         </div>
                     </div>
                 </div>

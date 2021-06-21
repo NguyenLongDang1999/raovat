@@ -99,6 +99,7 @@ if (emailForm.length) {
                     type: 'post',
                     dataType: 'json',
                     async: false,
+                    cache: false,
                     dataFilter: function(data) {
                         let obj = eval('(' + data + ')');
                         return obj.valid;
