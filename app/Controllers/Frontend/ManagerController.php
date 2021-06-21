@@ -145,6 +145,44 @@ class ManagerController extends BaseController
 		return json_encode($data);
 	}
 
+	public function getPostListExpire()
+	{
+		$input = $this->request->getGet();
+		$input['user_id'] = user()->id;
+		$data = array();
+
+		$input['expire'] = true;
+		$results = $this->post->getPostListManager($input);
+
+		$data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($results['model']);
+
+		$data['aaData'] = array();
+		if (count($results['model']) > 0) {
+			foreach ($results['model'] as $row) {
+				$price = ($row['price'] != 0) ? esc(number_to_amount($row['price'], 2, 'vi_VN')) : 'Thương Lượng' . ' VNĐ';
+				$diffDate = diffDate($row['expire_from'], $row['expire_to']);
+				$img = explode(',', $row['thumb_list']);
+				$path = '';
+				if (!empty($img[0])) {
+					$path .= PATH_POST_SMALL_IMAGE . $img[0];
+				} else {
+					$path .= 'app-assets/images/no-image.jpg';
+				}
+
+				$data['aaData'][] = [
+					'responsive_id' => '',
+					'responsive_id' => esc($row['id']),
+					'image' => img($path, false, ['class' => 'img-fluid', 'alt' => esc($row['name']), 'width' => 150, 'height' => 150]),
+					'infoPost' => $this->infoPost($row['name'], $row['catName'], $row['provinceName'], $price),
+					'infoDate' => $this->infoDate($diffDate, $row['expire_from'], $row['expire_to']),
+					'featured' => esc($row['featured']),
+				];
+			}
+		}
+
+		return json_encode($data);
+	}
+
 	private function infoPost($postName, $catName, $provinceName, $price)
 	{
 		helper('text');

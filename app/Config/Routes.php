@@ -60,6 +60,7 @@ $routes->group('', ['namespace' => 'App\Controllers\Frontend'], function ($route
 	$routes->get('getPostList', 'ManagerController::getPostList', ['as' => 'user.manager.getPostList', 'filter' => 'login']);
 	$routes->get('getPostListBlock', 'ManagerController::getPostListBlock', ['as' => 'user.manager.getPostListBlock', 'filter' => 'login']);
 	$routes->get('getPostListReady', 'ManagerController::getPostListReady', ['as' => 'user.manager.getPostListReady', 'filter' => 'login']);
+	$routes->get('getPostListExpire', 'ManagerController::getPostListExpire', ['as' => 'user.manager.getPostListExpire', 'filter' => 'login']);
 	$routes->post('quan-ly-tin-dang/s(:num)/update', 'ManagerController::update/$1', ['as' => 'user.manager.update', 'filter' => 'login']);
 	$routes->post('quan-ly-tin-dang/multiStatus', 'ManagerController::multiStatus', ['as' => 'user.post.multiStatus', 'filter' => 'login']);
 });

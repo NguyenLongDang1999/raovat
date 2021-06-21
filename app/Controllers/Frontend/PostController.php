@@ -121,6 +121,9 @@ class PostController extends BaseController
         // if ($data['row']['status'] != STATUS_POST_READY) {
         //     return redirect()->back()->with('error', "Tin đăng của bạn chưa được kiểm duyệt hoặc đã bị từ chối!");
         // }
+        if (!isset($row)) {
+            return redirect()->route('user.home.index');
+        }
         $data['getCategoryList'] = $this->category->getCategoryList();
         $data['getProductRelated'] = $this->post->getProductRelated($row['cat_id'], $row['postId']);
         $data['gallery'] = explode(',', $row['thumb_list']);

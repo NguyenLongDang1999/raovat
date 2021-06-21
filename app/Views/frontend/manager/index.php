@@ -83,6 +83,12 @@ Quản lý tin đăng cá nhân
                                 <span>Tin Đăng Không Được Duyệt</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="manager-expire-tab" data-toggle="pill" href="#manager-expire" aria-expanded="false">
+                                <i data-feather='alert-circle'></i>
+                                <span>Tin Đăng Hết Hạn</span>
+                            </a>
+                        </li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane" id="manager-ready" role="tabpanel" aria-labelledby="manager-ready-tab" aria-expanded="true">
@@ -131,6 +137,22 @@ Quản lý tin đăng cá nhân
                         <div class="tab-pane" id="manager-block" role="tabpanel" aria-labelledby="manager-block-tab" aria-expanded="false">
                             <?= form_open('', ['id' => 'frmTbListBlock']) ?>
                             <table class="dt-advanced-search dt-responsive table table-white-space" id="get-manager-block">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Hình ảnh</th>
+                                        <th>Thông tin bài đăng</th>
+                                        <th>Gói đăng tin</th>
+                                        <th>Loại tin</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <?= form_close() ?>
+                        </div>
+                        <div class="tab-pane" id="manager-expire" role="tabpanel" aria-labelledby="manager-expire-tab" aria-expanded="false">
+                            <?= form_open('', ['id' => 'frmTbListExpire']) ?>
+                            <table class="dt-advanced-search dt-responsive table table-white-space" id="get-manager-expire">
                                 <thead>
                                     <tr>
                                         <th></th>

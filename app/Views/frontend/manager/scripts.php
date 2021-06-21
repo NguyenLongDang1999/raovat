@@ -482,6 +482,141 @@
             },
         });
 
+        var oTableExpire = $('#get-manager-expire').DataTable({
+            "bServerSide": true,
+            "bProcessing": true,
+            "sPaginationType": "full_numbers",
+            "sAjaxSource": "<?= route_to('user.manager.getPostListExpire') ?>",
+            "bDeferRender": true,
+            "bFilter": false,
+            "bDestroy": true,
+            "aLengthMenu": aLengthMenuGeneral,
+            "iDisplayLength": 20,
+            "bSort": true,
+            columns: [{
+                    data: 'responsive_id',
+                    "bSortable": false
+                },
+                {
+                    data: 'image',
+                    "bSortable": false
+                },
+                {
+                    data: 'infoPost',
+                    "bSortable": false
+                },
+                {
+                    data: 'infoDate',
+                    "bSortable": false
+                },
+                {
+                    data: 'featured',
+                    "bSortable": false
+                },
+                {
+                    data: 'action',
+                    "bSortable": false
+                },
+            ],
+            "fnServerParams": function(aoData) {
+                if (click_mode == 0) {
+                    aoData.push({
+                        "name": "search[name]",
+                        "value": $('#frmSearch input[name="search[name]"]').val()
+                    });
+                }
+            },
+            columnDefs: [{
+                    className: 'control',
+                    orderable: false,
+                    responsivePriority: 2,
+                    targets: 0
+                },
+                {
+                    targets: 4,
+                    render: function(data, type, full, meta) {
+                        var $featured_number = full['featured'];
+                        var $featured = {
+                            1: {
+                                title: 'VIP',
+                                class: 'badge-light-primary'
+                            },
+                            0: {
+                                title: 'Bình Thường',
+                                class: ' badge-light-danger'
+                            },
+                        };
+                        if (typeof $featured[$featured_number] === 'undefined') {
+                            return data;
+                        }
+                        return (
+                            '<span class="badge badge-pill ' +
+                            $featured[$featured_number].class +
+                            '">' +
+                            $featured[$featured_number].title +
+                            '</span>'
+                        );
+                    }
+                },
+                {
+                    targets: -1,
+                    title: 'Thao Tác',
+                    orderable: false,
+                    render: function(data, type, full, meta) {
+                        var $id = full['responsive_id'];
+                        return (
+                            '<a href="<?= current_url() ?>/s' + $id + '/edit" class="item-edit">' +
+                            feather.icons['edit'].toSvg({
+                                class: 'font-small-4'
+                            }) +
+                            '</a>'
+                        );
+                    }
+                }
+            ],
+            select: 'multi',
+            dom: '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+            responsive: {
+                details: {
+                    display: $.fn.dataTable.Responsive.display.modal({
+                        header: function(row) {
+                            var data = row.data();
+                            return 'Chi Tiết Thông Tin';
+                        }
+                    }),
+                    type: 'column',
+                    renderer: function(api, rowIdx, columns) {
+                        var data = $.map(columns, function(col, i) {
+                            console.log(columns);
+                            return col.title !== '' ?
+                                '<tr data-dt-row="' +
+                                col.rowIndex +
+                                '" data-dt-column="' +
+                                col.columnIndex +
+                                '">' +
+                                '<td>' +
+                                col.title +
+                                ':' +
+                                '</td> ' +
+                                '<td>' +
+                                col.data +
+                                '</td>' +
+                                '</tr>' :
+                                '';
+                        }).join('');
+
+                        return data ? $('<table class="table"/>').append(data) : false;
+                    }
+                }
+            },
+            language: {
+                paginate: {
+                    previous: '&nbsp;',
+                    next: '&nbsp;'
+                }
+            },
+        });
+
         $('#tabMenu a').click(function(e) {
             e.preventDefault();
             $(this).tab('show');
@@ -511,6 +646,9 @@
                     break;
 
                 case '#manager-ready':
+                    break;
+
+                case '#manager-expire':
                     break;
 
                 default:

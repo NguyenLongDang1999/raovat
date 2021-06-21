@@ -62,6 +62,7 @@ class Post extends Model
             ->join('district', 'district.id = post.district_id')
             ->where('category.status', STATUS_ACTIVE)
             ->where('post.status', STATUS_POST_ACTIVE)
+            ->where('post.expire_to >=', date('Y-m-d'))
             ->groupStart()
             ->where($str)
             ->groupEnd();
@@ -152,6 +153,7 @@ class Post extends Model
             ->join('district', 'district.id = post.district_id')
             ->where('category.status', STATUS_ACTIVE)
             ->where('post.status', STATUS_POST_ACTIVE)
+            ->where('post.expire_to >=', date('Y-m-d'))
             ->orderBy('created_at', 'desc');
 
         if (isset($input['price_range']) && $input['price_range'] != '') {
@@ -202,6 +204,7 @@ class Post extends Model
             ->join('users', 'users.id = post.user_id')
             ->join('province', 'province.id = post.province_id')
             ->join('district', 'district.id = post.district_id')
+            ->where('post.expire_to >=', date('Y-m-d'))
             ->where('users.active', STATUS_ACTIVE)
             ->where('category.slug', $catSlug)
             ->where('post.slug', $postSlug)
@@ -241,9 +244,13 @@ class Post extends Model
             post.thumb_list, post.expire_from, post.expire_to, category.slug as catSlug, post.slug')
             ->join('category', 'category.id = post.cat_id')
             ->join('users', 'users.id = post.user_id')
-            ->join('province', 'province.id = post.province_id')
-            ->where('post.expire_to >=', date('Y-m-d'))
-            ->where('category.status', STATUS_ACTIVE)
+            ->join('province', 'province.id = post.province_id');
+            if (isset($input['expire']) && $input['expire']) {
+                $model->where('post.expire_to <', date('Y-m-d'));
+            } else {
+                $model->where('post.expire_to >=', date('Y-m-d'));
+            }
+            $model->where('category.status', STATUS_ACTIVE)
             ->where('users.id', $input['user_id']);
 
         if (isset($input['search']['name']) && $input['search']['name'] != "") {
