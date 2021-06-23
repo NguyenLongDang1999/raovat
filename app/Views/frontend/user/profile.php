@@ -2,11 +2,7 @@
 <?= form_hidden('checkImg', isset(user()->avatar) ? user()->avatar : '') ?>
 <div class="media">
     <a href="javascript:void(0);" class="mr-25">
-        <?php if (is_null(user()->avatar)) : ?>
-            <?= img(PATH_DEFAULT_AVATAR, false, ['class' => 'rounded mr-50', 'id' => 'blog-feature-image', 'alt' => esc(user()->fullname), 'height' => '80', 'width' => '80']) ?>
-        <?php else : ?>
-            <?= img(PATH_USER_IMAGE . user()->avatar, false, ['class' => 'rounded mr-50', 'id' => 'blog-feature-image', 'alt' => esc(user()->fullname), 'height' => '80', 'width' => '80']) ?>
-        <?php endif ?>
+        <?= img(userShowImage(user()->avatar, user()->provider_name, user()->provider_uid), false, ['class' => 'rounded mr-50', 'id' => 'blog-feature-image', 'alt' => esc(user()->fullname), 'height' => '80', 'width' => '80']) ?>
     </a>
     <div class="media-body mt-75 ml-1">
         <label for="blogCustomFile" class="btn btn-sm btn-primary mb-75 mr-75">Upload</label>

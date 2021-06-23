@@ -48,13 +48,11 @@
                 </div>
             </li>
             <?php if (logged_in()) : ?>
-                <?php if (is_null(user()->avatar)) : ?>
-                    <?php $img = img(PATH_DEFAULT_AVATAR, false, ['class' => 'round', 'alt' => esc(user()->fullname), 'height' => '40', 'width' => '40']) ?>
-                <?php else : ?>
-                    <?php $img = img(PATH_USER_IMAGE . user()->avatar, false, ['class' => 'round', 'alt' => esc(user()->fullname), 'height' => '40', 'width' => '40']) ?>
-                <?php endif ?>
                 <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder text-capitalize"><?= user()->fullname ?></span><span class="user-status"><?= user()->gender == GENDER_FEMALE ? 'Nữ' : 'Nam' ?></span></div><span class="avatar"><?= $img ?></span>
+                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder text-capitalize"><?= user()->fullname ?></span><span class="user-status"><?= user()->gender == GENDER_FEMALE ? 'Nữ' : 'Nam' ?></span></div>
+                        <span class="avatar">
+                            <?= img(userShowImage(user()->avatar, user()->provider_name, user()->provider_uid), false, ['class' => 'round', 'alt' => esc(user()->fullname), 'height' => '40', 'width' => '40']) ?>
+                        </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user">
                         <a class="dropdown-item <?= getMenuUserActive(route_to('user.user.myProfile')) ?>" href="<?= route_to('user.user.myProfile') ?>">
@@ -77,7 +75,7 @@
                                 <i class="mr-50" data-feather="power"></i> Đăng Xuất
                             </a>
                         <?php else : ?>
-                            <a class="dropdown-item" href="<?= route_to('logout') ?>?logout=<?= strtolower(session()->get('getProvider')) ?>">
+                            <a class="dropdown-item" href="<?= route_to('user.user.socialLogin') ?>?logout=<?= strtolower(session()->get('getProvider')) ?>">
                                 <i class="mr-50" data-feather="power"></i> Đăng Xuất
                             </a>
                         <?php endif; ?>

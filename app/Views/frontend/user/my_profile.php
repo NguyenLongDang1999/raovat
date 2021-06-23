@@ -61,11 +61,7 @@ Thông tin cá nhân
                 <div class="position-relative">
                     <div class="profile-img-container d-flex align-items-center">
                         <div class="profile-img">
-                            <?php if (is_null(user()->avatar)) : ?>
-                                <?= img(PATH_DEFAULT_AVATAR, false, ['class' => 'rounded img-fluid', 'alt' => esc(user()->fullname)]) ?>
-                            <?php else : ?>
-                                <?= img(PATH_USER_IMAGE . user()->avatar, false, ['class' => 'rounded img-fluid', 'alt' => esc(user()->fullname)]) ?>
-                            <?php endif ?>
+                            <?= img(userShowImage(user()->avatar, user()->provider_name, user()->provider_uid), false, ['class' => 'rounded img-fluid', 'alt' => esc(user()->fullname)]) ?>
                         </div>
                         <div class="profile-title ml-3">
                             <h2 class="text-white text-capitalize"><?= esc(user()->fullname) ?></h2>

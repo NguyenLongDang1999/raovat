@@ -322,11 +322,7 @@
                     <hr class="my-2" />
                     <div class="media">
                         <div class="avatar mr-2">
-                            <?php if (is_null($row['avatar'])) : ?>
-                                <?= img(PATH_DEFAULT_AVATAR, false, ['width' => 60, 'height' => 60, 'alt' => esc($row['fullname'])]) ?>
-                            <?php else : ?>
-                                <?= img(PATH_USER_IMAGE . $row['avatar'], false, ['width' => 60, 'height' => 60, 'alt' => esc($row['fullname'])]) ?>
-                            <?php endif ?>
+                            <?= img(userShowImage($row['avatar'], $row['provider_name'], $row['provider_uid']), false, ['width' => 60, 'height' => 60, 'alt' => esc($row['fullname'])]) ?>
                         </div>
                         <div class="media-body">
                             <h6 class="font-weight-bolder text-capitalize"><?= esc($row['fullname']) ?></h6>
