@@ -186,11 +186,7 @@
                         </h6>
                         <div class="media order-2 my-50">
                             <div class="avatar mr-50">
-                                <?php if (is_null($item['avatar'])) : ?>
-                                    <?= img(PATH_LAZY_LOADING, false, ['class' => 'lazy loading', 'width' => 24, 'height' => 24, 'alt' => esc($item['fullname']), 'data-src' => base_url(PATH_DEFAULT_AVATAR)]) ?>
-                                <?php else : ?>
-                                    <?= img(PATH_LAZY_LOADING, false, ['class' => 'lazy loading', 'width' => 24, 'height' => 24, 'alt' => esc($item['fullname']), 'data-src' => base_url(PATH_USER_IMAGE . $item['avatar'])]) ?>
-                                <?php endif ?>
+                                <?= img(PATH_LAZY_LOADING, false, ['class' => 'lazy loading', 'width' => 24, 'height' => 24, 'alt' => esc($item['fullname']), 'data-src' => base_url(userShowImage($item['avatar'], $item['provider_name'], $item['provider_uid']))]) ?>
                             </div>
                             <div class="media-body">
                                 <small><a href="javascript:void(0);" class="text-body"><?= esc($item['fullname']) ?></a></small>

@@ -406,6 +406,7 @@
                         </div>
                         <?= form_close() ?>
                     <?php else : ?>
+                        <?= form_hidden('post_id', $row['postId']) ?>
                         <p class="text-danger m-0 text-center">Bạn cần đăng nhập để có thể đăng bình luận cá nhân.</p>
                     <?php endif; ?>
                 </div>

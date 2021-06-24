@@ -145,7 +145,7 @@ class Post extends Model
     public function getPostNews($count = false, $input = array())
     {
         $query = $this->select('post.thumb_list, post.slug, post.name, post.price, 
-        users.fullname, users.avatar, province.name as provinceName, post.created_at, 
+        users.fullname, users.avatar, users.provider_name, users.provider_uid, province.name as provinceName, post.created_at, 
         post.featured, category.slug as catSlug, post.view, post.id, district.name as districtName')
             ->join('category', 'category.id = post.cat_id')
             ->join('users', 'users.id = post.user_id')
@@ -217,7 +217,7 @@ class Post extends Model
     public function getPostHome($featured = false)
     {
         $model = $this->select('post.thumb_list, post.slug, post.name, post.price, 
-        users.fullname, users.avatar, province.name as provinceName, post.created_at, 
+        users.fullname, users.avatar, users.provider_name, users.provider_uid, province.name as provinceName, post.created_at, 
         post.featured, category.slug as catSlug, post.view, post.id, district.name as districtName')
             ->join('category', 'category.id = post.cat_id')
             ->join('users', 'users.id = post.user_id')

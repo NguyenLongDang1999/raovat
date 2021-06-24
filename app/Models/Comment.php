@@ -23,12 +23,13 @@ class Comment extends Model
 	protected $deletedField         = 'deleted_at';
 
 	public function getCommentByPost($post_id)
-    {
-        return $this->select('users.fullname, comment.body, comment.id, comment.created_at, users.avatar')
-        ->join('users', 'users.id = comment.user_id')
-        ->where('comment.status', STATUS_ACTIVE)
-        ->where('comment.post_id', $post_id)
-        ->orderBy('comment.created_at', 'desc')
-        ->findAll();
-    }
+	{
+		return $this->select('comment.body, comment.id, comment.created_at,
+			users.avatar, users.provider_name, users.provider_uid, users.fullname')
+			->join('users', 'users.id = comment.user_id')
+			->where('comment.status', STATUS_ACTIVE)
+			->where('comment.post_id', $post_id)
+			->orderBy('comment.created_at', 'desc')
+			->findAll();
+	}
 }
