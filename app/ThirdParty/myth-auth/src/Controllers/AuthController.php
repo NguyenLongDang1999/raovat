@@ -7,6 +7,7 @@ use CodeIgniter\Controller;
 use Myth\Auth\Entities\User;
 use Myth\Auth\Models\UserModel;
 use Hybridauth\Hybridauth;
+use Hybridauth\HttpClient\Util;
 use Hybridauth\Storage\Session;
 
 class AuthController extends Controller
@@ -61,6 +62,12 @@ class AuthController extends Controller
 		$login = $this->request->getPost('login');
 		$password = $this->request->getPost('password');
 		$remember = (bool) $this->request->getPost('remember');
+
+		$throttler = service('throttler');
+
+		if ($throttler->check($this->request->getIPAddress(), 2, MINUTE) === false) {
+			return service('response')->setStatusCode(429)->setBody(lang('Auth.tooManyRequests', [$throttler->getTokentime()]));
+		}
 
 		// Determine credential type
 		$type = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
@@ -501,8 +508,8 @@ class AuthController extends Controller
 				$adapter = $hybridauth->getAdapter($_GET['logout']);
 				$adapter->disconnect();
 	
-				session()->remove('getProvider');
-				return redirect()->route('login');
+				session()->remove(['getProvider', 'logged_in']);
+				Util::redirect(base_url(route_to('login')));
 			}
 
 			if (isset($_GET['provider'])) {
