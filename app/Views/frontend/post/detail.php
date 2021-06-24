@@ -406,8 +406,10 @@
                         </div>
                         <?= form_close() ?>
                     <?php else : ?>
+                        <?= form_open('', ['id' => 'comment-form', 'class' => 'form']) ?>
                         <?= form_hidden('post_id', $row['postId']) ?>
                         <p class="text-danger m-0 text-center">Bạn cần đăng nhập để có thể đăng bình luận cá nhân.</p>
+                        <?= form_close() ?>
                     <?php endif; ?>
                 </div>
             </div>
