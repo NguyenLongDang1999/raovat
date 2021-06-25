@@ -98,8 +98,8 @@ defined('PATH_POST_IMAGE')          || define('PATH_POST_IMAGE', 'uploads/post/'
 defined('PATH_POST_SMALL_IMAGE')    || define('PATH_POST_SMALL_IMAGE', 'uploads/post/small/');
 defined('PATH_POST_MEDIUM_IMAGE')   || define('PATH_POST_MEDIUM_IMAGE', 'uploads/post/medium/');
 defined('PATH_DEFAULT_AVATAR')      || define('PATH_DEFAULT_AVATAR', 'app-assets/images/portrait/small/avatar-s.png');
-defined('PATH_LAZY_LOADING')        || define('PATH_LAZY_LOADING', 'app-assets/images/loader.gif');
-defined('PATH_POST_IMAGE_DEFAULT')  || define('PATH_POST_IMAGE_DEFAULT', PATH_POST_IMAGE_DEFAULT);
+defined('PATH_LAZY_LOADING')        || define('PATH_LAZY_LOADING', 'app-assets/images/default/loader.gif');
+defined('PATH_POST_IMAGE_DEFAULT')  || define('PATH_POST_IMAGE_DEFAULT', 'app-assets/images/default/no-image.jpg');
 defined('BANNER_TOP')               || define('BANNER_TOP', '0');
 defined('BANNER_MIDDLE')            || define('BANNER_MIDDLE', '1');
 defined('BANNER_BOTTOM')            || define('BANNER_BOTTOM', '2');
