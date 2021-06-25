@@ -507,7 +507,7 @@ class AuthController extends Controller
 				$hybridauth = new Hybridauth($this->getHybridConfig());
 				$adapter = $hybridauth->getAdapter($_GET['logout']);
 				$adapter->disconnect();
-	
+
 				session()->remove(['getProvider', 'logged_in']);
 				Util::redirect(base_url(route_to('login')));
 			}
@@ -530,37 +530,43 @@ class AuthController extends Controller
 			}
 
 			$getProvider = session()->get('getProvider');
-			$config = config('Auth');
 			$users = model(UserModel::class);
-
-			$hashOptions = [
-				'cost' => $config->hashCost
-			];
 
 			$checkUserExists = $users->getUserByProvider($getProvider, $userProfile->identifier);
 			if ($checkUserExists == 0) {
-				$hash_password = password_hash(
-					base64_encode(
-						hash('sha384', random_string('alnum', 10), true)
-					),
-					$config->hashAlgorithm,
-					$hashOptions
-				);
-
+				// Save the user
 				$input = [
 					'email' => $userProfile->email,
-					'password_hash' => $hash_password,
 					'fullname' => $userProfile->displayName,
 					'provider_name' => $getProvider,
 					'provider_uid' => $userProfile->identifier,
 					'avatar' => $userProfile->photoURL,
-					'active' => STATUS_ACTIVE
 				];
-				$users->save($input);
+
+				$allowedPostFields = array_merge(['password' => random_string('alnum', 10)], $input);
+				$user = new User($allowedPostFields);
+				$user->activate();
+
+				if (!empty($this->config->defaultUserGroup)) {
+					$users = $users->withGroup($this->config->defaultUserGroup);
+				}
+
+				if (!$users->save($user)) {
+					return redirect()->back()->withInput()->with('errors', $users->errors());
+				}
 			}
 
-			$user_id = $users->getUserDetailByProviderUid($getProvider, $userProfile->identifier);
-			session()->set('logged_in', $user_id->id);
+			$user_detail = $users->getUserDetailByProviderUid($getProvider, $userProfile->identifier);
+
+			$password_hash = base64_encode(
+				hash('sha384', $user_detail->password_hash, true)
+			);
+			
+			if (!$this->auth->attempt(['email' => $user_detail->email, 'password' => $password_hash], false)) {
+				return redirect()->back()->withInput()->with('error', $this->auth->error() ?? lang('Auth.badAttempt'));
+			}
+
+			// session()->set('logged_in', $user_detail->id);
 			return redirect()->route('user.user.myProfile');
 		} catch (\Exception $e) {
 			echo 'Oops, we ran into an issue! ' . $e->getMessage();

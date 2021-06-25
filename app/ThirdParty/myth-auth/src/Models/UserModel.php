@@ -140,7 +140,7 @@ class UserModel extends Model
 
     public function getUserDetailByProviderUid($provider_name, $provider_user_id)
     {
-        $model = $this->select('provider_uid, id')
+        $model = $this->select('provider_uid, id, email, password_hash')
             ->where('provider_name', $provider_name)
             ->where('provider_uid', $provider_user_id)
             ->first();
