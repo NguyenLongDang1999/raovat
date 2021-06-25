@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\Category;
 use App\Models\Province;
 use App\Models\District;
+use Tatter\Pushover\Entities\Message;
 
 class PostController extends BaseController
 {
@@ -115,6 +116,16 @@ class PostController extends BaseController
 
         $input['thumb_list'] = $thumb_list;
         $this->post->insert($input);
+
+        $pushover = service('pushover');
+        $message = $pushover->message([
+            'title'    => 'NinhHoaRaoVat Thông Báo!',
+            'message'  => user()->fullname . ' có 1 bài đăng mới.',
+            'url'      => base_url(),
+            'priority' => 1,
+        ]);
+        $message->send();
+
         return redirect()->route('user.post.index')->with('message', "Bài đăng <strong class='text-capitalize'>" . esc($input['name']) . "</strong> đã được thêm. Vui lòng chờ kiểm duyệt.");
     }
 

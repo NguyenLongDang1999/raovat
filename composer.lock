@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "df88e1f3b6d297be200e3f158d70782c",
+    "content-hash": "cc8a33359876cb09ef4e3a44f45aeddb",
     "packages": [
         {
             "name": "codeigniter4/framework",
@@ -368,6 +368,58 @@
                 "source": "https://github.com/php-fig/log/tree/1.1.4"
             },
             "time": "2021-05-03T11:20:27+00:00"
+        },
+        {
+            "name": "tatter/pushover",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tattersoftware/codeigniter4-pushover.git",
+                "reference": "588c03d27aef95170bd46f1ae9bd3b10ecb31f2f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tattersoftware/codeigniter4-pushover/zipball/588c03d27aef95170bd46f1ae9bd3b10ecb31f2f",
+                "reference": "588c03d27aef95170bd46f1ae9bd3b10ecb31f2f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "codeigniter4/codeigniter4": "dev-develop",
+                "fzaninotto/faker": "^1.9@dev",
+                "phpunit/phpunit": "^8.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tatter\\Pushover\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matthew Gatner",
+                    "email": "mgatner@tattersoftware.com",
+                    "homepage": "https://tattersoftware.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Pushover integration for CodeIgniter 4",
+            "homepage": "https://github.com/tattersoftware/codeigniter4-pushover",
+            "keywords": [
+                "codeigniter",
+                "codeigniter4",
+                "mobile",
+                "notifications",
+                "push",
+                "pushover"
+            ],
+            "time": "2020-07-01T01:25:04+00:00"
         }
     ],
     "packages-dev": [
