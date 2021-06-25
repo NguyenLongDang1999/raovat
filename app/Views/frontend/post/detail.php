@@ -457,7 +457,7 @@
                                     <?php if (!empty($img[0])) : ?>
                                         <?= img(PATH_POST_SMALL_IMAGE . $img[0], false, ['class' => 'rounded', 'width' => 100, 'height' => 70, 'alt' => esc($item['name'])]) ?>
                                     <?php else : ?>
-                                        <?= img('app-assets/images/no-image.jpg', false, ['class' => 'rounded', 'width' => 100, 'height' => 70, 'alt' => esc($item['name'])]) ?>
+                                        <?= img(PATH_POST_IMAGE_DEFAULT, false, ['class' => 'rounded', 'width' => 100, 'height' => 70, 'alt' => esc($item['name'])]) ?>
                                     <?php endif; ?>
                                 </a>
                                 <div class="media-body">

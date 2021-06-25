@@ -131,7 +131,7 @@ $(function() {
                     <div class="form-group">
                         <?= form_label('Ảnh đại diện danh mục', 'image', ['class' => 'form-label text-capitalize']) ?>
                         <div class="media flex-column flex-md-row">
-                            <?= img(!isset($row['image']) ? 'app-assets/images/no-image.jpg' : PATH_CATEGORY_IMAGE . $row['image'], false, ['class' => 'rounded mr-2 mb-1 mb-md-0', 'id' => 'blog-feature-image', 'width' => 100, 'height' => 100, 'alt' => 'Category Image']) ?>
+                            <?= img(!isset($row['image']) ? PATH_POST_IMAGE_DEFAULT : PATH_CATEGORY_IMAGE . $row['image'], false, ['class' => 'rounded mr-2 mb-1 mb-md-0', 'id' => 'blog-feature-image', 'width' => 100, 'height' => 100, 'alt' => 'Category Image']) ?>
 
                             <div class="media-body">
                                 <div class="d-inline-block">

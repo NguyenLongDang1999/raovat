@@ -51,7 +51,7 @@ class ManagerController extends BaseController
 				if (!empty($img[0])) {
 					$path .= PATH_POST_SMALL_IMAGE . $img[0];
 				} else {
-					$path .= 'app-assets/images/no-image.jpg';
+					$path .= PATH_POST_IMAGE_DEFAULT;
 				}
 
 				$data['aaData'][] = [
@@ -90,7 +90,7 @@ class ManagerController extends BaseController
 				if (!empty($img[0])) {
 					$path .= PATH_POST_SMALL_IMAGE . $img[0];
 				} else {
-					$path .= 'app-assets/images/no-image.jpg';
+					$path .= PATH_POST_IMAGE_DEFAULT;
 				}
 
 				$data['aaData'][] = [
@@ -127,7 +127,7 @@ class ManagerController extends BaseController
 				if (!empty($img[0])) {
 					$path .= PATH_POST_SMALL_IMAGE . $img[0];
 				} else {
-					$path .= 'app-assets/images/no-image.jpg';
+					$path .= PATH_POST_IMAGE_DEFAULT;
 				}
 
 				$data['aaData'][] = [
@@ -166,7 +166,7 @@ class ManagerController extends BaseController
 				if (!empty($img[0])) {
 					$path .= PATH_POST_SMALL_IMAGE . $img[0];
 				} else {
-					$path .= 'app-assets/images/no-image.jpg';
+					$path .= PATH_POST_IMAGE_DEFAULT;
 				}
 
 				$data['aaData'][] = [

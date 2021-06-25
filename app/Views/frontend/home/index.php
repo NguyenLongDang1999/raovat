@@ -104,7 +104,7 @@ Trang chủ
                                 <?php if (!empty($img[0])) : ?>
                                     <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top img-fluid lazy loading', 'width' => 350, 'height' => 250, 'alt' => esc($item['name']), 'data-src' => base_url(PATH_POST_SMALL_IMAGE . $img[0])]) ?>
                                 <?php else : ?>
-                                    <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top img-fluid lazy loading', 'width' => 350, 'height' => 250, 'alt' => esc($item['name']), 'data-src' => base_url('app-assets/images/no-image.jpg')]) ?>
+                                    <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top img-fluid lazy loading', 'width' => 350, 'height' => 250, 'alt' => esc($item['name']), 'data-src' => base_url(PATH_POST_IMAGE_DEFAULT)]) ?>
                                 <?php endif; ?>
                                 <div class="position-absolute position-top-0">
                                     <span class="badge badge-primary p-75">
@@ -183,14 +183,14 @@ Trang chủ
                                 <?php if (!empty($img[0])) : ?>
                                     <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top img-fluid lazy loading', 'width' => 350, 'height' => 250, 'alt' => esc($item['name']), 'data-src' => base_url(PATH_POST_SMALL_IMAGE . $img[0])]) ?>
                                 <?php else : ?>
-                                    <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top img-fluid lazy loading', 'width' => 350, 'height' => 250, 'alt' => esc($item['name']), 'data-src' => base_url('app-assets/images/no-image.jpg')]) ?>
+                                    <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top img-fluid lazy loading', 'width' => 350, 'height' => 250, 'alt' => esc($item['name']), 'data-src' => base_url(PATH_POST_IMAGE_DEFAULT)]) ?>
                                 <?php endif; ?>
                             <?php else : ?>
                                 <div class="position-relative">
                                     <?php if (!empty($img[0])) : ?>
                                         <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top img-fluid lazy loading', 'width' => 350, 'height' => 250, 'alt' => esc($item['name']), 'data-src' => base_url(PATH_POST_SMALL_IMAGE . $img[0])]) ?>
                                     <?php else : ?>
-                                        <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top img-fluid lazy loading', 'width' => 350, 'height' => 250, 'alt' => esc($item['name']), 'data-src' => base_url('app-assets/images/no-image.jpg')]) ?>
+                                        <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top img-fluid lazy loading', 'width' => 350, 'height' => 250, 'alt' => esc($item['name']), 'data-src' => base_url(PATH_POST_IMAGE_DEFAULT)]) ?>
                                     <?php endif; ?>
                                     <div class="position-absolute position-top-0">
                                         <span class="badge badge-primary p-75">

@@ -143,7 +143,7 @@ $(function() {
                     <div class="form-group">
                         <?= form_label('Ảnh đại diện banner', 'image', ['class' => 'form-label text-capitalize']) ?>
                         <div class="media flex-column flex-md-row">
-                            <?= img(!isset($row['image']) ? 'app-assets/images/no-image.jpg' : PATH_BANNER_IMAGE . $row['image'], false, ['class' => 'rounded mr-2 mb-1 mb-md-0', 'id' => 'blog-feature-image', 'width' => 300, 'height' => 300, 'alt' => 'Banner Image']) ?>
+                            <?= img(!isset($row['image']) ? PATH_POST_IMAGE_DEFAULT : PATH_BANNER_IMAGE . $row['image'], false, ['class' => 'rounded mr-2 mb-1 mb-md-0', 'id' => 'blog-feature-image', 'width' => 300, 'height' => 300, 'alt' => 'Banner Image']) ?>
                             <div class="media-body">
                                 <div class="d-inline-block">
                                     <div class="form-group mb-0">
