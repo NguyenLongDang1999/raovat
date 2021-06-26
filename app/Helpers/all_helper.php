@@ -190,10 +190,10 @@ function number_to_amount($num, int $precision = 0, string $locale = null)
 function userShowImage($user_avatar, $provider_name, $provider_uid)
 {
     if (is_null($user_avatar)) {
-        $path = PATH_DEFAULT_AVATAR;
+        $path = base_url(PATH_DEFAULT_AVATAR);
     } else {
         if (is_null($provider_name) || is_null($provider_uid)) {
-            $path = PATH_USER_IMAGE . $user_avatar;
+            $path = base_url(PATH_USER_IMAGE . $user_avatar);
         } else {
             $path = $user_avatar;
         }

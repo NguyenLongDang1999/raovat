@@ -63,6 +63,7 @@ class ManagerController extends BaseController
 					'infoDate' => $this->infoDate($diffDate, $row['expire_from'], $row['expire_to']),
 					'featured' => esc($row['featured']),
 					'status' => esc($row['status']),
+					'detail' => route_to('user.post.detail', esc($row['catSlug']), esc($row['slug']), esc($row['id']))
 				];
 			}
 		}
@@ -100,6 +101,7 @@ class ManagerController extends BaseController
 					'infoPost' => $this->infoPost($row['name'], $row['catName'], $row['provinceName'], $price),
 					'infoDate' => $this->infoDate($diffDate, $row['expire_from'], $row['expire_to']),
 					'featured' => esc($row['featured']),
+					'detail' => route_to('user.post.detail', esc($row['catSlug']), esc($row['slug']), esc($row['id']))
 				];
 			}
 		}
@@ -137,7 +139,7 @@ class ManagerController extends BaseController
 					'image' => img($path, false, ['class' => 'img-fluid', 'alt' => esc($row['name']), 'width' => 150, 'height' => 150]),
 					'infoPost' => $this->infoPost($row['name'], $row['catName'], $row['provinceName'], $price),
 					'infoDate' => $this->infoDate($diffDate, $row['expire_from'], $row['expire_to']),
-					'featured' => esc($row['featured']),
+					'featured' => esc($row['featured']),'detail' => route_to('user.post.detail', esc($row['catSlug']), esc($row['slug']), esc($row['id']))
 				];
 			}
 		}
@@ -201,8 +203,8 @@ class ManagerController extends BaseController
 		$html = '';
 		$html .= '<ul class="list-unstyled">';
 		$html .= '<li class="pb-25">Gói Đăng Tin: <span class="text-bold-500">' . esc($diff) . ' Ngày</span></li>';
-		$html .= '<li class="pb-25">Ngày Bắt Đầu: <span class="text-bold-500">' . esc($expire_from) . '</span></li>';
-		$html .= '<li class="pb-25">Ngày Hết Hạn: <span class="text-bold-500">' . esc($expire_to) . '</span></li>';
+		$html .= '<li class="pb-25">Ngày Bắt Đầu: <span class="text-bold-500">' . esc(getDateTime($expire_from)) . '</span></li>';
+		$html .= '<li class="pb-25">Ngày Hết Hạn: <span class="text-bold-500">' . esc(getDateTime($expire_to)) . '</span></li>';
 		$html .= '</ul>';
 		return $html;
 	}

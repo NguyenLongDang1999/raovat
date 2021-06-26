@@ -14,9 +14,13 @@ class LocalAuthenticator extends AuthenticationBase implements AuthenticatorInte
      *
      * @return bool
      */
-    public function attempt(array $credentials, bool $remember = null): bool
+    public function attempt(array $credentials, bool $remember = null, bool $social = false): bool
     {
-        $this->user = $this->validate($credentials, true);
+        if (!$social) {
+            $this->user = $this->validate($credentials, true);
+        } else {
+            $this->user = $this->userModel->where($credentials)->first();
+        }
 
         if (empty($this->user))
         {

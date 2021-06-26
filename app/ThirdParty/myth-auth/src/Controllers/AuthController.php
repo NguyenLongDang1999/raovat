@@ -543,9 +543,7 @@ class AuthController extends Controller
 					'avatar' => $userProfile->photoURL,
 				];
 
-				session()->set('password_social', random_string('alnum', 10));
-
-				$allowedPostFields = array_merge(['password' => session()->get('password_social')], $input);
+				$allowedPostFields = array_merge(['password' => random_string('alnum', 10)], $input);
 				$user = new User($allowedPostFields);
 				$user->activate();
 
@@ -560,11 +558,10 @@ class AuthController extends Controller
 
 			$user_detail = $users->getUserDetailByProviderUid($getProvider, $userProfile->identifier);
 
-			if (!$this->auth->attempt(['email' => $user_detail->email, 'password' => session()->get('password_social')], false)) {
+			if (!$this->auth->attempt(['email' => $user_detail->email], false, true)) {
 				return redirect()->back()->withInput()->with('error', $this->auth->error() ?? lang('Auth.badAttempt'));
 			}
 
-			session()->remove(['password_social']);
 			session()->set('logged_in', $user_detail->id);
 			return redirect()->route('user.user.myProfile');
 		} catch (\Exception $e) {

@@ -154,7 +154,7 @@ Bài đăng rao vặt mới nhất tại <?= base_url() ?>
                     </h6>
                     <div class="media order-2 my-50">
                         <div class="avatar mr-50">
-                            <?= img(PATH_LAZY_LOADING, false, ['class' => 'lazy loading', 'width' => 24, 'height' => 24, 'alt' => esc($item['fullname']), 'data-src' => base_url(userShowImage($item['avatar'], $item['provider_name'], $item['provider_uid']))]) ?>
+                            <?= img(PATH_LAZY_LOADING, false, ['class' => 'lazy loading', 'width' => 24, 'height' => 24, 'alt' => esc($item['fullname']), 'data-src' => userShowImage($item['avatar'], $item['provider_name'], $item['provider_uid'])]) ?>
                         </div>
                         <div class="media-body">
                             <small><a href="javascript:void(0);" class="text-body"><?= esc($item['fullname']) ?></a></small>

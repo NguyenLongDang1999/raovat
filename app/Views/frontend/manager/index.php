@@ -90,6 +90,7 @@ Quản lý tin đăng cá nhân
                             </a>
                         </li>
                     </ul>
+                    <?= view('Myth\Auth\Views\_message_block') ?>
                     <div class="tab-content">
                         <div class="tab-pane" id="manager-ready" role="tabpanel" aria-labelledby="manager-ready-tab" aria-expanded="true">
                             <?= form_open('', ['id' => 'frmTbListReady']) ?>

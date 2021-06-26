@@ -54,7 +54,7 @@ class Post extends Model
         }
         $str = rtrim($str, 'OR ');
         $query = $this->select('post.thumb_list, post.slug, post.name, post.price, 
-        users.fullname, users.avatar, province.name as provinceName, post.created_at, 
+        users.fullname, users.avatar, users.provider_name, users.provider_uid, province.name as provinceName, post.created_at, 
         post.featured, category.slug as catSlug, post.view, post.id, district.name as districtName')
             ->join('category', 'category.id = post.cat_id')
             ->join('users', 'users.id = post.user_id')
@@ -153,8 +153,7 @@ class Post extends Model
             ->join('district', 'district.id = post.district_id')
             ->where('category.status', STATUS_ACTIVE)
             ->where('post.status', STATUS_POST_ACTIVE)
-            ->where('post.expire_to >=', date('Y-m-d'))
-            ->orderBy('created_at', 'desc');
+            ->where('post.expire_to >=', date('Y-m-d'));
 
         if (isset($input['price_range']) && $input['price_range'] != '') {
             if ($input['price_range'] == 1) {
@@ -178,6 +177,44 @@ class Post extends Model
 
         if (isset($input['is_type_filter']) && $input['is_type_filter'] !== '') {
             $query = $query->where('post.is_type', $input['is_type_filter']);
+        }
+
+        if (isset($input['sort_filter']) && $input['sort_filter'] != '') {
+            if ($input['sort_filter'] == 0) {
+                $query = $query->orderBy('post.featured', 'desc');
+                $query = $query->orderBy('post.created_at', 'desc');
+            }
+
+            if ($input['sort_filter'] == 1) {
+                $query = $query->orderBy('post.created_at', 'asc');
+            }
+
+            if ($input['sort_filter'] == 2) {
+                $query = $query->orderBy('post.view', 'asc');
+            }
+
+            if ($input['sort_filter'] == 3) {
+                $query = $query->orderBy('post.view', 'desc');
+            }
+
+            if ($input['sort_filter'] == 4) {
+                $query = $query->orderBy('post.price', 'asc');
+            }
+
+            if ($input['sort_filter'] == 5) {
+                $query = $query->orderBy('post.price', 'desc');
+            }
+
+            if ($input['sort_filter'] == 6) {
+                $query = $query->orderBy('post.name', 'asc');
+            }
+
+            if ($input['sort_filter'] == 7) {
+                $query = $query->orderBy('post.name', 'desc');
+            }
+        } else {
+            $query = $query->orderBy('post.featured', 'desc');
+            $query = $query->orderBy('post.created_at', 'desc');
         }
 
         if ($count) {
@@ -239,8 +276,8 @@ class Post extends Model
     // User Manager
     public function getPostListManager($input = array())
     {
-        $model = $this->select('post.id, post.name, post.cat_id, post.province_id, post.price, 
-            post.status, post.featured, category.name as catName, province.name as provinceName,
+        $model = $this->select('post.id, post.name, post.cat_id, post.province_id, post.price,
+            post.slug, post.status, post.featured, category.name as catName, province.name as provinceName,
             post.thumb_list, post.expire_from, post.expire_to, category.slug as catSlug, post.slug')
             ->join('category', 'category.id = post.cat_id')
             ->join('users', 'users.id = post.user_id')
