@@ -543,7 +543,9 @@ class AuthController extends Controller
 					'avatar' => $userProfile->photoURL,
 				];
 
-				$allowedPostFields = array_merge(['password' => random_string('alnum', 10)], $input);
+				session()->set('password_social', random_string('alnum', 10));
+
+				$allowedPostFields = array_merge(['password' => session()->get('password_social')], $input);
 				$user = new User($allowedPostFields);
 				$user->activate();
 
@@ -558,15 +560,12 @@ class AuthController extends Controller
 
 			$user_detail = $users->getUserDetailByProviderUid($getProvider, $userProfile->identifier);
 
-			$password_hash = base64_encode(
-				hash('sha384', $user_detail->password_hash, true)
-			);
-			
-			if (!$this->auth->attempt(['email' => $user_detail->email, 'password' => $password_hash], false)) {
+			if (!$this->auth->attempt(['email' => $user_detail->email, 'password' => session()->get('password_social')], false)) {
 				return redirect()->back()->withInput()->with('error', $this->auth->error() ?? lang('Auth.badAttempt'));
 			}
 
-			// session()->set('logged_in', $user_detail->id);
+			session()->remove(['password_social']);
+			session()->set('logged_in', $user_detail->id);
 			return redirect()->route('user.user.myProfile');
 		} catch (\Exception $e) {
 			echo 'Oops, we ran into an issue! ' . $e->getMessage();
