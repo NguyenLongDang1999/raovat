@@ -110,11 +110,11 @@ Quản lý tin đăng cá nhân
                         </div>
                         <div class="tab-pane active" id="manager-active" role="tabpanel" aria-labelledby="manager-active-tab" aria-expanded="false">
                             <div class="mb-1">
-                                <button type="button" class="btn btn-warning glow confirm-text btn-status" data-status="3">
+                                <button type="button" class="btn btn-warning glow confirm-text btn-status" data-status="<?= STATUS_POST_HIDDEN ?>">
                                     Ẩn Tin
                                 </button>
 
-                                <button type="button" class="btn btn-primary glow confirm-text btn-status" data-status="1">
+                                <button type="button" class="btn btn-primary glow confirm-text btn-status" data-status="<?= STATUS_POST_ACTIVE ?>">
                                     Tiếp Tục Đăng
                                 </button>
                             </div>

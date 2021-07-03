@@ -446,7 +446,7 @@ class Post extends Model
         }
 
         if (isset($input['search']['status']) && $input['search']['status'] != "") {
-            if ($input['search']['status'] == 1) {
+            if ($input['search']['status'] == STATUS_POST_ACTIVE) {
                 $model->whereIn('post.status', [STATUS_POST_ACTIVE, STATUS_POST_HIDDEN]);
             } else {
                 $model->where('post.status', $input['search']['status']);

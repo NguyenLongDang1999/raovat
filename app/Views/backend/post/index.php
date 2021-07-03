@@ -209,7 +209,7 @@ Post List Page
                                 class: 'badge-light-primary'
                             },
                             <?= FEATURED_INACTIVE ?>: {
-                                title: 'Thường',
+                                title: 'Bình Thường',
                                 class: 'badge-light-danger'
                             },
                         };

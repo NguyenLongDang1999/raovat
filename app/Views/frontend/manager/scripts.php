@@ -90,13 +90,13 @@
                     render: function(data, type, full, meta) {
                         var $featured_number = full['featured'];
                         var $featured = {
-                            1: {
-                                title: 'VIP',
+                            <?= FEATURED_ACTIVE ?>: {
+                                title: 'Tin VIP',
                                 class: 'badge-light-primary'
                             },
-                            0: {
+                            <?= FEATURED_INACTIVE ?>: {
                                 title: 'Bình Thường',
-                                class: ' badge-light-danger'
+                                class: 'badge-light-danger'
                             },
                         };
                         if (typeof $featured[$featured_number] === 'undefined') {
@@ -116,21 +116,21 @@
                     render: function(data, type, full, meta) {
                         var $status_number = full['status'];
                         var $status = {
-                            1: {
+                            <?= STATUS_POST_ACTIVE ?>: {
                                 title: 'Đang Đăng',
+                                class: 'badge-light-success'
+                            },
+                            <?= STATUS_POST_READY ?>: {
+                                title: 'Chưa Duyệt',
                                 class: 'badge-light-primary'
                             },
-                            0: {
-                                title: 'Chưa Duyệt',
-                                class: ' badge-light-danger'
-                            },
-                            2: {
+                            <?= STATUS_POST_INACTIVE ?>: {
                                 title: 'Không Được Duyệt',
-                                class: ' badge-light-danger'
+                                class: 'badge-light-danger'
                             },
-                            3: {
+                            <?= STATUS_POST_HIDDEN ?>: {
                                 title: 'Đang Ẩn',
-                                class: ' badge-light-warning'
+                                class: 'badge-light-warning'
                             },
                         };
                         if (typeof $status[$status_number] === 'undefined') {
@@ -270,13 +270,13 @@
                     render: function(data, type, full, meta) {
                         var $featured_number = full['featured'];
                         var $featured = {
-                            1: {
-                                title: 'VIP',
+                            <?= FEATURED_ACTIVE ?>: {
+                                title: 'Tin VIP',
                                 class: 'badge-light-primary'
                             },
-                            0: {
+                            <?= FEATURED_INACTIVE ?>: {
                                 title: 'Bình Thường',
-                                class: ' badge-light-danger'
+                                class: 'badge-light-danger'
                             },
                         };
                         if (typeof $featured[$featured_number] === 'undefined') {
@@ -416,13 +416,13 @@
                     render: function(data, type, full, meta) {
                         var $featured_number = full['featured'];
                         var $featured = {
-                            1: {
-                                title: 'VIP',
+                            <?= FEATURED_ACTIVE ?>: {
+                                title: 'Tin VIP',
                                 class: 'badge-light-primary'
                             },
-                            0: {
+                            <?= FEATURED_INACTIVE ?>: {
                                 title: 'Bình Thường',
-                                class: ' badge-light-danger'
+                                class: 'badge-light-danger'
                             },
                         };
                         if (typeof $featured[$featured_number] === 'undefined') {
