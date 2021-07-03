@@ -120,6 +120,13 @@
                         $('#message').html(response.message);
                         $('input[name=comment_id]').val();
                         showComments();
+
+                        if (feather) {
+                            feather.replace({
+                                width: 14,
+                                height: 14
+                            });
+                        }
                     } else if (response.error) {
                         $('#message').html(response.message);
                     }
@@ -324,7 +331,7 @@
                         <?= $row['description'] ?>
                     </p>
 
-                    <a href="javascript:void(0)" class="btn btn-outline-secondary btn-wishlist me-0 me-sm-1 mb-1 mb-sm-0"  data-favorites="<?= checkFavorites() ?>" data-id="<?= esc($row['postId']) ?>">
+                    <a href="javascript:void(0)" class="btn btn-outline-secondary btn-wishlist me-0 me-sm-1 mb-1 mb-sm-0" data-favorites="<?= checkFavorites() ?>" data-id="<?= esc($row['postId']) ?>">
                         <i data-feather="heart" class="me-50"></i>
                         <span>Lưu Tin</span>
                     </a>
