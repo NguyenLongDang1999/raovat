@@ -12,22 +12,14 @@
     <title>NinhHoaRaoVat - <?= $this->renderSection('title') ?></title>
     <?= $this->include('templates/frontend/linkCSS') ?>
 </head>
-<!-- END: Head-->
-
-<!-- BEGIN: Body-->
 
 <body class="horizontal-layout horizontal-menu content-detached-left-sidebar navbar-floating footer-static  "
     data-open="hover" data-menu="horizontal-menu" data-col="content-detached-left-sidebar">
 
-    <!-- BEGIN: Header-->
     <?= $this->include('templates/frontend/header') ?>
-    <!-- END: Header-->
 
-    <!-- BEGIN: Main Menu-->
     <?= $this->include('templates/frontend/menu') ?>
-    <!-- END: Main Menu-->
 
-    <!-- BEGIN: Content-->
     <div class="app-content content <?= (isset($is_category_page) && $is_category_page || isset($is_home_page) && $is_home_page) ? 'ecommerce-application' : '' ?>">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
@@ -43,17 +35,13 @@
                 </div>
             </div>
         </div>
-        <!-- END: Content-->
 
         <div class="sidenav-overlay"></div>
         <div class="drag-target"></div>
 
-        <!-- BEGIN: Footer-->
         <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
-        <!-- END: Footer-->
 
         <?= $this->include('templates/frontend/linkJS') ?>
 </body>
-<!-- END: Body-->
 
 </html>

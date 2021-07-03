@@ -49,11 +49,11 @@
         return flag;
     }
 
-    function notify_cancel() {
+    function notify_cancel(text = "Không Có Mục Nào Được Chọn") {
         Swal.fire({
             icon: "warning",
             title: "Cảnh Báo!",
-            text: "Không Có Mục Nào Được Chọn",
+            text: text,
         });
     }
 
@@ -205,6 +205,50 @@
         });
     }
 
+    function favoritesAllItem(post_id) {
+        Swal.fire({
+            title: "Bạn có chắc chắn sẽ lưu bài đăng này ?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Đồng Ý",
+            confirmButtonClass: "btn btn-primary",
+            cancelButtonClass: "btn btn-danger ml-1",
+            buttonsStyling: false,
+        }).then(function (result) {
+            if (result.value) {
+                var updateFavorites = $.ajax({
+                    type: "post",
+                    url: url_favorites_item,
+                    async: true,
+                    cache: false,
+                    data: {
+                        post_id: post_id,
+                    },
+                });
+                updateFavorites.done(function (resp) {
+                    resp = jQuery.parseJSON(resp);
+                    if (resp.result) {
+                        notify_success(resp.message);
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Thất Bại!",
+                            html: resp.message,
+                        });
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Thất Bại!",
+                    html: "Chưa Có Dữ Liệu Nào Được Cập Nhật.",
+                });
+            }
+        });
+    }
+
     function featuredAllItem(data, featured) {
         Swal.fire({
             title: 'Bạn Có Chắn Chắn Muốn Kích Hoạt VIP Không ?',
@@ -300,6 +344,17 @@
             statusAllItem($("#frmTbList").serialize(), status);
         } else {
             notify_cancel();
+        }
+    });
+
+    $(document).on("click", ".btn-wishlist", function () {
+        var favorites = $(this).data("favorites");
+        var post_id = $(this).data("id");
+
+        if (favorites == 1) {
+            favoritesAllItem(post_id);
+        } else {
+            notify_cancel("Vui Lòng Đăng Nhập Để Lưu Lại Bài Đăng.");
         }
     });
 

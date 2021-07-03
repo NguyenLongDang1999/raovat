@@ -231,3 +231,16 @@ function showPostStatus($status)
 
     return $html;
 }
+
+function checkFavorites()
+{
+    $favorites = true;
+
+    if (logged_in()) {
+        $favorites = FAVORITES_AUTH;
+    } else {
+        $favorites = FAVORITES_NO_AUTH;
+    }
+
+    return $favorites;
+}

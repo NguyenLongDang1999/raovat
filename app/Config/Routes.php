@@ -62,6 +62,9 @@ $routes->group('', ['namespace' => 'App\Controllers\Frontend'], function ($route
 	$routes->get('getPostListExpire', 'ManagerController::getPostListExpire', ['as' => 'user.manager.getPostListExpire', 'filter' => 'login']);
 	$routes->post('quan-ly-tin-dang/s(:num)/update', 'ManagerController::update/$1', ['as' => 'user.manager.update', 'filter' => 'login']);
 	$routes->post('quan-ly-tin-dang/multiStatus', 'ManagerController::multiStatus', ['as' => 'user.post.multiStatus', 'filter' => 'login']);
+
+	// Favoritess
+	$routes->post('userFavorites', 'FavoritesController::index', ['as' => 'user.favorites.index']);	
 });
 
 // Backend

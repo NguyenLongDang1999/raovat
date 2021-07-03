@@ -37,6 +37,7 @@
 <?= $this->section('pageCSS') ?>
 <?= link_tag('app-assets/css/pages/page-blog.min.css') ?>
 <?= link_tag('app-assets/css/plugins/extensions/ext-component-swiper.min.css') ?>
+<?= link_tag('app-assets/vendors/css/extensions/sweetalert2.min.css') ?>
 <?= $this->endSection() ?>
 <!-- end pageCSS -->
 
@@ -45,12 +46,15 @@
 <?= script_tag('app-assets/vendors/js/extensions/swiper.min.js') ?>
 <?= script_tag('app-assets/vendors/js/fancybox/jquery.fancybox.min.js') ?>
 <?= script_tag('app-assets/vendors/js/forms/validation/jquery.validate.min.js') ?>
+<?= script_tag('app-assets/vendors/js/extensions/sweetalert2.all.min.js') ?>
 <?= $this->endSection() ?>
 <!-- end vendorJS -->
 
 <!-- pageJS -->
 <?= $this->section('pageJS') ?>
 <script>
+    var url_favorites_item = "<?= route_to('user.favorites.index') ?>";
+
     $(function() {
         'use strict';
 
@@ -319,6 +323,12 @@
                     <p class="card-text mb-2">
                         <?= $row['description'] ?>
                     </p>
+
+                    <a href="javascript:void(0)" class="btn btn-outline-secondary btn-wishlist me-0 me-sm-1 mb-1 mb-sm-0"  data-favorites="<?= checkFavorites() ?>" data-id="<?= esc($row['postId']) ?>">
+                        <i data-feather="heart" class="me-50"></i>
+                        <span>Lưu Tin</span>
+                    </a>
+
                     <hr class="my-2" />
                     <div class="media">
                         <div class="avatar mr-2">

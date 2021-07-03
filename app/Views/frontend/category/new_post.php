@@ -7,6 +7,7 @@ Bài đăng rao vặt mới nhất tại <?= base_url() ?>
 <!-- pageCSS -->
 <?= $this->section('pageCSS') ?>
 <?= link_tag('app-assets/css/pages/app-ecommerce.min.css') ?>
+<?= link_tag('app-assets/vendors/css/extensions/sweetalert2.min.css') ?>
 <style>
     @media (max-width: 575.98px) {
 
@@ -37,17 +38,19 @@ Bài đăng rao vặt mới nhất tại <?= base_url() ?>
 <?= $this->section('vendorJS') ?>
 <?= script_tag('app-assets/vendors/js/lazy/jquery.lazy.min.js') ?>
 <?= script_tag('app-assets/vendors/js/lazy/jquery.lazy.script.min.js') ?>
-<script>
-    $(function() {
-        $('.lazy').lazy();
-    })
-</script>
+<?= script_tag('app-assets/vendors/js/extensions/sweetalert2.all.min.js') ?>
 <?= $this->endSection() ?>
 <!-- end vendorJS -->
 
 <!-- pageJS -->
 <?= $this->section('pageJS') ?>
 <?= script_tag('app-assets/js/scripts/pages/app-ecommerce.js') ?>
+<script>
+    var url_favorites_item = "<?= route_to('user.favorites.index') ?>";
+    $(function() {
+        $('.lazy').lazy();
+    })
+</script>
 <?= $this->endSection() ?>
 <!-- end pageJS -->
 
@@ -182,7 +185,7 @@ Bài đăng rao vặt mới nhất tại <?= base_url() ?>
                             <h4 class="item-price"><?= $item['price'] != 0 ? esc(number_to_amount($item['price'], 2, 'vi_VN')) : 'Thương Lượng' ?></h4>
                         </div>
                     </div>
-                    <a href="javascript:void(0)" class="btn btn-light btn-wishlist">
+                    <a href="javascript:void(0)" class="btn btn-light btn-wishlist" data-favorites="<?= checkFavorites() ?>" data-id="<?= esc($item['id']) ?>">
                         <i data-feather="heart"></i>
                         <span>Lưu Tin</span>
                     </a>

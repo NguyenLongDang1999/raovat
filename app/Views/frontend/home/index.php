@@ -7,6 +7,7 @@ Trang chủ
 <!-- pageCSS -->
 <?= $this->section('pageCSS') ?>
 <?= link_tag('app-assets/css/pages/app-ecommerce.min.css') ?>
+<?= link_tag('app-assets/vendors/css/extensions/sweetalert2.min.css') ?>
 <style>
     @media (min-width: 992.98px) {
         .ecommerce-application .grid-view {
@@ -46,13 +47,20 @@ Trang chủ
 <?= $this->section('vendorJS') ?>
 <?= script_tag('app-assets/vendors/js/lazy/jquery.lazy.min.js') ?>
 <?= script_tag('app-assets/vendors/js/lazy/jquery.lazy.script.min.js') ?>
+<?= script_tag('app-assets/vendors/js/extensions/sweetalert2.all.min.js') ?>
+<?= $this->endSection() ?>
+<!-- end vendorJS -->
+
+<!-- pageJS -->
+<?= $this->section('pageJS') ?>
 <script>
+    var url_favorites_item = "<?= route_to('user.favorites.index') ?>";
     $(function() {
         $('.lazy').lazy();
     })
 </script>
 <?= $this->endSection() ?>
-<!-- end vendorJS -->
+<!-- end pageJS -->
 
 <!-- Content-body -->
 <?= $this->section('content-body'); ?>
@@ -154,7 +162,7 @@ Trang chủ
                                 <h4 class="item-price"><?= $item['price'] != 0 ? esc(number_to_amount($item['price'], 2, 'vi_VN')) : 'Thương Lượng' ?></h4>
                             </div>
                         </div>
-                        <a href="javascript:void(0)" class="btn btn-light btn-wishlist">
+                        <a href="javascript:void(0)" class="btn btn-light btn-wishlist" data-favorites="<?= checkFavorites() ?>" data-id="<?= esc($item['id']) ?>">
                             <i data-feather="heart"></i>
                             <span>Lưu Tin</span>
                         </a>
@@ -241,7 +249,7 @@ Trang chủ
                                 <h4 class="item-price"><?= esc(number_to_amount($item['price'], 2, 'vi_VN')) ?></h4>
                             </div>
                         </div>
-                        <a href="javascript:void(0)" class="btn btn-light btn-wishlist">
+                        <a href="javascript:void(0)" class="btn btn-light btn-wishlist" data-favorites="<?= checkFavorites() ?>" data-id="<?= esc($item['id']) ?>">
                             <i data-feather="heart"></i>
                             <span>Lưu Tin</span>
                         </a>
