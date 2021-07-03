@@ -230,6 +230,157 @@ class Post extends Model
         return $query;
     }
 
+    public function getList($input = array())
+    {
+        $model = $this->select('post.id, post.name, post.cat_id, post.province_id, post.price,
+            post.slug, post.status, post.featured, category.name as catName, province.name as provinceName,
+            post.thumb_list, post.expire_from, post.expire_to, category.slug as catSlug, post.slug,
+            users.gender, users.fullname as userName, users.email')
+            ->join('category', 'category.id = post.cat_id')
+            ->join('users', 'users.id = post.user_id')
+            ->join('province', 'province.id = post.province_id');
+
+        if (isset($input['search']['name']) && $input['search']['name'] != "") {
+            $model->like('post.name', trim($input['search']['name']));
+        }
+
+        if (isset($input['search']['status']) && $input['search']['status'] != "") {
+            $model->where('post.status', $input['search']['status']);
+        }
+
+        if (isset($input['search']['cat_id']) && $input['search']['cat_id'] != "") {
+            $model->where('post.cat_id', $input['search']['cat_id']);
+        }
+
+        if (isset($input['search']['province_id']) && $input['search']['province_id'] != "") {
+            $model->where('post.province_id', $input['search']['province_id']);
+        }
+
+        if (isset($input['search']['fullname']) && $input['search']['fullname'] != "") {
+            $model->like('users.fullname', trim($input['search']['fullname']));
+        }
+
+        if (isset($input['search']['gender']) && $input['search']['gender'] != "") {
+            $model->where('users.gender', $input['search']['gender']);
+        }
+
+        if (isset($input['search']['email']) && $input['search']['email'] != "") {
+            $model->like('users.email', trim($input['search']['email']));
+        }
+
+        if (isset($input['search']['featured']) && $input['search']['featured'] != "") {
+            $model->where('post.featured', $input['search']['featured']);
+        }
+
+        if (isset($input['iSortCol_0'])) {
+            $sorting_mapping_array = array(
+                '2' => 'post.name',
+                '5' => 'post.created_at',
+                '6' => 'post.updated_at',
+            );
+
+            $order = "desc";
+            if (isset($input['sSortDir_0'])) {
+                $order = $input['sSortDir_0'];
+            }
+
+            if (isset($sorting_mapping_array[$input['iSortCol_0']])) {
+                $model->orderBy($sorting_mapping_array[$input['iSortCol_0']], $order);
+            }
+        }
+
+        $result['model'] = $model->findAll($input['iDisplayStart'], $input['iDisplayLength']);
+
+        return $result;
+    }
+
+    public function getListRecycle($input = array())
+    {
+        $model = $this->select('post.id, post.name, post.cat_id, post.province_id, post.price,
+            post.slug, post.status, post.featured, category.name as catName, province.name as provinceName,
+            post.thumb_list, post.expire_from, post.expire_to, category.slug as catSlug, post.slug,
+            users.gender, users.fullname as userName, users.email')
+            ->join('category', 'category.id = post.cat_id')
+            ->join('users', 'users.id = post.user_id')
+            ->join('province', 'province.id = post.province_id')
+            ->onlyDeleted();
+
+        if (isset($input['search']['name']) && $input['search']['name'] != "") {
+            $model->like('post.name', trim($input['search']['name']));
+        }
+
+        if (isset($input['search']['status']) && $input['search']['status'] != "") {
+            $model->where('post.status', $input['search']['status']);
+        }
+
+        if (isset($input['search']['cat_id']) && $input['search']['cat_id'] != "") {
+            $model->where('post.cat_id', $input['search']['cat_id']);
+        }
+
+        if (isset($input['search']['province_id']) && $input['search']['province_id'] != "") {
+            $model->where('post.province_id', $input['search']['province_id']);
+        }
+
+        if (isset($input['search']['fullname']) && $input['search']['fullname'] != "") {
+            $model->like('users.fullname', trim($input['search']['fullname']));
+        }
+
+        if (isset($input['search']['gender']) && $input['search']['gender'] != "") {
+            $model->where('users.gender', $input['search']['gender']);
+        }
+
+        if (isset($input['search']['email']) && $input['search']['email'] != "") {
+            $model->like('users.email', trim($input['search']['email']));
+        }
+
+        if (isset($input['search']['featured']) && $input['search']['featured'] != "") {
+            $model->where('post.featured', $input['search']['featured']);
+        }
+
+        if (isset($input['iSortCol_0'])) {
+            $sorting_mapping_array = array(
+                '2' => 'post.name',
+                '5' => 'post.created_at',
+                '6' => 'post.updated_at',
+            );
+
+            $order = "desc";
+            if (isset($input['sSortDir_0'])) {
+                $order = $input['sSortDir_0'];
+            }
+
+            if (isset($sorting_mapping_array[$input['iSortCol_0']])) {
+                $model->orderBy($sorting_mapping_array[$input['iSortCol_0']], $order);
+            }
+        }
+
+        $result['model'] = $model->findAll($input['iDisplayStart'], $input['iDisplayLength']);
+
+        return $result;
+    }
+
+    public function getDetailPostBySlugBackend($id)
+    {
+        $model = $this->select('post.name, post.created_at, post.description, post.thumb_list,
+            users.fullname, users.gender, users.email, users.phone, post.view, post.id as postId,
+            post.contact_address, post.is_type, post.price, post.video, post.video_description, post.featured,
+            users.avatar, post.status, category.id as catId, district.name as districtName, province.name as provinceName,
+            users.provider_name, users.provider_uid')
+            ->join('category', 'category.id = post.cat_id')
+            ->join('users', 'users.id = post.user_id')
+            ->join('province', 'province.id = post.province_id')
+            ->join('district', 'district.id = post.district_id')
+            ->where('post.id', $id)
+            ->orderBy('post.created_at', 'desc');
+
+        return $model->first();
+    }
+
+    public function getMultiPost($id)
+    {
+        return $this->select('thumb_list')->whereIn('id', $id)->withDeleted()->findAll();
+    }
+
     public function getDetailPostBySlug($catSlug, $postSlug, $id)
     {
         $model = $this->select('post.name, post.created_at, post.description, post.thumb_list,
@@ -282,12 +433,12 @@ class Post extends Model
             ->join('category', 'category.id = post.cat_id')
             ->join('users', 'users.id = post.user_id')
             ->join('province', 'province.id = post.province_id');
-            if (isset($input['expire']) && $input['expire']) {
-                $model->where('post.expire_to <', date('Y-m-d'));
-            } else {
-                $model->where('post.expire_to >=', date('Y-m-d'));
-            }
-            $model->where('category.status', STATUS_ACTIVE)
+        if (isset($input['expire']) && $input['expire']) {
+            $model->where('post.expire_to <', date('Y-m-d'));
+        } else {
+            $model->where('post.expire_to >=', date('Y-m-d'));
+        }
+        $model->where('category.status', STATUS_ACTIVE)
             ->where('users.id', $input['user_id']);
 
         if (isset($input['search']['name']) && $input['search']['name'] != "") {
@@ -340,11 +491,11 @@ class Post extends Model
     {
         $model = $this->select('post.thumb_list, post.id, post.name, post.created_at, post.slug,
         category.slug as catSlug')
-        ->join('category', 'category.id = post.cat_id')
-        ->where('post.status', STATUS_ACTIVE)
-        ->where('post.cat_id', $cat_id)
-        ->where('post.id !=', $id)
-        ->orderBy('post.created_at', 'desc');
+            ->join('category', 'category.id = post.cat_id')
+            ->where('post.status', STATUS_ACTIVE)
+            ->where('post.cat_id', $cat_id)
+            ->where('post.id !=', $id)
+            ->orderBy('post.created_at', 'desc');
 
         return $model->findAll(5);
     }

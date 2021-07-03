@@ -204,7 +204,7 @@ class ManagerController extends BaseController
 		$html .= '<ul class="list-unstyled">';
 		$html .= '<li class="pb-25">Gói Đăng Tin: <span class="text-bold-500">' . esc($diff) . ' Ngày</span></li>';
 		$html .= '<li class="pb-25">Ngày Bắt Đầu: <span class="text-bold-500">' . esc(getDateTime($expire_from)) . '</span></li>';
-		$html .= '<li class="pb-25">Ngày Hết Hạn: <span class="text-bold-500">' . esc(getDateTime($expire_to)) . '</span></li>';
+		$html .= '<li class="pb-25">Ngày Hết Hạn: <span class="text-bold-500">' . esc(getDateTime($expire_to) . ' 23:59:59') . '</span></li>';
 		$html .= '</ul>';
 		return $html;
 	}

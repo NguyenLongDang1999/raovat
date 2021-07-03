@@ -47,6 +47,20 @@
                     </li>
                 </ul>
             </li>
+            
+            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span
+                        class="menu-title text-truncate">Bài Đăng</span></a>
+                <ul class="menu-content">
+                    <li class="<?= getMenuActive('post') ?>"><a class="d-flex align-items-center"
+                            href="<?= route_to('admin.post.index') ?>"><i data-feather="circle"></i><span
+                                class="menu-item text-truncate">Danh Sách</span></a>
+                    </li>
+                    <li class="<?= getMenuActive('post/recycle') ?>"><a class="d-flex align-items-center"
+                            href="<?= route_to('admin.post.recycle') ?>"><i data-feather="circle"></i><span
+                                class="menu-item text-truncate">Thùng Rác</span></a>
+                    </li>
+                </ul>
+            </li>
 
             <li class=" navigation-header"><span>Quản lý giao diện</span><i
                     data-feather="more-horizontal"></i>

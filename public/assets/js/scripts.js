@@ -1,4 +1,4 @@
-(function(window, undefined) {
+(function (window, undefined) {
     "use strict";
 
     $.ajaxSetup({
@@ -6,7 +6,7 @@
             "X-CSRF-TOKEN": $('meta[name="X-CSRF-TOKEN"]').attr("content"),
         },
     });
-    
+
     var blogFeatureImage = $("#blog-feature-image");
     var blogImageInput = $("#blogCustomFile");
     var select = $(".select2");
@@ -20,7 +20,7 @@
             altInput: true,
             altFormat,
             allowInput: true,
-            onReady: function(selectedDates, dateStr, instance) {
+            onReady: function (selectedDates, dateStr, instance) {
                 if (instance.isMobile) {
                     $(instance.mobileInput).attr("step", null);
                 }
@@ -38,7 +38,7 @@
     function isChecked() {
         var checkAll = $("#chkAll").attr("checked");
         var flag = false;
-        $("input.checkboxes").each(function(index, element) {
+        $("input.checkboxes").each(function (index, element) {
             if (element.checked) {
                 flag = true;
             }
@@ -77,7 +77,7 @@
             confirmButtonClass: "btn btn-primary",
             cancelButtonClass: "btn btn-danger ml-1",
             buttonsStyling: false,
-        }).then(function(result) {
+        }).then(function (result) {
             if (result.value) {
                 var deleteItem = $.ajax({
                     type: "post",
@@ -88,7 +88,7 @@
                         data: data,
                     },
                 });
-                deleteItem.done(function(resp) {
+                deleteItem.done(function (resp) {
                     resp = jQuery.parseJSON(resp);
                     if (resp.result) {
                         oTable.draw();
@@ -123,7 +123,7 @@
             confirmButtonClass: "btn btn-primary",
             cancelButtonClass: "btn btn-danger ml-1",
             buttonsStyling: false,
-        }).then(function(result) {
+        }).then(function (result) {
             if (result.value) {
                 var restoreItem = $.ajax({
                     type: "post",
@@ -134,7 +134,7 @@
                         data: data,
                     },
                 });
-                restoreItem.done(function(resp) {
+                restoreItem.done(function (resp) {
                     resp = jQuery.parseJSON(resp);
                     if (resp.result) {
                         oTable.draw();
@@ -169,7 +169,7 @@
             confirmButtonClass: "btn btn-primary",
             cancelButtonClass: "btn btn-danger ml-1",
             buttonsStyling: false,
-        }).then(function(result) {
+        }).then(function (result) {
             if (result.value) {
                 var updateStatus = $.ajax({
                     type: "post",
@@ -181,7 +181,7 @@
                         status: status,
                     },
                 });
-                updateStatus.done(function(resp) {
+                updateStatus.done(function (resp) {
                     resp = jQuery.parseJSON(resp);
                     if (resp.result) {
                         oTable.draw();
@@ -205,7 +205,56 @@
         });
     }
 
-    select.each(function() {
+    function featuredAllItem(data, featured) {
+        Swal.fire({
+            title: 'Bạn Có Chắn Chắn Muốn Kích Hoạt VIP Không ?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Đồng Ý",
+            confirmButtonClass: "btn btn-primary",
+            cancelButtonClass: "btn btn-danger ml-1",
+            buttonsStyling: false,
+        }).then(function (result) {
+            if (result.value) {
+                var updateFeatured = $.ajax({
+                    type: "post",
+                    url: url_featured_item,
+                    async: true,
+                    cache: false,
+                    data: {
+                        data: data,
+                        featured: featured,
+                    },
+                });
+                updateFeatured.done(function (resp) {
+                    resp = jQuery.parseJSON(resp);
+                    if (resp.result) {
+                        oTable.draw();
+                        notify_success(resp.message);
+                    } else {
+                        oTable.draw();
+                        Swal.fire({
+                            icon: "error",
+                            title: "Thất Bại!",
+                            html: resp.message,
+                        });
+                    }
+                });
+            } else {
+                Swal.fire(
+                    {
+                        icon: "error",
+                        title: 'Thất Bại!',
+                        html: 'Chưa Có Dữ Liệu Nào Được Cập Nhật.',
+                    }
+                )
+            }
+        })
+    }
+
+    select.each(function () {
         var $this = $(this);
         $this.wrap('<div class="position-relative"></div>');
         $this
@@ -215,16 +264,16 @@
                 placeholder: "Vui Lòng Chọn",
                 dropdownParent: $this.parent(),
             })
-            .change(function() {
+            .change(function () {
                 $(this).valid();
             });
     });
 
     if (blogImageInput.length) {
-        $(blogImageInput).on("change", function(e) {
+        $(blogImageInput).on("change", function (e) {
             var reader = new FileReader(),
                 files = e.target.files;
-            reader.onload = function() {
+            reader.onload = function () {
                 if (blogFeatureImage.length) {
                     blogFeatureImage.attr("src", reader.result);
                 }
@@ -233,7 +282,7 @@
         });
     }
 
-    $(document).on("click", "#btn-delete", function() {
+    $(document).on("click", "#btn-delete", function () {
         var is_checked = isChecked();
 
         if (is_checked) {
@@ -243,7 +292,7 @@
         }
     });
 
-    $(document).on("click", ".btn-status", function() {
+    $(document).on("click", ".btn-status", function () {
         var is_checked = isChecked();
         var status = $(this).data("status");
 
@@ -254,7 +303,18 @@
         }
     });
 
-    $(document).on("click", "#btn-restore", function() {
+    $(document).on('click', '.btn-vip', function () {
+        var is_checked = isChecked();
+        var featured = $(this).data("featured");
+
+        if (is_checked) {
+            featuredAllItem($("#frmTbList").serialize(), featured);
+        } else {
+            notify_cancel();
+        }
+    });
+
+    $(document).on("click", "#btn-restore", function () {
         var is_checked = isChecked();
 
         if (is_checked) {
@@ -264,7 +324,7 @@
         }
     });
 
-    $(document).on("change", "#province_id", function() {
+    $(document).on("change", "#province_id", function () {
         var province_id = $(this).val();
 
         $.ajax({
@@ -275,7 +335,7 @@
             data: {
                 province_id: province_id,
             },
-        }).done(function(data) {
+        }).done(function (data) {
             data = jQuery.parseJSON(data);
             $("#district_id").html(data.getDistrict);
         });

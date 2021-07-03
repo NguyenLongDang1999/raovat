@@ -102,6 +102,24 @@ $routes->group('administrator', ['namespace' => 'App\Controllers\Backend', 'filt
 		$routes->post('multiStatus', 'BannerController::multiStatus', ['as' => 'admin.banner.multiStatus']);
 		$routes->post('checkExists', 'BannerController::checkExists', ['as' => 'admin.banner.checkExists']);
 	});
+
+	// Post
+	$routes->group('post' ,['namespace' => 'App\Controllers\Backend', 'filter' => 'role:admin'], function($routes)
+	{
+		$routes->get('/', 'PostController::index', ['as' => 'admin.post.index']);
+		$routes->get('recycle', 'PostController::recycle', ['as' => 'admin.post.recycle']);
+        $routes->get('getList', 'PostController::getList', ['as' => 'admin.post.getList']);
+		$routes->get('getListRecycle', 'PostController::getListRecycle', ['as' => 'admin.post.getListRecycle']);
+        $routes->get('edit/(:num)', 'PostController::edit/$1', ['as' => 'admin.post.edit']);
+        $routes->post('update/(:num)', 'PostController::update/$1', ['as' => 'admin.post.update']);
+        $routes->post('multiDestroy', 'PostController::multiDestroy', ['as' => 'admin.post.multiDestroy']);
+		$routes->post('multiPurgeDestroy', 'PostController::multiPurgeDestroy', ['as' => 'admin.post.multiPurgeDestroy']);
+		$routes->post('multiRestore', 'PostController::multiRestore', ['as' => 'admin.post.multiRestore']);
+        $routes->post('multiStatus', 'PostController::multiStatus', ['as' => 'admin.post.multiStatus']);
+		$routes->post('multiFeatured', 'PostController::multiFeatured', ['as' => 'admin.post.multiFeatured']);
+		$routes->get('s(:num)/detail', 'PostController::detail/$1', ['as' => 'admin.post.detail']);
+		$routes->get('s(:num)/showEdit', 'PostController::showEdit/$1', ['as' => 'admin.post.showEdit']);
+	});
 });
 
 /*

@@ -117,7 +117,7 @@ defined('PATH_POST_SMALL_IMAGE')    || define('PATH_POST_SMALL_IMAGE', 'uploads/
 defined('PATH_POST_MEDIUM_IMAGE')   || define('PATH_POST_MEDIUM_IMAGE', 'uploads/post/medium/');
 defined('PATH_DEFAULT_AVATAR')      || define('PATH_DEFAULT_AVATAR', 'app-assets/images/portrait/small/avatar-s.png');
 defined('PATH_LAZY_LOADING')        || define('PATH_LAZY_LOADING', 'app-assets/images/default/loader.gif');
-defined('PATH_POST_IMAGE_DEFAULT')  || define('PATH_POST_IMAGE_DEFAULT', 'app-assets/images/default/no-image.jpg');
+defined('PATH_POST_IMAGE_DEFAULT')  || define('PATH_POST_IMAGE_DEFAULT', 'app-assets/images/default/no-image.webp');
 
 /*
  | --------------------------------------------------------------------------

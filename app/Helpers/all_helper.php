@@ -123,6 +123,20 @@ function getOptionIsType()
     return $option;
 }
 
+function getOptionStatusPost()
+{
+    $option = [
+        '' => 'Vui Lòng Chọn',
+        STATUS_POST_READY => 'Chưa Duyệt',
+        STATUS_POST_ACTIVE => 'Đang Đăng',
+        STATUS_POST_INACTIVE => 'Không Được Duyệt',
+        STATUS_POST_HIDDEN => 'Đang Ẩn'
+    ];
+
+    return $option;
+}
+
+
 function showIsTypePostDetail($is_type)
 {
     $html = '';
@@ -200,4 +214,20 @@ function userShowImage($user_avatar, $provider_name, $provider_uid)
     }
 
     return $path;
+}
+
+function showPostStatus($status)
+{
+    $html = '';
+    if ($status == STATUS_POST_ACTIVE) {
+        $html .= '<span class="badge badge-light-success badge-pill">Đang Đăng</span>';
+    } elseif ($status == STATUS_POST_READY) {
+        $html .= '<span class="badge badge-light-dark badge-pill">Chưa Duyệt</span>';
+    } elseif ($status == STATUS_POST_INACTIVE) {
+        $html .= '<span class="badge badge-light-danger badge-pill">Không Được Duyệt</span>';
+    } elseif ($status == STATUS_POST_HIDDEN) {
+        $html .= '<span class="badge badge-light-warning badge-pill">Ẩn Tin</span>';
+    }
+
+    return $html;
 }
