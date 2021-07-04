@@ -534,7 +534,12 @@ class AuthController extends Controller
 
 			$checkUserExists = $users->getUserByProvider($getProvider, $userProfile->identifier);
 			if ($checkUserExists == 0) {
-				// Save the user
+
+				$checkEmail = $users->checkEmail($userProfile->email);
+				if ($checkEmail > 0) {
+					return redirect()->back()->with('error', "E-mail này hiện đã được đăng ký trong hệ thống.");
+				}
+
 				$input = [
 					'email' => $userProfile->email,
 					'fullname' => $userProfile->displayName,
@@ -558,7 +563,7 @@ class AuthController extends Controller
 
 			$user_detail = $users->getUserDetailByProviderUid($getProvider, $userProfile->identifier);
 
-			if (!$this->auth->attempt(['email' => $user_detail->email], false, true)) {
+			if (!$this->auth->attempt(['provider_name' => $getProvider, 'provider_uid' => $userProfile->identifier], false, true)) {
 				return redirect()->back()->withInput()->with('error', $this->auth->error() ?? lang('Auth.badAttempt'));
 			}
 
