@@ -499,4 +499,70 @@ class Post extends Model
 
         return $model->findAll(5);
     }
+
+    public function getListFavorites($user_id)
+    {
+        return $this->select('post.name, post.thumb_list, post.id, post.slug, category.slug as catSlug, post.price,
+            users.fullname')
+            ->join('users_favorites', 'users_favorites.post_id = post.id')
+            ->join('category', 'category.id = post.cat_id')
+            ->join('users', 'users.id = post.user_id')
+            ->where('users_favorites.user_id', $user_id)
+            ->where('category.status', STATUS_ACTIVE)
+            ->where('post.status', STATUS_POST_ACTIVE)
+            ->where('post.expire_to >=', date('Y-m-d'))
+            ->where('post.user_id <>', $user_id)
+            ->orderBy('users_favorites.created_at', 'desc')
+            ->findAll();
+    }
+
+    public function getListFavoritesManager($input = array(), $user_id)
+    {
+        $model = $this->select('post.id, post.name, post.cat_id, post.province_id, post.price,
+            post.slug, post.status, post.featured, category.name as catName, province.name as provinceName,
+            post.thumb_list, post.expire_from, post.expire_to, category.slug as catSlug, post.slug,
+            users.gender, users.fullname as userName, users.email,
+            users_favorites.id as favoritesId')
+            ->join('users_favorites', 'users_favorites.post_id = post.id')
+            ->join('category', 'category.id = post.cat_id')
+            ->join('users', 'users.id = post.user_id')
+            ->join('province', 'province.id = post.province_id')
+            ->where('users_favorites.user_id', $user_id)
+            ->where('post.status', STATUS_POST_ACTIVE)
+            ->where('post.user_id <>', $user_id)
+            ->where('post.expire_to >=', date('Y-m-d'))
+            ->where('category.status', STATUS_ACTIVE);
+
+        if (isset($input['iSortCol_0'])) {
+            $sorting_mapping_array = array(
+                '2' => 'post.name',
+                '3' => 'post.created_at',
+                '5' => 'post.created_at',
+            );
+
+            $order = "desc";
+            if (isset($input['sSortDir_0'])) {
+                $order = $input['sSortDir_0'];
+            }
+
+            if (isset($sorting_mapping_array[$input['iSortCol_0']])) {
+                $model->orderBy($sorting_mapping_array[$input['iSortCol_0']], $order);
+            }
+        }
+
+        $result['model'] = $model->findAll($input['iDisplayStart'], $input['iDisplayLength']);
+
+        return $result;
+    }
+
+    public function getListPostByUser($user_id)
+    {
+        return $this->select('post.id')
+            ->join('category', 'category.id = post.cat_id')
+            ->where('post.status', STATUS_POST_ACTIVE)
+            ->where('post.user_id', $user_id)
+            ->where('post.expire_to >=', date('Y-m-d'))
+            ->where('category.status', STATUS_ACTIVE)
+            ->findAll();
+    }
 }

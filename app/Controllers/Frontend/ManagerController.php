@@ -146,6 +146,46 @@ class ManagerController extends BaseController
 
 		return json_encode($data);
 	}
+	
+	public function getPostListSave()
+	{
+		$input = $this->request->getGet();
+		$data = array();
+
+		$results = $this->post->getListFavoritesManager($input, user_id());
+
+		$data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($results['model']);
+
+		$data['aaData'] = array();
+		if (count($results['model']) > 0) {
+			foreach ($results['model'] as $row) {
+				$gender = ($row['gender'] == GENDER_MALE) ? 'Nam' : 'Nữ';
+				$price = ($row['price'] != 0) ? esc(number_to_amount($row['price'], 2, 'vi_VN')) : 'Thương Lượng' . ' VNĐ';
+				$diffDate = diffDate($row['expire_from'], $row['expire_to']);
+				$img = explode(',', $row['thumb_list']);
+				$path = '';
+				if (!empty($img[0])) {
+					$path .= PATH_POST_SMALL_IMAGE . $img[0];
+				} else {
+					$path .= PATH_POST_IMAGE_DEFAULT;
+				}
+
+				$data['aaData'][] = [
+					'checkbox' => '',
+					'responsive_id' => '',
+					'responsive_id' => esc($row['favoritesId']),
+					'image' => img($path, false, ['class' => 'img-fluid', 'alt' => esc($row['name']), 'width' => 150, 'height' => 150]),
+					'infoPost' => $this->infoPost($row['name'], $row['catName'], $row['provinceName'], $price),
+					'infoDate' => $this->infoDate($diffDate, $row['expire_from'], $row['expire_to']),
+					'infoUser' => $this->infoPostByUser($row['userName'], $row['email'], $gender),
+					'featured' => esc($row['featured']),
+					'detail' => route_to('user.post.detail', esc($row['catSlug']), esc($row['slug']), esc($row['id']))
+				];
+			}
+		}
+
+		return json_encode($data);
+	}
 
 	public function getPostListExpire()
 	{
@@ -205,6 +245,18 @@ class ManagerController extends BaseController
 		$html .= '<li class="pb-25">Gói Đăng Tin: <span class="text-bold-500">' . esc($diff) . ' Ngày</span></li>';
 		$html .= '<li class="pb-25">Ngày Bắt Đầu: <span class="text-bold-500">' . esc(getDateTime($expire_from)) . '</span></li>';
 		$html .= '<li class="pb-25">Ngày Hết Hạn: <span class="text-bold-500">' . esc(getDateTime($expire_to) . ' 23:59:59') . '</span></li>';
+		$html .= '</ul>';
+		return $html;
+	}
+
+	private function infoPostByUser($userName, $email, $gender)
+	{
+		helper('text');
+		$html = '';
+		$html .= '<ul class="list-unstyled">';
+		$html .= '<li class="pb-25">Họ Và Tên: <span class="text-bold-500">' . esc(character_limiter($userName, 15, '...')) . '</span></li>';
+		$html .= '<li class="pb-25">E-mail: <span class="text-bold-500">' . esc(character_limiter($email, 15, '...')) . '</span></li>';
+		$html .= '<li class="pb-25">Giới Tính: <span class="text-bold-500">' . esc(character_limiter($gender, 10, '...')) . '</span></li>';
 		$html .= '</ul>';
 		return $html;
 	}

@@ -231,7 +231,56 @@
                     resp = jQuery.parseJSON(resp);
                     if (resp.result) {
                         notify_success(resp.message);
+                        showFavorites();
                     } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Thất Bại!",
+                            html: resp.message,
+                        });
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Thất Bại!",
+                    html: "Chưa Có Dữ Liệu Nào Được Cập Nhật.",
+                });
+            }
+        });
+    }
+
+
+    function removeFavoritesItem(data) {
+        Swal.fire({
+            title: "Bài Đăng Này Sẽ Được Đưa Ra Khỏi Danh Sách Lưu. Đồng Ý ?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Đồng Ý",
+            confirmButtonClass: "btn btn-primary",
+            cancelButtonClass: "btn btn-danger ml-1",
+            buttonsStyling: false,
+        }).then(function (result) {
+            if (result.value) {
+                var updateFavorites = $.ajax({
+                    type: "post",
+                    url: url_remove_favorites_item,
+                    async: true,
+                    cache: false,
+                    data: {
+                        data: data,
+                    },
+                });
+                updateFavorites.done(function (resp) {
+                    resp = jQuery.parseJSON(resp);
+                    if (resp.result) {
+                        oTable.draw();
+                        showFavorites();
+                        notify_success(resp.message);
+                    } else {
+                        oTable.draw();
                         Swal.fire({
                             icon: "error",
                             title: "Thất Bại!",
@@ -336,6 +385,17 @@
         }
     });
 
+    $(document).on("click", ".btn-favorites", function () {
+        var is_checked = isChecked();
+
+        if (is_checked) {
+            removeFavoritesItem($("#frmTbListSave").serialize());
+            showFavorites();
+        } else {
+            notify_cancel();
+        }
+    });
+
     $(document).on("click", ".btn-status", function () {
         var is_checked = isChecked();
         var status = $(this).data("status");
@@ -395,4 +455,24 @@
             $("#district_id").html(data.getDistrict);
         });
     });
+
+    function showFavorites() {
+        $.ajax({
+            url: '/showFavorites',
+            type: "post",
+            async: true,
+            cache: false,
+        }).done(function (data) {
+            $(".dropdown-cart").html(data);
+
+            if (feather) {
+                feather.replace({
+                    width: 14,
+                    height: 14
+                });
+            }
+        });
+    }
+
+    showFavorites();
 })(window);

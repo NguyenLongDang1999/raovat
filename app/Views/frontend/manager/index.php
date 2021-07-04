@@ -89,6 +89,12 @@ Quản lý tin đăng cá nhân
                                 <span>Tin Đăng Hết Hạn</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="manager-save-tab" data-toggle="pill" href="#manager-save" aria-expanded="false">
+                                <i data-feather='copy'></i>
+                                <span>Tin Đăng Đã Lưu</span>
+                            </a>
+                        </li>
                     </ul>
                     <?= view('Myth\Auth\Views\_message_block') ?>
                     <div class="tab-content">
@@ -160,6 +166,30 @@ Quản lý tin đăng cá nhân
                                         <th>Hình ảnh</th>
                                         <th>Thông tin bài đăng</th>
                                         <th>Gói đăng tin</th>
+                                        <th>Loại tin</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <?= form_close() ?>
+                        </div>
+                        <div class="tab-pane" id="manager-save" role="tabpanel" aria-labelledby="manager-save-tab" aria-expanded="false">
+                            <div class="mb-1">
+                                <button type="button" class="btn btn-primary glow confirm-text btn-favorites">
+                                    Bỏ Lưu
+                                </button>
+                            </div>
+
+                            <?= form_open('', ['id' => 'frmTbListSave']) ?>
+                            <table class="dt-advanced-search dt-responsive table table-white-space" id="get-manager-save">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th>Thông tin bài đăng</th>
+                                        <th>Thông tin gói đăng tin</th>
+                                        <th>Thông tin người đăng</th>
                                         <th>Loại tin</th>
                                         <th>Thao tác</th>
                                     </tr>

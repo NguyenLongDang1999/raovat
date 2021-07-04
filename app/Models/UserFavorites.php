@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class UserFavorites extends Model
 {
-	protected $table                = 'users_favorites';
+    protected $table                = 'users_favorites';
     protected $primaryKey           = 'id';
     protected $useAutoIncrement     = true;
     protected $returnType           = 'array';
@@ -27,8 +27,8 @@ class UserFavorites extends Model
     public function checkFavoritesExists($post_id, $user_id)
     {
         return $this->select('id')
-        ->where('post_id', $post_id)
-        ->where('user_id', $user_id)
-        ->countAllResults();
+            ->where('post_id', $post_id)
+            ->where('user_id', $user_id)
+            ->countAllResults();
     }
 }

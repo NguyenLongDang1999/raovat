@@ -60,11 +60,14 @@ $routes->group('', ['namespace' => 'App\Controllers\Frontend'], function ($route
 	$routes->get('getPostListBlock', 'ManagerController::getPostListBlock', ['as' => 'user.manager.getPostListBlock', 'filter' => 'login']);
 	$routes->get('getPostListReady', 'ManagerController::getPostListReady', ['as' => 'user.manager.getPostListReady', 'filter' => 'login']);
 	$routes->get('getPostListExpire', 'ManagerController::getPostListExpire', ['as' => 'user.manager.getPostListExpire', 'filter' => 'login']);
+	$routes->get('getPostListSave', 'ManagerController::getPostListSave', ['as' => 'user.manager.getPostListSave', 'filter' => 'login']);
 	$routes->post('quan-ly-tin-dang/s(:num)/update', 'ManagerController::update/$1', ['as' => 'user.manager.update', 'filter' => 'login']);
 	$routes->post('quan-ly-tin-dang/multiStatus', 'ManagerController::multiStatus', ['as' => 'user.post.multiStatus', 'filter' => 'login']);
 
 	// Favoritess
-	$routes->post('userFavorites', 'FavoritesController::index', ['as' => 'user.favorites.index']);	
+	$routes->post('userFavorites', 'FavoritesController::index', ['as' => 'user.favorites.index']);
+	$routes->post('showFavorites', 'FavoritesController::showFavorites', ['as' => 'user.favorites.showFavorites']);
+	$routes->post('removeFavorites', 'FavoritesController::removeFavorites', ['as' => 'user.favorites.removeFavorites']);
 });
 
 // Backend
