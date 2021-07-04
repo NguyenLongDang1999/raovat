@@ -9,17 +9,26 @@ Bài đăng rao vặt mới nhất tại <?= base_url() ?>
 <?= link_tag('app-assets/css/pages/app-ecommerce.min.css') ?>
 <?= link_tag('app-assets/vendors/css/extensions/sweetalert2.min.css') ?>
 <style>
+    @media (min-width: 1198.98px) {
+        .ecommerce-application .grid-view {
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            column-gap: 1rem;
+        }
+    }
+
     @media (max-width: 575.98px) {
 
         .ecommerce-application .grid-view,
         .ecommerce-application .grid-view.wishlist-items {
             grid-template-columns: 1fr 1fr;
+            column-gap: 1rem;
         }
     }
 
-    @media (min-width: 675.98px) and (max-width: 991.98px) {
+    @media (min-width: 675.98px) and (max-width: 1197.98px) {
         .ecommerce-application .grid-view {
             grid-template-columns: 1fr 1fr 1fr;
+            column-gap: 1rem;
         }
     }
 
