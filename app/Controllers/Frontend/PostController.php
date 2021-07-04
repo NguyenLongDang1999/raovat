@@ -34,6 +34,11 @@ class PostController extends BaseController
         if (is_null(user()->phone)) {
             return redirect()->route('user.user.index')->with('message', "Vui lòng cập nhật số điện thoại của bạn để đăng tin.");
         }
+
+        if (is_null(user()->email) || empty(user()->email)) {
+            return redirect()->route('user.user.index')->with('message', "Vui lòng cập nhật E-mail của bạn để đăng tin.");
+        }
+        
         $data['province'] = $this->province->getProvince();
         $category = $this->category->getTreeCategory();
         unset($category[0]);

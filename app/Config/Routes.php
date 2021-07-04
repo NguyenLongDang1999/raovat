@@ -71,12 +71,12 @@ $routes->group('', ['namespace' => 'App\Controllers\Frontend'], function ($route
 });
 
 // Backend
-$routes->group('administrator', ['namespace' => 'App\Controllers\Backend', 'filter' => 'role:admin'], function ($routes) {
+$routes->group('administrator', ['namespace' => 'App\Controllers\Backend', 'filter' => 'role:admin,super-admin'], function ($routes) {
 	// Dashboard
 	$routes->get('/', 'DashboardController::index', ['as' => 'admin.dashboard.index']);
 
 	// Category
-	$routes->group('category', ['namespace' => 'App\Controllers\Backend', 'filter' => 'role:admin'], function ($routes) {
+	$routes->group('category', ['namespace' => 'App\Controllers\Backend', 'filter' => 'role:admin,super-admin'], function ($routes) {
 		$routes->get('/', 'CategoryController::index', ['as' => 'admin.category.index']);
 		$routes->get('recycle', 'CategoryController::recycle', ['as' => 'admin.category.recycle']);
 		$routes->get('getList', 'CategoryController::getList', ['as' => 'admin.category.getList']);
@@ -93,7 +93,7 @@ $routes->group('administrator', ['namespace' => 'App\Controllers\Backend', 'filt
 	});
 
 	// Banner
-	$routes->group('banner', ['namespace' => 'App\Controllers\Backend', 'filter' => 'role:admin'], function ($routes) {
+	$routes->group('banner', ['namespace' => 'App\Controllers\Backend', 'filter' => 'role:admin,super-admin'], function ($routes) {
 		$routes->get('/', 'BannerController::index', ['as' => 'admin.banner.index']);
 		$routes->get('recycle', 'BannerController::recycle', ['as' => 'admin.banner.recycle']);
 		$routes->get('getList', 'BannerController::getList', ['as' => 'admin.banner.getList']);
@@ -110,7 +110,7 @@ $routes->group('administrator', ['namespace' => 'App\Controllers\Backend', 'filt
 	});
 
 	// Post
-	$routes->group('post' ,['namespace' => 'App\Controllers\Backend', 'filter' => 'role:admin'], function($routes)
+	$routes->group('post' ,['namespace' => 'App\Controllers\Backend', 'filter' => 'role:admin,super-admin'], function($routes)
 	{
 		$routes->get('/', 'PostController::index', ['as' => 'admin.post.index']);
 		$routes->get('recycle', 'PostController::recycle', ['as' => 'admin.post.recycle']);

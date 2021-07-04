@@ -533,31 +533,39 @@ class AuthController extends Controller
 			$users = model(UserModel::class);
 
 			$checkUserExists = $users->getUserByProvider($getProvider, $userProfile->identifier);
+			$checkEmail = $users->checkEmail($userProfile->email);
 			if ($checkUserExists == 0) {
+				if ($checkEmail == 0) {
+					$input = [
+						'email' => $userProfile->email,
+						'fullname' => $userProfile->displayName,
+						'provider_name' => $getProvider,
+						'provider_uid' => $userProfile->identifier,
+						'avatar' => $userProfile->photoURL,
+					];
 
-				$checkEmail = $users->checkEmail($userProfile->email);
-				if ($checkEmail > 0) {
-					return redirect()->back()->with('error', "E-mail này hiện đã được đăng ký trong hệ thống.");
-				}
+					$allowedPostFields = array_merge(['password' => random_string('alnum', 10)], $input);
+					$user = new User($allowedPostFields);
+					$user->activate();
 
-				$input = [
-					'email' => $userProfile->email,
-					'fullname' => $userProfile->displayName,
-					'provider_name' => $getProvider,
-					'provider_uid' => $userProfile->identifier,
-					'avatar' => $userProfile->photoURL,
-				];
+					if (!empty($this->config->defaultUserGroup)) {
+						$users = $users->withGroup($this->config->defaultUserGroup);
+					}
 
-				$allowedPostFields = array_merge(['password' => random_string('alnum', 10)], $input);
-				$user = new User($allowedPostFields);
-				$user->activate();
+					if (!$users->save($user)) {
+						return redirect()->back()->withInput()->with('errors', $users->errors());
+					}
+				} else {
+					$user = $users->where('email', $userProfile->email)
+						->first();
 
-				if (!empty($this->config->defaultUserGroup)) {
-					$users = $users->withGroup($this->config->defaultUserGroup);
-				}
+					if (is_null($user)) {
+						return redirect()->route('user.user.index')->with('error', lang('Auth.activationNoUser'));
+					}
 
-				if (!$users->save($user)) {
-					return redirect()->back()->withInput()->with('errors', $users->errors());
+					$user->provider_name = $getProvider;
+					$user->provider_uid = $userProfile->identifier;
+					$users->save($user);
 				}
 			}
 
