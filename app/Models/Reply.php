@@ -25,7 +25,7 @@ class Reply extends Model
 	public function getReplyByComment($post_id, $comment_id)
 	{
 		return $this->select('reply.body, reply.id, reply.created_at,
-		users.avatar, users.provider_name, users.provider_uid, users.fullname')
+		users.avatar, users.fullname')
 			->join('users', 'users.id = reply.user_id')
 			->join('comment', 'comment.id = reply.comment_id')
 			->where('comment.status', STATUS_ACTIVE)

@@ -62,7 +62,7 @@ class CommentController extends BaseController
 				foreach ($getListComment as $item) {
 					$html .= '<div class="media mb-2">';
 					$html .= '<div class="avatar mr-75">';
-					$html .= img(userShowImage($item['avatar'], $item['provider_name'], $item['provider_uid']), false, ['width' => 40, 'height' => 40, 'alt' => esc($item['fullname'])]);
+					$html .= img(userShowImage($item['avatar']), false, ['width' => 40, 'height' => 40, 'alt' => esc($item['fullname'])]);
 					$html .= '</div>';
 					$html .= '<div class="media-body">';
 					$html .= '<h6 class="font-weight-bolder mb-25 text-capitalize">' . esc($item['fullname']) . '</h6>';
@@ -98,7 +98,7 @@ class CommentController extends BaseController
 				foreach ($getListCommentReply as $item) {
 					$html .= '<div class="media mt-1">';
 					$html .= '<div class="avatar mr-75">';
-					$html .= img(userShowImage($item['avatar'], $item['provider_name'], $item['provider_uid']), false, ['width' => 40, 'height' => 40, 'alt' => esc($item['fullname'])]);
+					$html .= img(userShowImage($item['avatar']), false, ['width' => 40, 'height' => 40, 'alt' => esc($item['fullname'])]);
 					$html .= '</div>';
 					$html .= '<div class="media-body">';
 					$html .= '<h6 class="font-weight-bolder mb-25 text-capitalize">' . esc($item['fullname']) . '</h6>';

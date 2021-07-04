@@ -25,7 +25,7 @@ class Comment extends Model
 	public function getCommentByPost($post_id)
 	{
 		return $this->select('comment.body, comment.id, comment.created_at,
-			users.avatar, users.provider_name, users.provider_uid, users.fullname')
+			users.avatar, users.fullname')
 			->join('users', 'users.id = comment.user_id')
 			->where('comment.status', STATUS_ACTIVE)
 			->where('comment.post_id', $post_id)

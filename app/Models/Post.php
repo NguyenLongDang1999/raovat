@@ -54,7 +54,7 @@ class Post extends Model
         }
         $str = rtrim($str, 'OR ');
         $query = $this->select('post.thumb_list, post.slug, post.name, post.price, 
-        users.fullname, users.avatar, users.provider_name, users.provider_uid, province.name as provinceName, post.created_at, 
+        users.fullname, users.avatar, province.name as provinceName, post.created_at, 
         post.featured, category.slug as catSlug, post.view, post.id, district.name as districtName')
             ->join('category', 'category.id = post.cat_id')
             ->join('users', 'users.id = post.user_id')
@@ -145,7 +145,7 @@ class Post extends Model
     public function getPostNews($count = false, $input = array())
     {
         $query = $this->select('post.thumb_list, post.slug, post.name, post.price, 
-        users.fullname, users.avatar, users.provider_name, users.provider_uid, province.name as provinceName, post.created_at, 
+        users.fullname, users.avatar, province.name as provinceName, post.created_at, 
         post.featured, category.slug as catSlug, post.view, post.id, district.name as districtName')
             ->join('category', 'category.id = post.cat_id')
             ->join('users', 'users.id = post.user_id')
@@ -364,8 +364,7 @@ class Post extends Model
         $model = $this->select('post.name, post.created_at, post.description, post.thumb_list,
             users.fullname, users.gender, users.email, users.phone, post.view, post.id as postId,
             post.contact_address, post.is_type, post.price, post.video, post.video_description, post.featured,
-            users.avatar, post.status, category.id as catId, district.name as districtName, province.name as provinceName,
-            users.provider_name, users.provider_uid')
+            users.avatar, post.status, category.id as catId, district.name as districtName, province.name as provinceName')
             ->join('category', 'category.id = post.cat_id')
             ->join('users', 'users.id = post.user_id')
             ->join('province', 'province.id = post.province_id')
@@ -387,7 +386,7 @@ class Post extends Model
             users.fullname, users.gender, users.email, users.phone, post.view, post.id as postId,
             post.contact_address, post.is_type, post.price, post.video, post.video_description, post.featured,
             users.avatar, post.status, category.id as catId, post.meta_description, post.meta_keyword,
-            district.name as districtName, province.name as provinceName, post.cat_id, users.provider_name, users.provider_uid')
+            district.name as districtName, province.name as provinceName, post.cat_id')
             ->join('category', 'category.id = post.cat_id')
             ->join('users', 'users.id = post.user_id')
             ->join('province', 'province.id = post.province_id')
@@ -405,7 +404,7 @@ class Post extends Model
     public function getPostHome($featured = false)
     {
         $model = $this->select('post.thumb_list, post.slug, post.name, post.price, 
-        users.fullname, users.avatar, users.provider_name, users.provider_uid, province.name as provinceName, post.created_at, 
+        users.fullname, users.avatar, province.name as provinceName, post.created_at, 
         post.featured, category.slug as catSlug, post.view, post.id, district.name as districtName')
             ->join('category', 'category.id = post.cat_id')
             ->join('users', 'users.id = post.user_id')

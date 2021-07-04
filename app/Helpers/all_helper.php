@@ -201,15 +201,15 @@ function number_to_amount($num, int $precision = 0, string $locale = null)
     return format_number($num, $precision, $locale, ['after' => $suffix]);
 }
 
-function userShowImage($user_avatar, $provider_name, $provider_uid)
+function userShowImage($user_avatar)
 {
     if (is_null($user_avatar)) {
         $path = base_url(PATH_DEFAULT_AVATAR);
     } else {
-        if (is_null($provider_name) || is_null($provider_uid)) {
-            $path = base_url(PATH_USER_IMAGE . $user_avatar);
-        } else {
+        if (strpos($user_avatar, 'https') !== false) {
             $path = $user_avatar;
+        } else {
+            $path = base_url(PATH_USER_IMAGE . $user_avatar);
         }
     }
 

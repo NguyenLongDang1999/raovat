@@ -15,7 +15,7 @@ class UpdateTableUser extends Migration
 			'phone'            		=> ['type' => 'varchar', 'constraint' => 255],
 			'fullname'				=> ['type' => 'varchar', 'constraint' => 255],
 			'new_email'             => ['type' => 'varchar', 'constraint' => 255, 'null' => true],
-			'gender'           		=> ['type' => 'tinyint', 'constraint' => 1],
+			'gender'           		=> ['type' => 'tinyint', 'constraint' => 1, 'default' => 1],
 			'job' 					=> ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
 			'address' 				=> ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
 			'birthdate' 			=> ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],

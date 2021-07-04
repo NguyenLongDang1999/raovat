@@ -339,7 +339,7 @@
                     <hr class="my-2" />
                     <div class="media">
                         <div class="avatar mr-2">
-                            <?= img(userShowImage($row['avatar'], $row['provider_name'], $row['provider_uid']), false, ['width' => 60, 'height' => 60, 'alt' => esc($row['fullname'])]) ?>
+                            <?= img(userShowImage($row['avatar']), false, ['width' => 60, 'height' => 60, 'alt' => esc($row['fullname'])]) ?>
                         </div>
                         <div class="media-body">
                             <h6 class="font-weight-bolder text-capitalize"><?= esc($row['fullname']) ?></h6>

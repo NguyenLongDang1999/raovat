@@ -58,7 +58,7 @@ Thông tin cá nhân
             <div class="card">
                 <div class="user-profile-images">
                     <?= img('app-assets/images/profile/user-uploads/timeline.jpg', false, ['class' => 'w-100', 'alt' => 'User Image']) ?>
-                    <?= img(userShowImage(user()->avatar, user()->provider_name, user()->provider_uid), false, ['class' => 'user-profile-image rounded', 'width' => 140, 'height' => 140, 'alt' => esc(user()->fullname)]) ?>
+                    <?= img(userShowImage(user()->avatar), false, ['class' => 'user-profile-image rounded', 'width' => 140, 'height' => 140, 'alt' => esc(user()->fullname)]) ?>
                 </div>
                 <div class="user-profile-text">
                     <h4 class="mb-0 text-bold-500 profile-text-color"><?= esc(user()->fullname) ?></h4>
