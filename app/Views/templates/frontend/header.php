@@ -50,7 +50,7 @@
             <?php if (logged_in()) : ?>
                 <li class="nav-item dropdown dropdown-cart mr-25"></li>
                 <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder text-capitalize"><?= user()->fullname ?></span><span class="user-status"><?= user()->gender == GENDER_FEMALE ? 'Nữ' : 'Nam' ?></span></div>
+                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder text-capitalize"><?= esc(user()->fullname) ?></span><span class="user-status"><?= user()->gender == GENDER_FEMALE ? 'Nữ' : 'Nam' ?></span></div>
                         <span class="avatar">
                             <?= img(userShowImage(user()->avatar), false, ['class' => 'round', 'alt' => esc(user()->fullname), 'height' => '40', 'width' => '40']) ?>
                         </span>
