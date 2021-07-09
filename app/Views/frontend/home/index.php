@@ -67,7 +67,7 @@ Trang chủ
 <section class="home-page">
     <?php if (count($getCategoryMenu) > 0) : ?>
         <div class="divider">
-            <h4 class="divider-text text-capitalize font-medium-5">
+            <h4 class="divider-text text-capitalize font-large-1 font-weight-bolder">
                 Danh mục rao vặt nổi bật
             </h4>
         </div>
