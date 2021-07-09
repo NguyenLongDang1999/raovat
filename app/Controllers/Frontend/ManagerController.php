@@ -47,12 +47,7 @@ class ManagerController extends BaseController
 				$price = ($row['price'] != 0) ? esc(number_to_amount($row['price'], 2, 'vi_VN')) : 'Thương Lượng' . ' VNĐ';
 				$diffDate = diffDate($row['expire_from'], $row['expire_to']);
 				$img = explode(',', $row['thumb_list']);
-				$path = '';
-				if (!empty($img[0])) {
-					$path .= PATH_POST_SMALL_IMAGE . $img[0];
-				} else {
-					$path .= PATH_POST_IMAGE_DEFAULT;
-				}
+				$path = postShowImage($img[0]);
 
 				$data['aaData'][] = [
 					'checkbox' => '',
@@ -87,12 +82,7 @@ class ManagerController extends BaseController
 				$price = ($row['price'] != 0) ? esc(number_to_amount($row['price'], 2, 'vi_VN')) : 'Thương Lượng' . ' VNĐ';
 				$diffDate = diffDate($row['expire_from'], $row['expire_to']);
 				$img = explode(',', $row['thumb_list']);
-				$path = '';
-				if (!empty($img[0])) {
-					$path .= PATH_POST_SMALL_IMAGE . $img[0];
-				} else {
-					$path .= PATH_POST_IMAGE_DEFAULT;
-				}
+				$path = postShowImage($img[0]);
 
 				$data['aaData'][] = [
 					'responsive_id' => '',
@@ -125,12 +115,7 @@ class ManagerController extends BaseController
 				$price = ($row['price'] != 0) ? esc(number_to_amount($row['price'], 2, 'vi_VN')) : 'Thương Lượng' . ' VNĐ';
 				$diffDate = diffDate($row['expire_from'], $row['expire_to']);
 				$img = explode(',', $row['thumb_list']);
-				$path = '';
-				if (!empty($img[0])) {
-					$path .= PATH_POST_SMALL_IMAGE . $img[0];
-				} else {
-					$path .= PATH_POST_IMAGE_DEFAULT;
-				}
+				$path = postShowImage($img[0]);
 
 				$data['aaData'][] = [
 					'checkbox' => '',
@@ -163,12 +148,7 @@ class ManagerController extends BaseController
 				$price = ($row['price'] != 0) ? esc(number_to_amount($row['price'], 2, 'vi_VN')) : 'Thương Lượng' . ' VNĐ';
 				$diffDate = diffDate($row['expire_from'], $row['expire_to']);
 				$img = explode(',', $row['thumb_list']);
-				$path = '';
-				if (!empty($img[0])) {
-					$path .= PATH_POST_SMALL_IMAGE . $img[0];
-				} else {
-					$path .= PATH_POST_IMAGE_DEFAULT;
-				}
+				$path = postShowImage($img[0]);
 
 				$data['aaData'][] = [
 					'checkbox' => '',
@@ -204,12 +184,7 @@ class ManagerController extends BaseController
 				$price = ($row['price'] != 0) ? esc(number_to_amount($row['price'], 2, 'vi_VN')) : 'Thương Lượng' . ' VNĐ';
 				$diffDate = diffDate($row['expire_from'], $row['expire_to']);
 				$img = explode(',', $row['thumb_list']);
-				$path = '';
-				if (!empty($img[0])) {
-					$path .= PATH_POST_SMALL_IMAGE . $img[0];
-				} else {
-					$path .= PATH_POST_IMAGE_DEFAULT;
-				}
+				$path = postShowImage($img[0]);
 
 				$data['aaData'][] = [
 					'responsive_id' => '',

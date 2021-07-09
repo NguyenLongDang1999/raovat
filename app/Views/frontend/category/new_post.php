@@ -74,7 +74,7 @@ Bài đăng rao vặt mới nhất tại <?= base_url() ?>
                         <div class="card">
                             <div class="card-body">
                                 <nav>
-                                    <ol class="breadcrumb">
+                                    <ol class="breadcrumb d-flex">
                                         <li class="breadcrumb-item"><a href="<?= route_to('user.home.index') ?>">Trang
                                                 Chủ</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">Tin Đăng Mới Nhất</li>
@@ -133,18 +133,11 @@ Bài đăng rao vặt mới nhất tại <?= base_url() ?>
                 <div class="text-center">
                     <a href="<?= route_to('user.post.detail', esc($item['catSlug']), esc($item['slug']), esc($item['id'])) ?>">
                         <?php if ($item['featured'] == FEATURED_INACTIVE) : ?>
-                            <?php if (!empty($img[0])) : ?>
-                                <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top img-fluid h-100 lazy loading', 'width' => 350, 'height' => 250, 'alt' => esc($item['name']), 'data-src' => base_url(PATH_POST_SMALL_IMAGE . $img[0])]) ?>
-                            <?php else : ?>
-                                <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top img-fluid h-100 lazy loading', 'width' => 350, 'height' => 250, 'alt' => esc($item['name']), 'data-src' => base_url(PATH_POST_IMAGE_DEFAULT)]) ?>
-                            <?php endif; ?>
+                            <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top img-fluid h-100 lazy loading', 'width' => 350, 'height' => 250, 'alt' => esc($item['name']), 'data-src' => postShowImage($img[0])]) ?>
                         <?php else : ?>
                             <div class="position-relative">
-                                <?php if (!empty($img[0])) : ?>
-                                    <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top img-fluid h-100 lazy loading', 'width' => 350, 'height' => 250, 'alt' => esc($item['name']), 'data-src' => base_url(PATH_POST_SMALL_IMAGE . $img[0])]) ?>
-                                <?php else : ?>
-                                    <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top img-fluid h-100 lazy loading', 'width' => 350, 'height' => 250, 'alt' => esc($item['name']), 'data-src' => base_url(PATH_POST_IMAGE_DEFAULT)]) ?>
-                                <?php endif; ?>
+                                <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top img-fluid h-100 lazy loading', 'width' => 350, 'height' => 250, 'alt' => esc($item['name']), 'data-src' => postShowImage($img[0])]) ?>
+
                                 <div class="position-absolute position-top-0">
                                     <span class="badge badge-primary p-75">
                                         <i data-feather="zap" class="mr-25"></i>
@@ -358,7 +351,7 @@ Bài đăng rao vặt mới nhất tại <?= base_url() ?>
                         </ul>
                     </div>
 
-                    <?= form_button(['class' => 'btn btn-primary btn-block', 'type' => 'submit', 'content' => 'Submit']) ?>
+                    <?= form_button(['class' => 'btn btn-primary btn-block', 'type' => 'submit', 'content' => 'Lọc']) ?>
                 </div>
                 <?= form_close() ?>
             </div>
