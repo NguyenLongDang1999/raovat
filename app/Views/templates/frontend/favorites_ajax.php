@@ -16,11 +16,7 @@
             <?php foreach ($getListFavorites as $item) : ?>
                 <?php $img = explode(',', $item['thumb_list']); ?>
                 <div class="media align-items-center">
-                    <?php if (!empty($img[0])) : ?>
-                        <?= img(PATH_POST_SMALL_IMAGE . $img[0], false, ['class' => 'd-block rounded mr-1', 'width' => 62, 'height' => 62, 'alt' => esc($item['name'])]) ?>
-                    <?php else : ?>
-                        <?= img(PATH_POST_IMAGE_DEFAULT, false, ['class' => 'd-block rounded mr-1', 'width' => 62, 'height' => 62, 'alt' => esc($item['name'])]) ?>
-                    <?php endif; ?>
+                    <?= img(postShowImage($img[0]), false, ['class' => 'd-block rounded mr-1', 'width' => 62, 'height' => 62, 'alt' => esc($item['name'])]) ?>
                     <div class="media-body">
                         <div class="media-heading">
                             <h6 class="cart-item-title"><a class="text-body text-capitalize" href="<?= route_to('user.post.detail', esc($item['catSlug']), esc($item['slug']), esc($item['id'])) ?>"> <?= esc($item['name']) ?> </a></h6>
