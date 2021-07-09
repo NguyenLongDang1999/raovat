@@ -6,19 +6,326 @@ Thông tin cá nhân
 
 <!-- vendorCSS -->
 <?= $this->section('vendorCSS') ?>
+<?= link_tag('app-assets/vendors/css/charts/apexcharts.css') ?>
 <?= link_tag('app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css') ?>
+<?= link_tag('app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css') ?>
+<?= link_tag('app-assets/vendors/css/tables/datatable/responsive.bootstrap4.min.css') ?>
 <?= $this->endSection() ?>
 <!-- end vendorCSS -->
 
 <!-- pageCSS -->
 <?= $this->section('pageCSS') ?>
 <?= link_tag('app-assets/css/pages/page-profile.min.css') ?>
+<?= link_tag('app-assets/css/plugins/charts/chart-apex.css') ?>
 <?= $this->endSection() ?>
 <!-- end pageCSS -->
+
+<!-- vendorJS -->
+<?= $this->section('vendorJS') ?>
+<?= script_tag('app-assets/vendors/js/charts/apexcharts.min.js') ?>
+<?= script_tag('app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js') ?>
+<?= script_tag('app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js') ?>
+<?= script_tag('app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js') ?>
+<?= script_tag('app-assets/vendors/js/tables/datatable/responsive.bootstrap4.min.js') ?>
+<?= $this->endSection() ?>
+<!-- end vendorJS -->
 
 <!-- pageJS -->
 <?= $this->section('pageJS') ?>
 <?= script_tag('app-assets/js/scripts/pages/page-profile.min.js') ?>
+<script>
+    var click_mode = 0;
+    var aLengthMenuGeneral = [
+        [20, 50, 100, 500, 1000],
+        [20, 50, 100, 500, 1000]
+    ];
+
+    var oTableActive = $('#get-post-list').DataTable({
+        "bServerSide": true,
+        "bProcessing": true,
+        "sPaginationType": "full_numbers",
+        "sAjaxSource": "<?= route_to('user.manager.getPostList') ?>",
+        "bDeferRender": true,
+        "bFilter": false,
+        "bDestroy": true,
+        "aLengthMenu": aLengthMenuGeneral,
+        "iDisplayLength": 20,
+        "bSort": false,
+        columns: [{
+                data: 'responsive_id',
+                "bSortable": false
+            },
+            {
+                data: 'image',
+                "bSortable": false
+            },
+            {
+                data: 'infoPost',
+                "bSortable": false
+            },
+            {
+                data: 'infoDate',
+                "bSortable": false
+            },
+            {
+                data: 'featured',
+                "bSortable": false
+            },
+            {
+                data: 'status',
+                "bSortable": false
+            },
+            {
+                data: 'action',
+                "bSortable": false
+            },
+        ],
+        "fnServerParams": function(aoData) {
+            if (click_mode == 0) {
+                aoData.push({
+                    "name": "search[name]",
+                    "value": $('#frmSearch input[name="search[name]"]').val()
+                });
+                aoData.push({
+                    "name": "search[status]",
+                    "value": <?= STATUS_POST_ACTIVE ?>
+                });
+            }
+        },
+        columnDefs: [{
+                className: 'control',
+                orderable: false,
+                responsivePriority: 2,
+                targets: 0
+            },
+            {
+                targets: 4,
+                render: function(data, type, full, meta) {
+                    var $featured_number = full['featured'];
+                    var $featured = {
+                        <?= FEATURED_ACTIVE ?>: {
+                            title: 'Tin VIP',
+                            class: 'badge-light-primary'
+                        },
+                        <?= FEATURED_INACTIVE ?>: {
+                            title: 'Bình Thường',
+                            class: 'badge-light-danger'
+                        },
+                    };
+                    if (typeof $featured[$featured_number] === 'undefined') {
+                        return data;
+                    }
+                    return (
+                        '<span class="badge badge-pill ' +
+                        $featured[$featured_number].class +
+                        '">' +
+                        $featured[$featured_number].title +
+                        '</span>'
+                    );
+                }
+            },
+            {
+                targets: 5,
+                render: function(data, type, full, meta) {
+                    var $status_number = full['status'];
+                    var $status = {
+                        <?= STATUS_POST_ACTIVE ?>: {
+                            title: 'Đang Đăng',
+                            class: 'badge-light-success'
+                        },
+                        <?= STATUS_POST_READY ?>: {
+                            title: 'Chưa Duyệt',
+                            class: 'badge-light-primary'
+                        },
+                        <?= STATUS_POST_INACTIVE ?>: {
+                            title: 'Không Được Duyệt',
+                            class: 'badge-light-danger'
+                        },
+                        <?= STATUS_POST_HIDDEN ?>: {
+                            title: 'Đang Ẩn',
+                            class: 'badge-light-warning'
+                        },
+                    };
+                    if (typeof $status[$status_number] === 'undefined') {
+                        return data;
+                    }
+                    return (
+                        '<span class="badge badge-pill ' +
+                        $status[$status_number].class +
+                        '">' +
+                        $status[$status_number].title +
+                        '</span>'
+                    );
+                }
+            },
+            {
+                targets: -1,
+                title: 'Thao Tác',
+                orderable: false,
+                render: function(data, type, full, meta) {
+                    var $id = full['responsive_id'];
+                    return (
+                        '<div class="d-inline-flex">' +
+                        '<a href="' + full['detail'] + '" class="item-edit px-1">' +
+                        feather.icons['eye'].toSvg({
+                            class: 'font-small-4'
+                        }) +
+                        '</a>' +
+                        '</div>'
+                    );
+                }
+            }
+        ],
+        select: 'multi',
+        dom: '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+        responsive: {
+            details: {
+                display: $.fn.dataTable.Responsive.display.modal({
+                    header: function(row) {
+                        var data = row.data();
+                        return 'Chi Tiết Thông Tin';
+                    }
+                }),
+                type: 'column',
+                renderer: function(api, rowIdx, columns) {
+                    var data = $.map(columns, function(col, i) {
+                        console.log(columns);
+                        return col.title !== '' ?
+                            '<tr data-dt-row="' +
+                            col.rowIndex +
+                            '" data-dt-column="' +
+                            col.columnIndex +
+                            '">' +
+                            '<td>' +
+                            col.title +
+                            ':' +
+                            '</td> ' +
+                            '<td>' +
+                            col.data +
+                            '</td>' +
+                            '</tr>' :
+                            '';
+                    }).join('');
+
+                    return data ? $('<table class="table"/>').append(data) : false;
+                }
+            }
+        },
+        language: {
+            paginate: {
+                previous: '&nbsp;',
+                next: '&nbsp;'
+            }
+        },
+    });
+
+    $(function() {
+        'use strict';
+
+        var chartColors = {
+            donut: {
+                series1: '#ffe700',
+                series2: '#00d4bd',
+                series3: '#826bf8',
+                series4: '#2b9bf4',
+                series5: '#FFA1A1'
+            },
+        };
+
+        var donutChartEl = document.querySelector('#donut-chart'),
+            donutChartConfig = {
+                chart: {
+                    height: 350,
+                    type: 'donut'
+                },
+                legend: {
+                    show: true,
+                    position: 'bottom'
+                },
+                labels: ['Operational', 'Networking', 'Hiring', 'R&D'],
+                series: [85, 16, 50, 50],
+                colors: [
+                    chartColors.donut.series1,
+                    chartColors.donut.series5,
+                    chartColors.donut.series3,
+                    chartColors.donut.series2
+                ],
+                dataLabels: {
+                    enabled: true,
+                    formatter: function(val, opt) {
+                        return parseInt(val) + '%';
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            labels: {
+                                show: true,
+                                name: {
+                                    fontSize: '2rem',
+                                    fontFamily: 'Montserrat'
+                                },
+                                value: {
+                                    fontSize: '1rem',
+                                    fontFamily: 'Montserrat',
+                                    formatter: function(val) {
+                                        return parseInt(val) + '%';
+                                    }
+                                },
+                                total: {
+                                    show: true,
+                                    fontSize: '1.5rem',
+                                    label: 'Operational',
+                                    formatter: function(w) {
+                                        return '31%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                responsive: [{
+                        breakpoint: 992,
+                        options: {
+                            chart: {
+                                height: 380
+                            }
+                        }
+                    },
+                    {
+                        breakpoint: 576,
+                        options: {
+                            chart: {
+                                height: 320
+                            },
+                            plotOptions: {
+                                pie: {
+                                    donut: {
+                                        labels: {
+                                            show: true,
+                                            name: {
+                                                fontSize: '1.5rem'
+                                            },
+                                            value: {
+                                                fontSize: '1rem'
+                                            },
+                                            total: {
+                                                fontSize: '1.5rem'
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            };
+        if (typeof donutChartEl !== undefined && donutChartEl !== null) {
+            var donutChart = new ApexCharts(donutChartEl, donutChartConfig);
+            donutChart.render();
+        }
+    })
+</script>
 <?= $this->endSection() ?>
 <!-- end pageJS -->
 
@@ -66,17 +373,10 @@ Thông tin cá nhân
                 </div>
                 <div class="card-body px-0">
                     <ul class="nav user-profile-nav justify-content-center justify-content-md-start nav-pills border-bottom-0 mb-0" role="tablist">
-                        <li class="nav-item mb-0">
-                            <a class=" nav-link d-flex px-1 active" id="feed-tab" data-toggle="tab" href="#feed" aria-controls="feed" role="tab" aria-selected="true"><i class="bx bx-home"></i><span class="d-none d-md-block">Feed</span></a>
-                        </li>
-                        <li class="nav-item mb-0">
-                            <a class="nav-link d-flex px-1" id="activity-tab" data-toggle="tab" href="#activity" aria-controls="activity" role="tab" aria-selected="false"><i class="bx bx-user"></i><span class="d-none d-md-block">Activity</span></a>
-                        </li>
-                        <li class="nav-item mb-0">
-                            <a class="nav-link d-flex px-1" id="friends-tab" data-toggle="tab" href="#friends" aria-controls="friends" role="tab" aria-selected="false"><i class="bx bx-message-alt"></i><span class="d-none d-md-block">Friends</span></a>
-                        </li>
                         <li class="nav-item mb-0 mr-0">
-                            <a class="nav-link d-flex px-1" id="profile-tab" data-toggle="tab" href="#profile" aria-controls="profile" role="tab" aria-selected="false"><i class="bx bx-copy-alt"></i><span class="d-none d-md-block">Profile</span></a>
+                            <a class="nav-link d-flex px-1 active" id="profile-tab" data-toggle="tab" href="#profile" aria-controls="profile" role="tab" aria-selected="false">
+                                <i data-feather='users'></i>
+                                <span class="d-none d-md-block">Profile</span></a>
                         </li>
                     </ul>
                 </div>
@@ -85,209 +385,70 @@ Thông tin cá nhân
             <div class="row">
                 <div class="col-lg-9">
                     <div class="tab-content">
-                        <div class="tab-pane active" id="feed" aria-labelledby="feed-tab" role="tabpanel">
-                            
-                        </div>
-                        <div class="tab-pane " id="activity" aria-labelledby="activity-tab" role="tabpanel">
-                           
-                        </div>
-                        <div class="tab-pane" id="friends" aria-labelledby="friends-tab" role="tabpanel">
-                          
-                        </div>
-                        <div class="tab-pane" id="profile" aria-labelledby="profile-tab" role="tabpanel">
-                            <!-- user profile nav tabs profile start -->
+                        <div class="tab-pane active" id="profile" aria-labelledby="profile-tab" role="tabpanel">
+
                             <div class="card">
                                 <div class="card-body">
+                                    <h5 class="card-title">Thông Tin Chi Tiết</h5>
                                     <div class="row">
+                                        <div class="col-sm-4 col-12">
+                                            <h6>Số Điện Thoại</h6>
+                                            <p><?= esc(user()->phone) ?></p>
+                                        </div>
+                                        <div class="col-sm-4 col-12">
+                                            <h6>E-mail</h6>
+                                            <p><?= esc(user()->email) ?></p>
+                                        </div>
+                                        <div class="col-sm-4 col-12">
+                                            <h6>Ngày Tham Gia</h6>
+                                            <p><?= esc(getDateTime(user()->created_at)) ?></p>
+                                        </div>
                                         <div class="col-12">
-                                            <div class="row">
-                                                <div class="col-12 col-sm-3 text-center mb-1 mb-sm-0">
-                                                    <img src="../../../app-assets/images/portrait/small/avatar-s-16.jpg" class="rounded" alt="group image" height="120" width="120" />
-                                                </div>
-                                                <div class="col-12 col-sm-9">
-                                                    <div class="row">
-                                                        <div class="col-12 text-center text-sm-left">
-                                                            <h6 class="media-heading mb-0">valintini_007<i class="cursor-pointer bx bxs-star text-warning ml-50 align-middle"></i></h6>
-                                                            <small class="text-muted align-top">Martina Ash</small>
-                                                        </div>
-                                                        <div class="col-12 text-center text-sm-left">
-                                                            <div class="mb-1">
-                                                                <span class="mr-1">122 <small>Posts</small></span>
-                                                                <span class="mr-1">4.7k <small>Followers</small></span>
-                                                                <span class="mr-1">652 <small>Following</small></span>
-                                                            </div>
-                                                            <p>Algolia helps businesses across industries quickly create relevant😎, scalable😀, and
-                                                                lightning😍
-                                                                fast search and discovery experiences.</p>
-                                                            <div>
-                                                                <div class="badge badge-light-primary badge-round mr-1 mb-1" data-toggle="tooltip" data-placement="bottom" title="with 7% growth @valintini_007 is on top 5k"><i class="cursor-pointer bx bx-check-shield"></i>
-                                                                </div>
-                                                                <div class="badge badge-light-warning badge-round mr-1 mb-1" data-toggle="tooltip" data-placement="bottom" title="last 55% growth @valintini_007 is on weedday"><i class="cursor-pointer bx bx-badge-check"></i>
-                                                                </div>
-                                                                <div class="badge badge-light-success badge-round mb-1" data-toggle="tooltip" data-placement="bottom" title="got premium profile here"><i class="cursor-pointer bx bx-award"></i>
-                                                                </div>
-                                                            </div>
-                                                            <button class="btn btn-sm d-none d-sm-block float-right btn-light-primary">
-                                                                <i class="cursor-pointer bx bx-edit font-small-3 mr-50"></i><span>Edit</span>
-                                                            </button>
-                                                            <button class="btn btn-sm d-block d-sm-none btn-block text-center btn-light-primary">
-                                                                <i class="cursor-pointer bx bx-edit font-small-3 mr-25"></i><span>Edit</span></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <h6>Địa Chỉ</h6>
+                                            <p><?= !empty(user()->address) ? esc(user()->address) : 'Chưa Cập Nhật' ?></p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Basic details</h5>
-                                    <ul class="list-unstyled">
-                                        <li><i class="cursor-pointer bx bx-map mb-1 mr-50"></i>California</li>
-                                        <li><i class="cursor-pointer bx bx-phone-call mb-1 mr-50"></i>(+56) 454 45654 </li>
-                                        <li><i class="cursor-pointer bx bx-time mb-1 mr-50"></i>July 10</li>
-                                        <li><i class="cursor-pointer bx bx-envelope mb-1 mr-50"></i>Jonnybravo@gmail.com</li>
-                                    </ul>
-                                    <div class="row">
-                                        <div class="col-sm-6 col-12">
-                                            <h6><small class="text-muted">Cell Phone</small></h6>
-                                            <p>(+46) 456 54432</p>
-                                        </div>
-                                        <div class="col-sm-6 col-12">
-                                            <h6><small class="text-muted">Family Phone</small></h6>
-                                            <p>(+46) 454 22432</p>
-                                        </div>
-                                        <div class="col-sm-6 col-12">
-                                            <h6><small class="text-muted">Reporter</small></h6>
-                                            <p>John Doe</p>
-                                        </div>
-                                        <div class="col-sm-6 col-12">
-                                            <h6><small class="text-muted">Manager</small></h6>
-                                            <p>Richie Rich</p>
-                                        </div>
-                                        <div class="col-12">
-                                            <h6><small class="text-muted">Bio</small></h6>
-                                            <p>Built-in customizer enables users to change their admin panel look & feel based on their
-                                                preferences Beautifully crafted, clean & modern designed admin theme with 3 different demos &
-                                                light - dark versions.</p>
-                                        </div>
-                                    </div>
-                                    <button class="btn btn-sm d-none d-sm-block float-right btn-light-primary mb-2">
-                                        <i class="cursor-pointer bx bx-edit font-small-3 mr-50"></i><span>Edit</span>
-                                    </button>
-                                    <button class="btn btn-sm d-block d-sm-none btn-block text-center btn-light-primary">
-                                        <i class="cursor-pointer bx bx-edit font-small-3 mr-25"></i><span>Edit</span></button>
+                                    <h5 class="card-title">Bài Đăng Đang Hoạt Động</h5>
+
+                                    <?= form_open('', ['id' => 'frmTbList']) ?>
+                                    <table class="dt-advanced-search dt-responsive table table-white-space" id="get-post-list">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Hình ảnh</th>
+                                                <th>Thông tin bài đăng</th>
+                                                <th>Gói đăng tin</th>
+                                                <th>Loại tin</th>
+                                                <th>Trạng thái</th>
+                                                <th>Thao tác</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                    <?= form_close() ?>
                                 </div>
                             </div>
-                            <!-- user profile nav tabs profile ends -->
+
                         </div>
                     </div>
                 </div>
-                <!-- user profile nav tabs content ends -->
-                <!-- user profile right side content start -->
+
                 <div class="col-lg-3">
-                    <!-- user profile right side content birthday card start -->
                     <div class="card">
+                        <div class="card-header flex-column align-items-start">
+                            <h4 class="card-title mb-75">Expense Ratio</h4>
+                            <span class="card-subtitle text-muted">Spending on various categories </span>
+                        </div>
                         <div class="card-body">
-                            <div class="d-inline-flex">
-                                <div class="avatar mr-50">
-                                    <img src="../../../app-assets/images/portrait/small/avatar-s-20.jpg" alt="avtar images" height="32" width="32">
-                                </div>
-                                <h6 class="mb-0 d-flex align-items-center"> Nile's Birthday!</h6>
-                            </div>
-                            <i class="cursor-pointer bx bx-dots-vertical-rounded float-right"></i>
-                            <div class="user-profile-birthday-image text-center p-2">
-                                <img class="img-fluid" src="../../../app-assets/images/profile/pages/birthday.png" alt="image">
-                            </div>
-                            <div class="user-profile-birthday-footer text-center text-lg-left">
-                                <p class="mb-0"><small>Leave her a message with your best wishes on her profile page!</small></p>
-                                <a class="btn btn-sm btn-light-primary mt-50" href="JavaScript:void(0);">Send Wish</a>
-                            </div>
+                            <div id="donut-chart"></div>
                         </div>
                     </div>
-                    <!-- user profile right side content birthday card ends -->
-                    <!-- user profile right side content related groups start -->
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title mb-1">Related Groups
-                                <i class="cursor-pointer bx bx-dots-vertical-rounded align-top float-right"></i>
-                            </h5>
-                            <div class="media d-flex align-items-center mb-1">
-                                <a href="JavaScript:void(0);">
-                                    <img src="../../../app-assets/images/banner/banner-30.jpg" class="rounded" alt="group image" height="64" width="64" />
-                                </a>
-                                <div class="media-body ml-1">
-                                    <h6 class="media-heading mb-0"><small>Play Guitar</small></h6><small class="text-muted">2.8k
-                                        members (7 joined)</small>
-                                </div>
-                                <i class="cursor-pointer bx bx-plus-circle text-primary d-flex align-items-center "></i>
-                            </div>
-                            <div class="media d-flex align-items-center mb-1">
-                                <a href="JavaScript:void(0);">
-                                    <img src="../../../app-assets/images/banner/banner-31.jpg" class="rounded" alt="group image" height="64" width="64" />
-                                </a>
-                                <div class="media-body ml-1">
-                                    <h6 class="media-heading mb-0"><small>Generic memes</small></h6><small class="text-muted">9k
-                                        members (7 joined)</small>
-                                </div>
-                                <i class="cursor-pointer bx bx-plus-circle text-primary d-flex align-items-center "></i>
-                            </div>
-                            <div class="media d-flex align-items-center">
-                                <a href="JavaScript:void(0);">
-                                    <img src="../../../app-assets/images/banner/banner-32.jpg" class="rounded" alt="group image" height="64" width="64" />
-                                </a>
-                                <div class="media-body ml-1">
-                                    <h6 class="media-heading mb-0"><small>Cricket fan club</small></h6><small class="text-muted">7.6k
-                                        members</small>
-                                </div>
-                                <i class="cursor-pointer bx bx-lock text-muted d-flex align-items-center"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- user profile right side content related groups ends -->
-                    <!-- user profile right side content gallery start -->
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title mb-1">Gallery
-                                <i class="cursor-pointer bx bx-dots-vertical-rounded align-top float-right"></i>
-                            </h5>
-                            <div class="row">
-                                <div class="col-md-4 col-6 pl-25 pr-0 pb-25">
-                                    <img src="../../../app-assets/images/profile/user-uploads/user-10.jpg" class="img-fluid" alt="gallery avtar img">
-                                </div>
-                                <div class="col-md-4 col-6 pl-25 pr-0 pb-25">
-                                    <img src="../../../app-assets/images/profile/user-uploads/user-11.jpg" class="img-fluid" alt="gallery avtar img">
-                                </div>
-                                <div class="col-md-4 col-6 pl-25 pr-0 pb-25">
-                                    <img src="../../../app-assets/images/profile/user-uploads/user-12.jpg" class="img-fluid" alt="gallery avtar img">
-                                </div>
-                                <div class="col-md-4 col-6 pl-25 pr-0 pb-25">
-                                    <img src="../../../app-assets/images/profile/user-uploads/user-13.jpg" class="img-fluid" alt="gallery avtar img">
-                                </div>
-                                <div class="col-md-4 col-6 pl-25 pr-0 pb-25">
-                                    <img src="../../../app-assets/images/profile/user-uploads/user-05.jpg" class="img-fluid" alt="gallery avtar img">
-                                </div>
-                                <div class="col-md-4 col-6 pl-25 pr-0 pb-25">
-                                    <img src="../../../app-assets/images/profile/user-uploads/user-06.jpg" class="img-fluid" alt="gallery avtar img">
-                                </div>
-                                <div class="col-md-4 col-6 pl-25 pr-0 pb-25">
-                                    <img src="../../../app-assets/images/profile/user-uploads/user-07.jpg" class="img-fluid" alt="gallery avtar img">
-                                </div>
-                                <div class="col-md-4 col-6 pl-25 pr-0 pb-25">
-                                    <img src="../../../app-assets/images/profile/user-uploads/user-08.jpg" class="img-fluid" alt="gallery avtar img">
-                                </div>
-                                <div class="col-md-4 col-6 pl-25 pr-0 pb-25">
-                                    <img src="../../../app-assets/images/profile/user-uploads/user-09.jpg" class="img-fluid" alt="gallery avtar img">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- user profile right side content gallery ends -->
                 </div>
-                <!-- user profile right side content ends -->
             </div>
-            <!-- user profile content section start -->
         </div>
     </div>
 </section>
