@@ -7,8 +7,7 @@
 	"require": {
 		"php": "^7.3||^8.0",
 		"codeigniter4/framework": "^4",
-		"hybridauth/hybridauth": "^3.7",
-		"tatter/pushover": "^1.0"
+		"hybridauth/hybridauth": "^3.7"
 	},
 	"require-dev": {
 		"fakerphp/faker": "^1.9",
