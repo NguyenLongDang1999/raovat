@@ -27,7 +27,7 @@
                     </li>
                 </ul>
             </li>
-            <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Quản lý đăng tin</span><i
+            <li class=" navigation-header"><span>Quản lý đăng tin</span><i
                     data-feather="more-horizontal"></i>
             </li>
             <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span
@@ -79,6 +79,32 @@
                     <li class="<?= getMenuActive('banner/create') ?>"><a class="d-flex align-items-center"
                             href="<?= route_to('admin.banner.create') ?>"><i data-feather="circle"></i><span
                                 class="menu-item text-truncate">Thêm Mới</span></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class=" navigation-header"><span>Quản lý người dùng</span><i
+                    data-feather="more-horizontal"></i>
+            </li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span
+                        class="menu-title text-truncate">Group User</span></a>
+                <ul class="menu-content">
+                    <li class="<?= getMenuActive('group') ?>"><a class="d-flex align-items-center"
+                            href="<?= route_to('admin.group.index') ?>"><i data-feather="circle"></i><span
+                                class="menu-item text-truncate">Danh Sách</span></a>
+                    </li>
+                    <li class="<?= getMenuActive('group/create') ?>"><a class="d-flex align-items-center"
+                            href="<?= route_to('admin.group.create') ?>"><i data-feather="circle"></i><span
+                                class="menu-item text-truncate">Thêm Mới</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span
+                        class="menu-title text-truncate">Administator</span></a>
+                <ul class="menu-content">
+                    <li class="<?= getMenuActive('admin') ?>"><a class="d-flex align-items-center"
+                            href="<?= route_to('admin.admin.index') ?>"><i data-feather="circle"></i><span
+                                class="menu-item text-truncate">Danh Sách</span></a>
                     </li>
                 </ul>
             </li>

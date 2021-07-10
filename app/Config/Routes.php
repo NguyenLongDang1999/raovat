@@ -126,6 +126,18 @@ $routes->group('administrator', ['namespace' => 'App\Controllers\Backend', 'filt
 		$routes->get('s(:num)/detail', 'PostController::detail/$1', ['as' => 'admin.post.detail']);
 		$routes->get('s(:num)/showEdit', 'PostController::showEdit/$1', ['as' => 'admin.post.showEdit']);
 	});
+
+	// Group
+	$routes->group('group' ,['namespace' => 'App\Controllers\Backend', 'filter' => 'role:admin,super-admin'], function($routes)
+	{
+		$routes->get('/', 'GroupController::index', ['as' => 'admin.group.index']);
+		$routes->get('getList', 'GroupController::getList', ['as' => 'admin.group.getList']);
+		$routes->get('create', 'GroupController::create', ['as' => 'admin.group.create']);
+		$routes->post('store', 'GroupController::store', ['as' => 'admin.group.store']);
+		$routes->get('edit/(:num)', 'GroupController::edit/$1', ['as' => 'admin.group.edit']);
+		$routes->post('update/(:num)', 'GroupController::update/$1', ['as' => 'admin.group.update']);
+		$routes->post('multiPurgeDestroy', 'GroupController::multiPurgeDestroy', ['as' => 'admin.group.multiPurgeDestroy']);
+	});
 });
 
 /*
