@@ -93,7 +93,7 @@ Thông tin cá nhân
             }
         },
         columnDefs: [{
-                className: 'control',
+                className: 'control text-hide-responsive',
                 orderable: false,
                 responsivePriority: 2,
                 targets: 0
