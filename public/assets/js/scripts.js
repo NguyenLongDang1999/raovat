@@ -231,7 +231,6 @@
                     resp = jQuery.parseJSON(resp);
                     if (resp.result) {
                         notify_success(resp.message);
-                        showFavorites();
                     } else {
                         Swal.fire({
                             icon: "error",
@@ -239,6 +238,9 @@
                             html: resp.message,
                         });
                     }
+                });
+                updateFavorites.always(function () {
+                    showFavorites();
                 });
             } else {
                 Swal.fire({

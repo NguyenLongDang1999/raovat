@@ -75,6 +75,7 @@ class FavoritesController extends BaseController
 	{
 		if ($this->request->isAjax()) {
 			$data['getListFavorites'] = $this->post->getListFavorites(user_id());
+			$data['getListFavoritesCount'] = $this->post->getListFavorites(user_id(), true);
 			return view('templates/frontend/favorites_ajax', $data);
 		}
 	}

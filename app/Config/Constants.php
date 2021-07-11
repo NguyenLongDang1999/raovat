@@ -134,8 +134,9 @@ defined('BANNER_BOTTOM')            || define('BANNER_BOTTOM', '2');
  | Group
  | --------------------------------------------------------------------------
  */
-defined('ADMINISTRATOR')            || define('ADMINISTRATOR', '1');
+defined('SUPER_ADMINISTRATOR')      || define('SUPER_ADMINISTRATOR', '1');
 defined('USER')                     || define('USER', '2');
+defined('MANAGER')                  || define('MANAGER', '5');
 
 /*
  | --------------------------------------------------------------------------

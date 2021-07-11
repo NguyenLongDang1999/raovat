@@ -138,6 +138,13 @@ $routes->group('administrator', ['namespace' => 'App\Controllers\Backend', 'filt
 		$routes->post('update/(:num)', 'GroupController::update/$1', ['as' => 'admin.group.update']);
 		$routes->post('multiPurgeDestroy', 'GroupController::multiPurgeDestroy', ['as' => 'admin.group.multiPurgeDestroy']);
 	});
+
+	// Administrator
+	$routes->group('admin' ,['namespace' => 'App\Controllers\Backend', 'filter' => 'role:admin,super-admin'], function($routes)
+	{
+		$routes->get('/', 'AdminController::index', ['as' => 'admin.admin.index']);
+		$routes->get('getList', 'AdminController::getList', ['as' => 'admin.admin.getList']);
+	});
 });
 
 /*

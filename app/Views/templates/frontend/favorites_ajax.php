@@ -1,13 +1,13 @@
 <a class="nav-link" href="javascript:void(0);" data-toggle="dropdown">
     <i class="ficon" data-feather="heart"></i>
-    <span class="badge badge-pill badge-primary badge-up cart-item-count"><?= esc(count($getListFavorites)) ?></span>
+    <span class="badge badge-pill badge-primary badge-up cart-item-count"><?= esc(count($getListFavoritesCount)) ?></span>
 
 </a>
 <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
     <li class="dropdown-menu-header">
         <div class="dropdown-header d-flex">
             <h4 class="notification-title mb-0 mr-auto">Bài Đăng Đã Lưu</h4>
-            <div class="badge badge-pill badge-light-primary"><?= esc(count($getListFavorites)) ?> items</div>
+            <div class="badge badge-pill badge-light-primary"><?= esc(count($getListFavoritesCount)) ?> items</div>
         </div>
     </li>
     <li class="scrollable-container media-list">

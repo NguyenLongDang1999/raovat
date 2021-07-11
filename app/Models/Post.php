@@ -393,6 +393,7 @@ class Post extends Model
             ->join('district', 'district.id = post.district_id')
             ->where('post.expire_to >=', date('Y-m-d'))
             ->where('users.active', STATUS_ACTIVE)
+            ->where('post.status', STATUS_POST_ACTIVE)
             ->where('category.slug', $catSlug)
             ->where('post.slug', $postSlug)
             ->where('post.id', $id)
@@ -499,9 +500,9 @@ class Post extends Model
         return $model->findAll(5);
     }
 
-    public function getListFavorites($user_id)
+    public function getListFavorites($user_id, $count = false)
     {
-        return $this->select('post.name, post.thumb_list, post.id, post.slug, category.slug as catSlug, post.price,
+        $model = $this->select('post.name, post.thumb_list, post.id, post.slug, category.slug as catSlug, post.price,
             users.fullname')
             ->join('users_favorites', 'users_favorites.post_id = post.id')
             ->join('category', 'category.id = post.cat_id')
@@ -511,8 +512,14 @@ class Post extends Model
             ->where('post.status', STATUS_POST_ACTIVE)
             ->where('post.expire_to >=', date('Y-m-d'))
             ->where('post.user_id <>', $user_id)
-            ->orderBy('users_favorites.created_at', 'desc')
-            ->findAll();
+            ->orderBy('users_favorites.created_at', 'desc');
+            if ($count) {
+                $model = $model->findAll();
+            } else {
+                $model = $model->findAll(4);
+            }
+
+            return $model;
     }
 
     public function getListFavoritesManager($input = array(), $user_id)
@@ -530,7 +537,8 @@ class Post extends Model
             ->where('post.status', STATUS_POST_ACTIVE)
             ->where('post.user_id <>', $user_id)
             ->where('post.expire_to >=', date('Y-m-d'))
-            ->where('category.status', STATUS_ACTIVE);
+            ->where('category.status', STATUS_ACTIVE)
+            ->orderBy('users_favorites.created_at', 'desc');
 
         if (isset($input['iSortCol_0'])) {
             $sorting_mapping_array = array(

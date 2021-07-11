@@ -259,3 +259,16 @@ function checkFavorites()
 
     return $favorites;
 }
+
+function showRoleUser($role)
+{
+    $show = '';
+
+    if ($role == SUPER_ADMINISTRATOR) {
+        $show .= 'Administrator';
+    } else if ($role == MANAGER) {
+        $show .= 'Manager';
+    }
+
+    return $show;
+}
