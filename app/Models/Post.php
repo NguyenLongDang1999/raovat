@@ -418,10 +418,9 @@ class Post extends Model
 
         if ($featured) {
             $model = $model->where('post.featured', FEATURED_ACTIVE);
-            return $model->findAll(10);
         }
 
-        return $model->findAll(15);
+        return $model->findAll(10);
     }
 
     // User Manager

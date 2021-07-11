@@ -39,12 +39,12 @@ class AdminController extends BaseController
 				$data['aaData'][] = [
 					'checkbox' => '',
 					'responsive_id' => '',
-					'responsive_id' => esc($row['id']),
-					'image' => '',
-					'infoUser' => $this->infoUser($row['fullname'], $row['email'], $row['phone'], $row['gender']),
-					'role' => '',
-					'status' => esc($row['status']),
-					'created_at' => esc($row['created_at']),
+					'responsive_id' => esc($row->id),
+					'image' => img(userShowImage($row->avatar), false, ['width' => 70, 'height' => 70, 'alt' => esc($row->fullname), 'class' => 'img-fluid rounded']),
+					'infoUser' => $this->infoUser($row->fullname, $row->email, $row->phone, $row->gender),
+					'role' => $row->name,
+					'status' => esc($row->status),
+					'created_at' => esc(getDateTime($row->created_at->toDateString())),
 				];
 			}
 		}

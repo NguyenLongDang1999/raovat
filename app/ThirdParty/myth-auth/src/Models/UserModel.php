@@ -147,4 +147,36 @@ class UserModel extends Model
 
         return $model;
     }
+
+    public function getList($input = array())
+    {
+        $model = $this->select('
+            users.id, users.phone, users.email, users.fullname, users.gender, users.avatar, users.created_at,
+            auth_groups.name')
+            ->join('auth_groups_users', 'auth_groups_users.user_id = users.id')
+            ->join('auth_groups', 'auth_groups.id = auth_groups_users.group_id')
+            ->where('auth_groups_users.group_id !=', USER);
+
+        if (isset($input['iSortCol_0'])) {
+            $sorting_mapping_array = array(
+                '6' => 'users.created_at',
+            );
+
+            $order = "desc";
+            if (isset($input['sSortDir_0'])) {
+                $order = $input['sSortDir_0'];
+            }
+
+            if (isset($sorting_mapping_array[$input['iSortCol_0']])) {
+                $model->orderBy($sorting_mapping_array[$input['iSortCol_0']], $order);
+            }
+        }
+
+        $model = $model->findAll($input['iDisplayStart'], $input['iDisplayLength']);
+
+        $result['model'] = $model;
+        $result['total'] = count($model);
+
+        return $result;
+    }
 }

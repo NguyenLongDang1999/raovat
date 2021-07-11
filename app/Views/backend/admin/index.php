@@ -35,8 +35,8 @@ Administrator List Page
         [50, 100, 500, 1000]
     ];
 
-    if (bannerTable.length) {
-        var oTable = bannerTable.DataTable({
+    if (adminTable.length) {
+        var oTable = adminTable.DataTable({
             "bServerSide": true,
             "bProcessing": true,
             "sPaginationType": "full_numbers",
@@ -266,7 +266,7 @@ Administrator List Page
                 </div>
                 <div class="card-datatable">
                     <?= form_open('', ['id' => 'frmTbList']) ?>
-                    <table class="dt-advanced-search dt-responsive table banner-table table-white-space">
+                    <table class="dt-advanced-search dt-responsive table admin-table table-white-space">
                         <thead>
                             <tr>
                                 <th></th>
