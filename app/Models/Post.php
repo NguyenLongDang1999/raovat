@@ -418,6 +418,8 @@ class Post extends Model
 
         if ($featured) {
             $model = $model->where('post.featured', FEATURED_ACTIVE);
+        } else {
+            $model = $model->where('post.featured', FEATURED_INACTIVE);
         }
 
         return $model->findAll(10);
