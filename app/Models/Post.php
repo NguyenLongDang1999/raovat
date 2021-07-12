@@ -135,7 +135,7 @@ class Post extends Model
             if (isset($input['paginate']) && $input['paginate'] != '') {
                 $query = $query->paginate($input['paginate']);
             } else {
-                $query = $query->paginate(18);
+                $query = $query->paginate(20);
             }
         }
 
@@ -223,7 +223,7 @@ class Post extends Model
             if (isset($input['paginate']) && $input['paginate'] != '') {
                 $query = $query->paginate($input['paginate']);
             } else {
-                $query = $query->paginate(18);
+                $query = $query->paginate(20);
             }
         }
 
