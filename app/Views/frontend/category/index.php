@@ -22,7 +22,7 @@ Tất cả danh mục đăng tin rao vặt tại <?= base_url() ?>
                 <div class="card">
                     <div class="card-body">
                         <h6 class="kb-title">
-                            <?= img(PATH_CATEGORY_IMAGE . $item['image'], false, ['alt' => esc($item['name']), 'class' => 'round', 'width' => '40', 'height' => '40']) ?>
+                            <?= img(categoryShowImage($item['image']), false, ['alt' => esc($item['name']), 'class' => 'round', 'width' => '40', 'height' => '40']) ?>
                             <a href="<?= route_to('user.category.category', $item['slug'], $item['id']) ?>" class="text-body" data-toggle="tooltip" data-placement="bottom" title="<?= esc($item['name']) ?>">
                                 <span class="text-capitalize"><?= esc($item['name']) ?></span>
                             </a>

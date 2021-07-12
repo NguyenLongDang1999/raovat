@@ -3,7 +3,6 @@
 namespace App\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
-use CodeIgniter\I18n\Time;
 use Myth\Auth\Models\UserModel;
 
 class User extends Seeder
@@ -26,18 +25,16 @@ class User extends Seeder
 			$hashOptions
 		);
 
-		for ($i = 0; $i < 50; $i++) {
+		for ($i = 1; $i <= 50; $i++) {
 			$user->save(
 				[
 					'fullname'        	=>    $faker->name,
 					'email'       		=>    $faker->email,
 					'password_hash'    	=>    $password_hash,
 					'phone'       		=>    $faker->phoneNumber,
-					'avatar' 			=> 	  \Faker\Provider\Image::imageUrl(800, 400),
+					'avatar' 			=> 	  $faker->imageUrl(140, 140),
 					'gender' 			=> 	  rand(GENDER_FEMALE, GENDER_MALE),
 					'active'			=> 	  1,
-					'created_at'  		=>    Time::createFromTimestamp($faker->unixTime()),
-					'updated_at'  		=>    Time::now()
 				]
 			);
 		}

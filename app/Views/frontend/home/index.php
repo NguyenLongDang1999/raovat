@@ -79,7 +79,7 @@ Trang chủ
                             <div class="avatar bg-light-info p-50 mb-1">
                                 <div class="avatar-content">
                                     <a href="<?= route_to('user.category.category', $item['slug'], $item['id']) ?>">
-                                        <?= img(PATH_CATEGORY_IMAGE . $item['image'], false, ['alt' => esc($item['name']), 'class' => 'round', 'width' => '45', 'height' => '45']) ?>
+                                        <?= img(categoryShowImage($item['image']), false, ['alt' => esc($item['name']), 'class' => 'round', 'width' => '45', 'height' => '45']) ?>
                                     </a>
                                 </div>
                             </div>

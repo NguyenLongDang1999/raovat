@@ -216,6 +216,21 @@ function userShowImage($user_avatar)
     return $path;
 }
 
+function categoryShowImage($image)
+{
+    if (is_null($image)) {
+        $path = base_url(PATH_DEFAULT_AVATAR);
+    } else {
+        if (strpos($image, 'https') !== false) {
+            $path = $image;
+        } else {
+            $path = PATH_CATEGORY_IMAGE . $image;
+        }
+    }
+
+    return $path;
+}
+
 function postShowImage($thumb_list)
 {
     if (!empty($thumb_list)) {
