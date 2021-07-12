@@ -45,7 +45,7 @@ class PostController extends BaseController
 
 		$results = $this->post->getList($input);
 
-		$data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($results['model']);
+		$data['iTotalRecords'] = $data['iTotalDisplayRecords'] = $results['total'];
 
 		$data['aaData'] = array();
 		if (count($results['model']) > 0) {
@@ -54,18 +54,13 @@ class PostController extends BaseController
 				$price = ($row['price'] != 0) ? esc(number_to_amount($row['price'], 2, 'vi_VN')) . ' VNĐ' : 'Thương Lượng';
 				$diffDate = diffDate($row['expire_from'], $row['expire_to']);
 				$img = explode(',', $row['thumb_list']);
-				$path = '';
-				if (!empty($img[0])) {
-					$path .= PATH_POST_SMALL_IMAGE . $img[0];
-				} else {
-					$path .= PATH_POST_IMAGE_DEFAULT;
-				}
+				$path = postShowImage($img[0]);
 
 				$data['aaData'][] = [
 					'checkbox' => '',
 					'responsive_id' => '',
 					'responsive_id' => esc($row['id']),
-					'image' => img($path, false, ['class' => 'img-fluid', 'alt' => esc($row['name']), 'width' => 150, 'height' => 150]),
+					'image' => img($path, false, ['alt' => esc($row['name']), 'width' => 150, 'height' => 150]),
 					'infoPost' => $this->infoPost($row['name'], $row['catName'], $row['provinceName'], $price),
 					'infoDate' => $this->infoDate($diffDate, $row['expire_from'], $row['expire_to']),
 					'infoUser' => $this->infoPostByUser($row['userName'], $row['email'], $gender),

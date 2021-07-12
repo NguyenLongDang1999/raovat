@@ -39,7 +39,7 @@ class ManagerController extends BaseController
 
 		$results = $this->post->getPostListManager($input);
 
-		$data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($results['model']);
+		$data['iTotalRecords'] = $data['iTotalDisplayRecords'] = $results['total'];
 
 		$data['aaData'] = array();
 		if (count($results['model']) > 0) {
@@ -74,7 +74,7 @@ class ManagerController extends BaseController
 
 		$results = $this->post->getPostListManager($input);
 
-		$data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($results['model']);
+		$data['iTotalRecords'] = $data['iTotalDisplayRecords'] = $results['total'];
 
 		$data['aaData'] = array();
 		if (count($results['model']) > 0) {
@@ -107,7 +107,7 @@ class ManagerController extends BaseController
 
 		$results = $this->post->getPostListManager($input);
 
-		$data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($results['model']);
+		$data['iTotalRecords'] = $data['iTotalDisplayRecords'] = $results['total'];
 
 		$data['aaData'] = array();
 		if (count($results['model']) > 0) {
@@ -139,7 +139,7 @@ class ManagerController extends BaseController
 
 		$results = $this->post->getListFavoritesManager($input, user_id());
 
-		$data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($results['model']);
+		$data['iTotalRecords'] = $data['iTotalDisplayRecords'] = $results['total'];
 
 		$data['aaData'] = array();
 		if (count($results['model']) > 0) {
@@ -176,7 +176,7 @@ class ManagerController extends BaseController
 		$input['expire'] = true;
 		$results = $this->post->getPostListManager($input);
 
-		$data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($results['model']);
+		$data['iTotalRecords'] = $data['iTotalDisplayRecords'] = $results['total'];
 
 		$data['aaData'] = array();
 		if (count($results['model']) > 0) {

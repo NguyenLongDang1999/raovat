@@ -213,7 +213,6 @@ class Post extends Model
                 $query = $query->orderBy('post.name', 'desc');
             }
         } else {
-            $query = $query->orderBy('post.featured', 'desc');
             $query = $query->orderBy('post.created_at', 'desc');
         }
 
@@ -272,6 +271,7 @@ class Post extends Model
             $model->where('post.featured', $input['search']['featured']);
         }
 
+        $result['total'] = $model->countAllResults(false);
         if (isset($input['iSortCol_0'])) {
             $sorting_mapping_array = array(
                 '2' => 'post.name',
@@ -289,7 +289,7 @@ class Post extends Model
             }
         }
 
-        $result['model'] = $model->findAll($input['iDisplayStart'], $input['iDisplayLength']);
+        $result['model'] = $model->findAll($input['iDisplayLength'], $input['iDisplayStart']);
 
         return $result;
     }
@@ -454,6 +454,7 @@ class Post extends Model
             }
         }
 
+        $result['total'] = $model->countAllResults(false);
         if (isset($input['iSortCol_0'])) {
             $sorting_mapping_array = array(
                 '2' => 'post.name',
@@ -471,7 +472,7 @@ class Post extends Model
             }
         }
 
-        $result['model'] = $model->findAll($input['iDisplayStart'], $input['iDisplayLength']);
+        $result['model'] = $model->findAll($input['iDisplayLength'], $input['iDisplayStart']);
 
         return $result;
     }
@@ -514,13 +515,13 @@ class Post extends Model
             ->where('post.expire_to >=', date('Y-m-d'))
             ->where('post.user_id <>', $user_id)
             ->orderBy('users_favorites.created_at', 'desc');
-            if ($count) {
-                $model = $model->findAll();
-            } else {
-                $model = $model->findAll(4);
-            }
+        if ($count) {
+            $model = $model->findAll();
+        } else {
+            $model = $model->findAll(4);
+        }
 
-            return $model;
+        return $model;
     }
 
     public function getListFavoritesManager($input = array(), $user_id)
@@ -541,11 +542,12 @@ class Post extends Model
             ->where('category.status', STATUS_ACTIVE)
             ->orderBy('users_favorites.created_at', 'desc');
 
+
+        $result['total'] = $model->countAllResults(false);
+
         if (isset($input['iSortCol_0'])) {
             $sorting_mapping_array = array(
-                '2' => 'post.name',
-                '3' => 'post.created_at',
-                '5' => 'post.created_at',
+                // 
             );
 
             $order = "desc";
@@ -558,7 +560,7 @@ class Post extends Model
             }
         }
 
-        $result['model'] = $model->findAll($input['iDisplayStart'], $input['iDisplayLength']);
+        $result['model'] = $model->findAll($input['iDisplayLength'], $input['iDisplayStart']);
 
         return $result;
     }

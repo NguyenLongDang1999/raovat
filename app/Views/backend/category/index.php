@@ -31,8 +31,8 @@ Category List Page
     var url_status_item = "<?= route_to('admin.category.multiStatus') ?>";
     var click_mode = 0;
     var aLengthMenuGeneral = [
-        [50, 100, 500, 1000],
-        [50, 100, 500, 1000]
+        [20, 50, 100, 500, 1000],
+        [20, 50, 100, 500, 1000]
     ];
 
     if (categoryTable.length) {
@@ -43,9 +43,9 @@ Category List Page
             "sAjaxSource": "<?= route_to('admin.category.getList') ?>",
             "bDeferRender": true,
             "bFilter": false,
-            "bDestroy": true,
+        "bDestroy": true,
             "aLengthMenu": aLengthMenuGeneral,
-            "iDisplayLength": 50,
+            "iDisplayLength": 20,
             "bSort": true,
             "aaSorting": [
                 [5, "desc"]

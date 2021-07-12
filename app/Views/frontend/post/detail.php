@@ -450,7 +450,7 @@
                                 <a href="<?= route_to('user.category.category', $item['slug'], $item['id']) ?>" class="mr-75">
                                     <div class="avatar bg-light-primary rounded">
                                         <div class="avatar-content">
-                                            <?= img(PATH_CATEGORY_IMAGE . $item['image'], false, ['width' => 32, 'height' => 32]) ?>
+                                            <?= img(categoryShowImage($item['image']), false, ['width' => 32, 'height' => 32]) ?>
                                         </div>
                                     </div>
                                 </a>

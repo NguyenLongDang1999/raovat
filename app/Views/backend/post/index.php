@@ -48,8 +48,8 @@ Post List Page
     var click_mode = 0;
 
     var aLengthMenuGeneral = [
-        [50, 100, 500, 1000],
-        [50, 100, 500, 1000]
+        [20, 50, 100, 500, 1000],
+        [20, 50, 100, 500, 1000]
     ];
 
     if (postTable.length) {
@@ -62,7 +62,7 @@ Post List Page
             "bFilter": false,
             "bDestroy": true,
             "aLengthMenu": aLengthMenuGeneral,
-            "iDisplayLength": 50,
+            "iDisplayLength": 20,
             "bSort": true,
             columns: [{
                     data: 'checkbox',
@@ -420,7 +420,7 @@ Post List Page
                             <tr>
                                 <th></th>
                                 <th></th>
-                                <th></th>
+                                <th>Hình ảnh</th>
                                 <th>Thông tin bài đăng</th>
                                 <th>Thông tin gói đăng tin</th>
                                 <th>Thông tin người đăng</th>
