@@ -186,7 +186,7 @@ Quản lý tin đăng cá nhân
                                     <tr>
                                         <th></th>
                                         <th></th>
-                                        <th></th>
+                                        <th>Hình ảnh</th>
                                         <th>Thông tin bài đăng</th>
                                         <th>Thông tin gói đăng tin</th>
                                         <th>Thông tin người đăng</th>
