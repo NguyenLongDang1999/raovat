@@ -29,7 +29,7 @@ class EmailActivator extends BaseActivator implements ActivatorInterface
         $sent = $email->setFrom($settings->fromEmail ?? $config->fromEmail, $settings->fromName ?? $config->fromName)
               ->setTo($user->email)
               ->setSubject(lang('Auth.activationSubject'))
-              ->setMessage(view($this->config->views['emailActivation'], ['hash' => $user->activate_hash]))
+              ->setMessage(view($this->config->views['emailActivation'], ['hash' => $user->activate_hash, 'fullname' => $user->fullname]))
               ->setMailType('html')
               ->send();
 
