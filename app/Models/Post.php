@@ -157,21 +157,21 @@ class Post extends Model
 
         if (isset($input['price_range']) && $input['price_range'] != '') {
             if ($input['price_range'] == 1) {
-                $query = $query->where('post.price <=', number_format(1000000, 0, '', ','));
+                $query = $query->where('post.price <=', 1000000);
             }
 
             if ($input['price_range'] == 2) {
-                $query = $query->where('post.price >=', number_format(1000000, 0, '', ','));
-                $query = $query->where('post.price <=', number_format(100000000, 0, '', ','));
+                $query = $query->where('post.price >=', 1000000);
+                $query = $query->where('post.price <=', 100000000);
             }
 
             if ($input['price_range'] == 3) {
-                $query = $query->where('post.price >=', number_format(100000000, 0, '', ','));
-                $query = $query->where('post.price <=', number_format(1000000000, 0, '', ','));
+                $query = $query->where('post.price >=', 100000000);
+                $query = $query->where('post.price <=', 1000000000);
             }
 
             if ($input['price_range'] == 4) {
-                $query = $query->where('post.price >=', number_format(1000000000, 0, '', ','));
+                $query = $query->where('post.price >=', 1000000000);
             }
         }
 
