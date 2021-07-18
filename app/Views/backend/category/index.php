@@ -43,7 +43,7 @@ Category List Page
             "sAjaxSource": "<?= route_to('admin.category.getList') ?>",
             "bDeferRender": true,
             "bFilter": false,
-        "bDestroy": true,
+            "bDestroy": true,
             "aLengthMenu": aLengthMenuGeneral,
             "iDisplayLength": 20,
             "bSort": true,
@@ -191,12 +191,6 @@ Category List Page
 
                         return data ? $('<table class="table"/>').append(data) : false;
                     }
-                }
-            },
-            language: {
-                paginate: {
-                    previous: '&nbsp;',
-                    next: '&nbsp;'
                 }
             },
         });

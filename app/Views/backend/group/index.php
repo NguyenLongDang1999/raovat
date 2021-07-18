@@ -144,12 +144,6 @@ Group List Page
                     }
                 }
             },
-            language: {
-                paginate: {
-                    previous: '&nbsp;',
-                    next: '&nbsp;'
-                }
-            },
         });
     }
 

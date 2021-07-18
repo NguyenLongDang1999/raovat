@@ -203,12 +203,6 @@
                     }
                 }
             },
-            language: {
-                paginate: {
-                    previous: '&nbsp;',
-                    next: '&nbsp;'
-                }
-            },
         });
 
         var oTableBlock = $('#get-manager-block').DataTable({
@@ -347,12 +341,6 @@
 
                         return data ? $('<table class="table"/>').append(data) : false;
                     }
-                }
-            },
-            language: {
-                paginate: {
-                    previous: '&nbsp;',
-                    next: '&nbsp;'
                 }
             },
         });
@@ -506,12 +494,6 @@
                     }
                 }
             },
-            language: {
-                paginate: {
-                    previous: '&nbsp;',
-                    next: '&nbsp;'
-                }
-            },
         });
 
         var oTableReady = $('#get-manager-ready').DataTable({
@@ -652,12 +634,6 @@
                     }
                 }
             },
-            language: {
-                paginate: {
-                    previous: '&nbsp;',
-                    next: '&nbsp;'
-                }
-            },
         });
 
         var oTableExpire = $('#get-manager-expire').DataTable({
@@ -785,12 +761,6 @@
 
                         return data ? $('<table class="table"/>').append(data) : false;
                     }
-                }
-            },
-            language: {
-                paginate: {
-                    previous: '&nbsp;',
-                    next: '&nbsp;'
                 }
             },
         });
