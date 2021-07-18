@@ -369,7 +369,7 @@ Thông tin cá nhân
                 </div>
                 <div class="user-profile-text">
                     <h4 class="mb-0 text-bold-500 profile-text-color"><?= esc(user()->fullname) ?></h4>
-                    <small><?= esc(user()->job) ?></small>
+                    <small><?= user()->gender == GENDER_FEMALE ? 'Nữ' : 'Nam' ?></small>
                 </div>
                 <div class="card-body px-0">
                     <ul class="nav user-profile-nav justify-content-center justify-content-md-start nav-pills border-bottom-0 mb-0" role="tablist">
@@ -391,15 +391,19 @@ Thông tin cá nhân
                                 <div class="card-body">
                                     <h5 class="card-title">Thông Tin Chi Tiết</h5>
                                     <div class="row">
-                                        <div class="col-sm-4 col-12">
+                                        <div class="col-md-6 col-lg-3 col-12">
                                             <h6>Số Điện Thoại</h6>
                                             <p><?= esc(user()->phone) ?></p>
                                         </div>
-                                        <div class="col-sm-4 col-12">
+                                        <div class="col-md-6 col-lg-3 col-12">
                                             <h6>E-mail</h6>
                                             <p><?= esc(user()->email) ?></p>
                                         </div>
-                                        <div class="col-sm-4 col-12">
+                                        <div class="col-md-6 col-lg-3 col-12">
+                                            <h6>Nghề Nghiệp</h6>
+                                            <p><?= esc(user()->job) ?></p>
+                                        </div>
+                                        <div class="col-md-6 col-lg-3 col-12">
                                             <h6>Ngày Tham Gia</h6>
                                             <p><?= esc(getDateTime(user()->created_at)) ?></p>
                                         </div>
