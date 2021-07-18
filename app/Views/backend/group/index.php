@@ -25,6 +25,7 @@ Group List Page
 
 <!-- pageJS -->
 <?= $this->section('pageJS') ?>
+<?= script_tag('assets/js/dataTables_language.js') ?>
 <script>
     var groupTable = $('.group-table');
     var url_delete_item = "<?= route_to('admin.group.multiPurgeDestroy') ?>";

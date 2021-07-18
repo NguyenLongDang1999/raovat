@@ -27,6 +27,7 @@ Post List Recycle Page
 
 <!-- pageJS -->
 <?= $this->section('pageJS') ?>
+<?= script_tag('assets/js/dataTables_language.js') ?>
 <script>
     $(".select2-custom").each(function() {
         var $this = $(this);

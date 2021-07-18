@@ -10,19 +10,17 @@ class UserFavorites extends Model
     protected $primaryKey           = 'id';
     protected $useAutoIncrement     = true;
     protected $returnType           = 'array';
-    protected $useSoftDeletes       = true;
+    protected $useSoftDeletes       = false;
 
     protected $allowedFields        = [
         'user_id',
         'post_id',
-        'deleted_at'
     ];
 
     // Dates
     protected $useTimestamps        = true;
     protected $createdField         = 'created_at';
     protected $updatedField         = 'updated_at';
-    protected $deletedField         = 'deleted_at';
 
     public function checkFavoritesExists($post_id, $user_id)
     {

@@ -33,6 +33,7 @@ Thông tin cá nhân
 <!-- pageJS -->
 <?= $this->section('pageJS') ?>
 <?= script_tag('app-assets/js/scripts/pages/page-profile.min.js') ?>
+<?= script_tag('assets/js/dataTables_language.js') ?>
 <script>
     var click_mode = 0;
     var aLengthMenuGeneral = [

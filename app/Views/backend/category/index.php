@@ -25,6 +25,7 @@ Category List Page
 
 <!-- pageJS -->
 <?= $this->section('pageJS') ?>
+<?= script_tag('assets/js/dataTables_language.js') ?>
 <script>
     var categoryTable = $('.category-table');
     var url_delete_item = "<?= route_to('admin.category.multiDestroy') ?>";

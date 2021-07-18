@@ -25,6 +25,7 @@ Quản lý tin đăng cá nhân
 
 <!-- pageJS -->
 <?= $this->section('pageJS') ?>
+<?= script_tag('assets/js/dataTables_language.js') ?>
 <?= $this->include('frontend/manager/scripts') ?>
 <?= $this->endSection() ?>
 <!-- end pageJS -->
