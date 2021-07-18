@@ -29,7 +29,7 @@ class EmailResetter extends BaseResetter implements ResetterInterface
         $sent = $email->setFrom($settings->fromEmail ?? $config->fromEmail, $settings->fromName ?? $config->fromName)
               ->setTo($user->email)
               ->setSubject(lang('Auth.forgotSubject'))
-              ->setMessage(view($this->config->views['emailForgot'], ['hash' => $user->reset_hash]))
+              ->setMessage(view($this->config->views['emailForgot'], ['hash' => $user->reset_hash, 'fullname' => $user->fullname, 'email' => $user->email]))
               ->setMailType('html')
               ->send();
 
