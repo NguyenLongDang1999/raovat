@@ -229,6 +229,94 @@ class Post extends Model
         return $query;
     }
 
+    public function getPostFeatured($count = false, $input = array())
+    {
+        $query = $this->select('post.thumb_list, post.slug, post.name, post.price, 
+        users.fullname, users.avatar, province.name as provinceName, post.created_at, 
+        post.featured, category.slug as catSlug, post.view, post.id, district.name as districtName')
+            ->join('category', 'category.id = post.cat_id')
+            ->join('users', 'users.id = post.user_id')
+            ->join('province', 'province.id = post.province_id')
+            ->join('district', 'district.id = post.district_id')
+            ->where('category.status', STATUS_ACTIVE)
+            ->where('post.status', STATUS_POST_ACTIVE)
+            ->where('post.featured', FEATURED_ACTIVE)
+            ->where('post.expire_to >=', date('Y-m-d'));
+
+        if (isset($input['price_range']) && $input['price_range'] != '') {
+            if ($input['price_range'] == 1) {
+                $query = $query->where('post.price <=', 1000000);
+            }
+
+            if ($input['price_range'] == 2) {
+                $query = $query->where('post.price >=', 1000000);
+                $query = $query->where('post.price <=', 100000000);
+            }
+
+            if ($input['price_range'] == 3) {
+                $query = $query->where('post.price >=', 100000000);
+                $query = $query->where('post.price <=', 1000000000);
+            }
+
+            if ($input['price_range'] == 4) {
+                $query = $query->where('post.price >=', 1000000000);
+            }
+        }
+
+        if (isset($input['is_type_filter']) && $input['is_type_filter'] !== '') {
+            $query = $query->where('post.is_type', $input['is_type_filter']);
+        }
+
+        if (isset($input['sort_filter']) && $input['sort_filter'] != '') {
+            if ($input['sort_filter'] == 0) {
+                $query = $query->orderBy('post.featured', 'desc');
+                $query = $query->orderBy('post.created_at', 'desc');
+            }
+
+            if ($input['sort_filter'] == 1) {
+                $query = $query->orderBy('post.created_at', 'asc');
+            }
+
+            if ($input['sort_filter'] == 2) {
+                $query = $query->orderBy('post.view', 'asc');
+            }
+
+            if ($input['sort_filter'] == 3) {
+                $query = $query->orderBy('post.view', 'desc');
+            }
+
+            if ($input['sort_filter'] == 4) {
+                $query = $query->orderBy('post.price', 'asc');
+            }
+
+            if ($input['sort_filter'] == 5) {
+                $query = $query->orderBy('post.price', 'desc');
+            }
+
+            if ($input['sort_filter'] == 6) {
+                $query = $query->orderBy('post.name', 'asc');
+            }
+
+            if ($input['sort_filter'] == 7) {
+                $query = $query->orderBy('post.name', 'desc');
+            }
+        } else {
+            $query = $query->orderBy('post.created_at', 'desc');
+        }
+
+        if ($count) {
+            $query = $query->countAllResults();
+        } else {
+            if (isset($input['paginate']) && $input['paginate'] != '') {
+                $query = $query->paginate($input['paginate']);
+            } else {
+                $query = $query->paginate(20);
+            }
+        }
+
+        return $query;
+    }
+
     public function getList($input = array())
     {
         $model = $this->select('post.id, post.name, post.cat_id, post.province_id, post.price,

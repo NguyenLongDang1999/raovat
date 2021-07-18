@@ -160,7 +160,7 @@
                             <?php else : ?>
                                 <div class="position-relative">
                                     <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top img-fluid h-100 lazy loading', 'width' => 350, 'height' => 250, 'alt' => esc($item['name']), 'data-src' => postShowImage($img[0])]) ?>
-                                    
+
                                     <div class="position-absolute position-top-0">
                                         <span class="badge badge-primary p-75">
                                             <i data-feather="zap" class="mr-25"></i>
@@ -321,12 +321,12 @@
                         </div>
 
                         <div class="brands">
-                            <h6 class="filter-title">Mặc định</h6>
+                            <h6 class="filter-title">Sắp Xếp</h6>
                             <ul class="list-unstyled brand-list">
                                 <li>
                                     <div class="custom-control custom-radio">
                                         <?= form_radio('sort_filter', '0', true, ['class' => 'custom-control-input', 'id' => 'sort-filter-0']) ?>
-                                        <?= form_label('Ngày Đăng Mới Nhất + VIP (Mặc Định)', 'sort-filter-0', ['class' => 'custom-control-label']) ?>
+                                        <?= form_label('Ngày Đăng Mới Nhất (Mặc Định)', 'sort-filter-0', ['class' => 'custom-control-label']) ?>
                                     </div>
                                 </li>
                                 <li>
@@ -369,6 +369,46 @@
                                     <div class="custom-control custom-radio">
                                         <?= form_radio('sort_filter', '7', (isset($input['sort_filter']) && $input['sort_filter'] == 7) ? true : false, ['class' => 'custom-control-input', 'id' => 'sort-filter-7']) ?>
                                         <?= form_label('Tên (Z - A)', 'sort-filter-7', ['class' => 'custom-control-label']) ?>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="brands">
+                            <h6 class="filter-title">Số Lượng Tin Trong Trang</h6>
+                            <ul class="list-unstyled brand-list">
+                                <li>
+                                    <div class="custom-control custom-radio">
+                                        <?= form_radio('paginate', '20', (!isset($input['paginate'])) ? true : false, ['class' => 'custom-control-input', 'id' => 'paginate-20']) ?>
+                                        <?= form_label('20 (Mặc Định)', 'paginate-0', ['class' => 'custom-control-label']) ?>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="custom-control custom-radio">
+                                        <?= form_radio('paginate', '40', (isset($input['paginate']) && $input['paginate'] == 40) ? true : false, ['class' => 'custom-control-input', 'id' => 'paginate-40']) ?>
+                                        <?= form_label('40', 'paginate-40', ['class' => 'custom-control-label']) ?>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="custom-control custom-radio">
+                                        <?= form_radio('paginate', '60', (isset($input['paginate']) && $input['paginate'] == 60) ? true : false, ['class' => 'custom-control-input', 'id' => 'paginate-60']) ?>
+                                        <?= form_label('60', 'paginate-60', ['class' => 'custom-control-label']) ?>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="custom-control custom-radio">
+                                        <?= form_radio('paginate', '80', (isset($input['paginate']) && $input['paginate'] == 80) ? true : false, ['class' => 'custom-control-input', 'id' => 'paginate-80']) ?>
+                                        <?= form_label('80', 'paginate-80', ['class' => 'custom-control-label']) ?>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="custom-control custom-radio">
+                                        <?= form_radio('paginate', '100', (isset($input['paginate']) && $input['paginate'] == 100) ? true : false, ['class' => 'custom-control-input', 'id' => 'paginate-100']) ?>
+                                        <?= form_label('100', 'paginate-100', ['class' => 'custom-control-label']) ?>
                                     </div>
                                 </li>
                             </ul>

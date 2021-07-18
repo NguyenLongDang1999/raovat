@@ -51,6 +51,11 @@
                                 <span class="text-capitalize">Tất cả danh mục</span>
                             </a>
                         </li>
+                        <li class="<?= getMenuUserActive(route_to('user.category.postFeatured')) ?>"><a class="dropdown-item d-flex align-items-center" href="<?= route_to('user.category.postFeatured') ?>">
+                                <i data-feather="circle"></i>
+                                <span class="text-capitalize">Tin đăng VIP</span>
+                            </a>
+                        </li>
                         <li class="<?= getMenuUserActive(route_to('user.category.new_post')) ?>"><a class="dropdown-item d-flex align-items-center" href="<?= route_to('user.category.new_post') ?>">
                                 <i data-feather="circle"></i>
                                 <span class="text-capitalize">Tin đăng mới</span>

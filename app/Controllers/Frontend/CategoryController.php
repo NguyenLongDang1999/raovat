@@ -38,6 +38,18 @@ class CategoryController extends BaseController
 		return view('frontend/category/new_post', $data);
 	}
 
+	public function postFeatured()
+	{
+		$input = $this->request->getGet();
+		$data['getPostFeatured'] = $this->post->getPostFeatured(false, $input);
+		$data['countPost'] = $this->post->getPostFeatured(true, $input);
+		$data['pager'] = $this->post->pager;
+		$data['input'] = $input;
+		$data['province'] = $this->province->getProvince();
+		$data['is_category_page'] = true;
+		return view('frontend/category/post_featured', $data);
+	}
+
 	public function category($slug, $id)
 	{
 		$row = $this->category->getShowCategory($slug, $id);

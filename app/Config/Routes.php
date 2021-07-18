@@ -51,6 +51,7 @@ $routes->group('', ['namespace' => 'App\Controllers\Frontend'], function ($route
 	$routes->get('(:any)/s(:num)', 'CategoryController::category/$1/$2', ['as' => 'user.category.category']);
 	$routes->get('danh-muc-dang-tin', 'CategoryController::index', ['as' => 'user.category.index']);
 	$routes->get('tin-dang-moi-nhat', 'CategoryController::newPost', ['as' => 'user.category.new_post']);
+	$routes->get('tin-dang-vip', 'CategoryController::postFeatured', ['as' => 'user.category.postFeatured']);
 
 	// Comment
 	$routes->post('postComment', 'CommentController::postComment', ['as' => 'user.comment.postComment']);

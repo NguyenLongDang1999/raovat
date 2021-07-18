@@ -1,7 +1,7 @@
 <?= $this->extend('templates/frontend/master'); ?>
 
 <?= $this->section('title'); ?>
-Bài đăng rao vặt mới nhất tại <?= base_url() ?>
+Bài đăng rao vặt VIP tại <?= base_url() ?>
 <?= $this->endSection(); ?>
 
 <!-- pageCSS -->
@@ -77,7 +77,7 @@ Bài đăng rao vặt mới nhất tại <?= base_url() ?>
                                     <ol class="breadcrumb d-flex">
                                         <li class="breadcrumb-item"><a href="<?= route_to('user.home.index') ?>">Trang
                                                 Chủ</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Tin Đăng Mới Nhất</li>
+                                        <li class="breadcrumb-item active" aria-current="page">Tin Đăng VIP</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -94,7 +94,7 @@ Bài đăng rao vặt mới nhất tại <?= base_url() ?>
 <!-- Content-body -->
 <?= $this->section('content-body'); ?>
 <div class="text-center">
-    <h1 class="mt-5 text-capitalize">Bài đăng rao vặt mới nhất</h1>
+    <h1 class="mt-5 text-capitalize">Bài đăng rao vặt VIP</h1>
     <p class="mb-2 pb-75 text-capitalize">
     </p>
 </div>
@@ -125,9 +125,9 @@ Bài đăng rao vặt mới nhất tại <?= base_url() ?>
     </div>
 </section>
 <div class="body-content-overlay"></div>
-<?php if (count($getPostNews)) : ?>
+<?php if (count($getPostFeatured)) : ?>
     <section id="ecommerce-products" class="grid-view">
-        <?php foreach ($getPostNews as $item) : ?>
+        <?php foreach ($getPostFeatured as $item) : ?>
             <?php $img = explode(',', $item['thumb_list']); ?>
             <div class="card ecommerce-card mb-75">
                 <div class="text-center">
@@ -367,7 +367,7 @@ Bài đăng rao vặt mới nhất tại <?= base_url() ?>
                                     <?= form_label('40', 'paginate-40', ['class' => 'custom-control-label']) ?>
                                 </div>
                             </li>
-                            
+
                             <li>
                                 <div class="custom-control custom-radio">
                                     <?= form_radio('paginate', '60', (isset($input['paginate']) && $input['paginate'] == 60) ? true : false, ['class' => 'custom-control-input', 'id' => 'paginate-60']) ?>
