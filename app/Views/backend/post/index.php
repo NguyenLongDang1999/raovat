@@ -63,7 +63,7 @@ Post List Page
             "bDestroy": true,
             "aLengthMenu": aLengthMenuGeneral,
             "iDisplayLength": 20,
-            "bSort": true,
+            "bSort": false,
             columns: [{
                     data: 'checkbox',
                     "bSortable": false
