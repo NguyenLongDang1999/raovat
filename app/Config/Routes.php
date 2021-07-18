@@ -109,6 +109,18 @@ $routes->group('administrator', ['namespace' => 'App\Controllers\Backend', 'filt
 		$routes->post('checkExists', 'BannerController::checkExists', ['as' => 'admin.banner.checkExists']);
 	});
 
+	// Pages
+	$routes->group('pages', ['namespace' => 'App\Controllers\Backend', 'filter' => 'role:admin,super-admin'], function ($routes) {
+		$routes->get('/', 'PagesController::index', ['as' => 'admin.pages.index']);
+		$routes->get('getList', 'PagesController::getList', ['as' => 'admin.pages.getList']);
+		$routes->get('create', 'PagesController::create', ['as' => 'admin.pages.create']);
+		$routes->post('store', 'PagesController::store', ['as' => 'admin.pages.store']);
+		$routes->get('edit/(:num)', 'PagesController::edit/$1', ['as' => 'admin.pages.edit']);
+		$routes->post('update/(:num)', 'PagesController::update/$1', ['as' => 'admin.pages.update']);
+		$routes->post('multiPurgeDestroy', 'PagesController::multiPurgeDestroy', ['as' => 'admin.pages.multiPurgeDestroy']);
+		$routes->post('multiStatus', 'PagesController::multiStatus', ['as' => 'admin.pages.multiStatus']);
+	});
+
 	// Post
 	$routes->group('post' ,['namespace' => 'App\Controllers\Backend', 'filter' => 'role:admin,super-admin'], function($routes)
 	{
