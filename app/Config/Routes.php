@@ -34,6 +34,9 @@ $routes->group('', ['namespace' => 'App\Controllers\Frontend'], function ($route
 	// Home
 	$routes->get('/', 'HomeController::index', ['as' => 'user.home.index']);
 
+	// Pages
+	$routes->get('ho-tro/(:any)', 'PagesController::index/$1', ['as' => 'user.pages.index']);
+
 	// Post
 	$routes->get('dang-tin', 'PostController::index', ['as' => 'user.post.index', 'filter' => 'login']);
 	$routes->post('postPost', 'PostController::postPost', ['as' => 'user.post.postPost', 'filter' => 'login']);
@@ -122,26 +125,24 @@ $routes->group('administrator', ['namespace' => 'App\Controllers\Backend', 'filt
 	});
 
 	// Post
-	$routes->group('post' ,['namespace' => 'App\Controllers\Backend', 'filter' => 'role:admin,super-admin'], function($routes)
-	{
+	$routes->group('post', ['namespace' => 'App\Controllers\Backend', 'filter' => 'role:admin,super-admin'], function ($routes) {
 		$routes->get('/', 'PostController::index', ['as' => 'admin.post.index']);
 		$routes->get('recycle', 'PostController::recycle', ['as' => 'admin.post.recycle']);
-        $routes->get('getList', 'PostController::getList', ['as' => 'admin.post.getList']);
+		$routes->get('getList', 'PostController::getList', ['as' => 'admin.post.getList']);
 		$routes->get('getListRecycle', 'PostController::getListRecycle', ['as' => 'admin.post.getListRecycle']);
-        $routes->get('edit/(:num)', 'PostController::edit/$1', ['as' => 'admin.post.edit']);
-        $routes->post('update/(:num)', 'PostController::update/$1', ['as' => 'admin.post.update']);
-        $routes->post('multiDestroy', 'PostController::multiDestroy', ['as' => 'admin.post.multiDestroy']);
+		$routes->get('edit/(:num)', 'PostController::edit/$1', ['as' => 'admin.post.edit']);
+		$routes->post('update/(:num)', 'PostController::update/$1', ['as' => 'admin.post.update']);
+		$routes->post('multiDestroy', 'PostController::multiDestroy', ['as' => 'admin.post.multiDestroy']);
 		$routes->post('multiPurgeDestroy', 'PostController::multiPurgeDestroy', ['as' => 'admin.post.multiPurgeDestroy']);
 		$routes->post('multiRestore', 'PostController::multiRestore', ['as' => 'admin.post.multiRestore']);
-        $routes->post('multiStatus', 'PostController::multiStatus', ['as' => 'admin.post.multiStatus']);
+		$routes->post('multiStatus', 'PostController::multiStatus', ['as' => 'admin.post.multiStatus']);
 		$routes->post('multiFeatured', 'PostController::multiFeatured', ['as' => 'admin.post.multiFeatured']);
 		$routes->get('s(:num)/detail', 'PostController::detail/$1', ['as' => 'admin.post.detail']);
 		$routes->get('s(:num)/showEdit', 'PostController::showEdit/$1', ['as' => 'admin.post.showEdit']);
 	});
 
 	// Group
-	$routes->group('group' ,['namespace' => 'App\Controllers\Backend', 'filter' => 'role:admin,super-admin'], function($routes)
-	{
+	$routes->group('group', ['namespace' => 'App\Controllers\Backend', 'filter' => 'role:admin,super-admin'], function ($routes) {
 		$routes->get('/', 'GroupController::index', ['as' => 'admin.group.index']);
 		$routes->get('getList', 'GroupController::getList', ['as' => 'admin.group.getList']);
 		$routes->get('create', 'GroupController::create', ['as' => 'admin.group.create']);
@@ -152,8 +153,7 @@ $routes->group('administrator', ['namespace' => 'App\Controllers\Backend', 'filt
 	});
 
 	// Administrator
-	$routes->group('admin' ,['namespace' => 'App\Controllers\Backend', 'filter' => 'role:admin,super-admin'], function($routes)
-	{
+	$routes->group('admin', ['namespace' => 'App\Controllers\Backend', 'filter' => 'role:admin,super-admin'], function ($routes) {
 		$routes->get('/', 'AdminController::index', ['as' => 'admin.admin.index']);
 		$routes->get('getList', 'AdminController::getList', ['as' => 'admin.admin.getList']);
 	});

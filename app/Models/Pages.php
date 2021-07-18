@@ -65,4 +65,16 @@ class Pages extends Model
     {
         return $this->select('id, name, url, description, meta_keyword, meta_description')->find($id);
     }
+
+    public function getAllPages()
+    {
+        return $this->select('name, url')->findAll(5);
+    }
+
+    public function getDetailByUrl($url)
+    {
+        return $this->select('name, description, meta_keyword, meta_description')
+            ->where('url', $url)
+            ->first();
+    }
 }
