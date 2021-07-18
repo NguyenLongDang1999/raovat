@@ -41,7 +41,8 @@ class Category extends Model
             $model->where('status', $input['search']['status']);
         }
 
-        $result['total'] = $model->countAllResults();
+        $result['total'] = $model->countAllResults(false);
+
         if (isset($input['iSortCol_0'])) {
             $sorting_mapping_array = array(
                 '2' => 'name',
@@ -69,6 +70,8 @@ class Category extends Model
         $model = $this->select('id, name, parent_id, status, created_at, updated_at')
             ->onlyDeleted();
 
+        $result['total'] = $model->countAllResults(false);
+        
         if (isset($input['iSortCol_0'])) {
             $sorting_mapping_array = array(
                 '2' => 'name',
@@ -86,10 +89,7 @@ class Category extends Model
             }
         }
 
-        $model = $model->findAll($input['iDisplayStart'], $input['iDisplayLength']);
-
-        $result['model'] = $model;
-        $result['total'] = count($model);
+        $result['model'] = $model->findAll($input['iDisplayLength'], $input['iDisplayStart']);
 
         return $result;
     }

@@ -49,6 +49,8 @@ class Banner extends Model
             $model->where('orders', $input['search']['orders']);
         }
 
+        $result['total'] = $model->countAllResults(false);
+
         if (isset($input['iSortCol_0'])) {
             $sorting_mapping_array = array(
                 '6' => 'created_at',
@@ -67,7 +69,6 @@ class Banner extends Model
         $model = $model->findAll($input['iDisplayStart'], $input['iDisplayLength']);
 
         $result['model'] = $model;
-        $result['total'] = count($model);
 
         return $result;
     }
@@ -77,6 +78,8 @@ class Banner extends Model
         $model = $this->select('id, name, image, orders, created_at, updated_at')
             ->onlyDeleted();
 
+        $result['total'] = $model->countAllResults(false);
+        
         if (isset($input['iSortCol_0'])) {
             $sorting_mapping_array = array(
                 '5' => 'created_at',
@@ -95,7 +98,6 @@ class Banner extends Model
         $model = $model->findAll($input['iDisplayStart'], $input['iDisplayLength']);
 
         $result['model'] = $model;
-        $result['total'] = count($model);
 
         return $result;
     }
