@@ -9,7 +9,7 @@
 
     $.extend($.fn.dataTable.defaults, {
         "language": {
-            "sProcessing": "Processing...",
+            "sProcessing": "<div class='spinner-border text-primary' role='status'><span class='sr-only'>Loading...</span></div>",
             "sLengthMenu": "Hiển Thị _MENU_ Kết Quả",
             "sZeroRecords": "Không Có Dữ Liệu Nào Được Hiển Thị",
             "sEmptyTable": "Không Có Dữ Liệu Nào Được Hiển Thị",

@@ -249,7 +249,7 @@ Post List Page
                 }
             ],
             select: 'multi',
-            dom: '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+            dom: 'r <"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
             responsive: {
                 details: {
                     display: $.fn.dataTable.Responsive.display.modal({
@@ -312,6 +312,11 @@ Post List Page
 
 <!-- Content-body -->
 <?= $this->section('content-body'); ?>
+<!-- <div class="dataTables_wrapper">
+    <div id="tables_processing" class="dataTables_processing" style="display: none;">
+    </div>
+</div> -->
+
 <!-- Advanced Search -->
 <section id="advanced-search-datatable">
     <div class="row">
